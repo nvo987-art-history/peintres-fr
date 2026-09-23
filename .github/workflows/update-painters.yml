@@ -1,220 +1,47 @@
-# ==========================================================
-# FILE: generate_painters.py
-# NVO987.eu – Peintres français
-# Same logic as generate_places.py, adapted for painters.
-#
-# Data source: Wikidata (CC0)
-# ==========================================================
+# .github/workflows/update-painters.yml
 
-import json
-import urllib.request
-import urllib.parse
-import time
-import ssl
+name: Update painters.json
 
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
 
-OUTPUT_FILE = "painters.json"
+permissions:
+  contents: write
 
-SPARQL_URL = "https://query.wikidata.org/sparql"
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
 
-PAINTER_TYPE = "wd:Q1028181"   # painter
-FRANCE = "wd:Q142"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
-def safe(val):
-    return (val or "").strip()
+      - name: Install dependencies
+        run: pip install requests
 
+      - name: Generate painters.json
+        run: python generate_painters.py
 
-def fetch_json(req, retries=6):
-    last_error = None
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-    for attempt in range(retries):
-        try:
-            with urllib.request.urlopen(req, timeout=180) as response:
-                data = response.read().decode("utf-8")
-                return json.loads(data)
+          git add painters.json
 
-        except Exception as error:
-            last_error = error
+          if git diff --cached --quiet; then
+            echo "No changes in painters.json"
+            exit 0
+          fi
 
-            print(
-                f"Request failed "
-                f"(attempt {attempt + 1}/{retries}): {error}"
-            )
-
-            if attempt < retries - 1:
-                wait = 10 * (attempt + 1)
-                print(f"Retrying in {wait} seconds...")
-                time.sleep(wait)
-
-    raise last_error
-
-
-def run_sparql(query):
-    params = urllib.parse.urlencode({
-        "query": query,
-        "format": "json"
-    })
-
-    url = SPARQL_URL + "?" + params
-
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "Mozilla/5.0 (NVO987 French Painters Bot)",
-            "Accept": "application/sparql-results+json"
-        }
-    )
-
-    return fetch_json(req)
-
-
-def main():
-
-    query = f"""
-    SELECT DISTINCT
-      ?person
-      ?personLabel
-      ?birth
-      ?death
-      ?birthPlace
-      ?birthPlaceLabel
-      ?website
-      ?description
-    WHERE {{
-
-      ?person wdt:P31 wd:Q5 ;
-              wdt:P106 {PAINTER_TYPE} ;
-              wdt:P27 {FRANCE} .
-
-      OPTIONAL {{
-        ?person wdt:P569 ?birth .
-      }}
-
-      OPTIONAL {{
-        ?person wdt:P570 ?death .
-      }}
-
-      OPTIONAL {{
-        ?person wdt:P19 ?birthPlace .
-      }}
-
-      OPTIONAL {{
-        ?person wdt:P856 ?website .
-      }}
-
-      OPTIONAL {{
-        ?person schema:description ?description .
-        FILTER(LANG(?description) = "fr")
-      }}
-
-      SERVICE wikibase:label {{
-        bd:serviceParam wikibase:language "fr,en" .
-      }}
-    }}
-
-    ORDER BY ?personLabel
-    """
-
-    print("Querying Wikidata for French painters...")
-
-    result = run_sparql(query)
-
-    painters = []
-    seen = set()
-
-    for binding in result.get("results", {}).get("bindings", []):
-
-        person_uri = safe(
-            binding.get("person", {}).get("value")
-        )
-
-        person_id = person_uri.rsplit("/", 1)[-1]
-
-        if not person_id:
-            continue
-
-        if person_id in seen:
-            continue
-
-        seen.add(person_id)
-
-        name = safe(
-            binding.get("personLabel", {}).get("value")
-        )
-
-        birth = safe(
-            binding.get("birth", {}).get("value")
-        )
-
-        death = safe(
-            binding.get("death", {}).get("value")
-        )
-
-        birth_place = safe(
-            binding.get("birthPlaceLabel", {}).get("value")
-        )
-
-        website = safe(
-            binding.get("website", {}).get("value")
-        )
-
-        description = safe(
-            binding.get("description", {}).get("value")
-        )
-
-        if birth:
-            birth = birth[:10]
-
-        if death:
-            death = death[:10]
-
-        painters.append({
-            "id": person_id,
-            "name": name,
-            "type": "Peintre français",
-            "birth": birth,
-            "death": death,
-            "birthPlace": birth_place,
-            "website": website,
-            "description": description,
-            "source": f"https://www.wikidata.org/wiki/{person_id}"
-        })
-
-    painters.sort(
-        key=lambda painter: painter.get("name", "").lower()
-    )
-
-    output = {
-        "source": "Wikidata (CC0)",
-        "license": "CC0 1.0",
-        "country": "France",
-        "type": "French painters",
-        "count": len(painters),
-        "painters": painters
-    }
-
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8"
-    ) as file:
-
-        json.dump(
-            output,
-            file,
-            ensure_ascii=False,
-            indent=2
-        )
-
-    print(
-        f"Generated {len(painters)} French painters."
-    )
-
-    print(
-        f"Saved to {OUTPUT_FILE}"
-    )
-
-
-if __name__ == "__main__":
-    main()
+          git commit -m "Auto-update painters.json"
+          git pull --rebase
+          git push
