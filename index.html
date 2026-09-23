@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Peintres français | NVO987 - Culture Visuelle Moderne et Contemporaine
+  </title>
+
+  <meta
+    name="description"
+    content="Peintres français, artistes et données culturelles issues de Wikidata."
+  >
+
+  <meta
+    name="keywords"
+    content="peintres français, peinture française, artistes français, art, Wikidata, NVO987"
+  >
+
+  <meta
+    name="robots"
+    content="index, follow"
+  >
+
+  <meta
+    name="color-scheme"
+    content="light"
+  >
+
+  <meta
+    name="format-detection"
+    content="telephone=no"
+  >
+
+  <link
+    rel="canonical"
+    href="https://peintres-fr.nvo987.eu/"
+  >
+
+  <link
+    rel="alternate"
+    type="application/json"
+    href="https://identity.nvo987.us/.well-known/did.json"
+  >
+
+  <link
+    rel="me"
+    href="https://identity.nvo987.us"
+  >
+
+  <meta
+    name="did"
+    content="did:web:identity.nvo987.us"
+  >
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:title"
+    content="Peintres français | NVO987"
+  >
+
+  <meta
+    property="og:description"
+    content="Répertoire documentaire de peintres français et de données issues de Wikidata."
+  >
+
+  <meta
+    property="og:url"
+    content="https://peintres-fr.nvo987.eu/"
+  >
+
+  <meta
+    property="og:image"
+    content="https://peintres-fr.nvo987.eu/banner.jpg"
+  >
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  >
+
+  <meta
+    name="twitter:title"
+    content="Peintres français | NVO987"
+  >
+
+  <meta
+    name="twitter:description"
+    content="Répertoire documentaire de peintres français."
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://peintres-fr.nvo987.eu/banner.jpg"
+  >
+
+  <link
+    rel="icon"
+    href="/favicon.ico"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="/apple-touch-icon.png"
+  >
+
+  <link
+    rel="manifest"
+    href="/site.webmanifest"
+  >
+
+  <meta
+    name="theme-color"
+    content="#11130f"
+  >
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Peintres français",
+    "url": "https://peintres-fr.nvo987.eu/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "NVO987 – Culture Visuelle Moderne et Contemporaine",
+      "url": "https://nvo987.fr/"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --ink: #11130f;
+      --paper: #f3f0e7;
+      --paper-light: #faf8f1;
+      --gold: #b18a43;
+      --green: #24362d;
+      --muted: #68665e;
+      --line: #d7d1c2;
+      --white: #ffffff;
+      --danger: #7b2d26;
+      --success: #315d43;
+      --shadow: 0 18px 50px rgba(17, 19, 15, 0.08);
+      --radius: 4px;
+      --max-width: 1320px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family:
+        Inter,
+        Helvetica,
+        Arial,
+        sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      width: min(
+        calc(100% - 48px),
+        var(--max-width)
+      );
+      margin-inline: auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17, 19, 15, 0.97);
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .topbar-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-main {
+      font-family:
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .brand-tag {
+      color: #c8b98d;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav a {
+      color: #eeeae0;
+      text-decoration: none;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .nav a:hover {
+      color: #d3b56f;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--green);
+      color: var(--white);
+      padding: 110px 0 105px;
+    }
+
+    .hero::before {
+      content: "NVO987";
+      position: absolute;
+      right: -25px;
+      bottom: -70px;
+      font-family:
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: clamp(8rem, 24vw, 22rem);
+      line-height: 0.8;
+      font-weight: 700;
+      letter-spacing: -0.08em;
+      color: rgba(255,255,255,0.035);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 950px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: #d0b36d;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 900px;
+      font-family:
+        "Playfair Display",
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: clamp(3.4rem, 8vw, 7.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      font-weight: 600;
+    }
+
+    .hero-subtitle {
+      max-width: 760px;
+      margin: 32px 0 0;
+      font-family:
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+      color: #e4dfd3;
+    }
+
+    .hero-note {
+      max-width: 740px;
+      margin: 28px 0 0;
+      color: #bfc2b8;
+      font-size: 0.92rem;
+    }
+
+    main {
+      padding: 80px 0;
+    }
+
+    section {
+      scroll-margin-top: 90px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-family:
+        "Playfair Display",
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+    }
+
+    .section-intro {
+      max-width: 800px;
+      margin: 0 0 36px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .control {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper-light);
+      color: var(--ink);
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+    }
+
+    .control:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(177, 138, 67, 0.15);
+    }
+
+    .status {
+      border-left: 3px solid var(--gold);
+      background: var(--paper-light);
+      padding: 13px 16px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .status.success {
+      border-left-color: var(--success);
+    }
+
+    .status.error {
+      border-left-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .status.warning {
+      border-left-color: var(--gold);
+    }
+
+    .painters-grid {
+      counter-reset: painter;
+      display: grid;
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+      gap: 18px;
+    }
+
+    .painter-card {
+      counter-increment: painter;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 285px;
+      padding: 29px;
+      background: var(--paper-light);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .painter-card::before {
+      content: counter(
+        painter,
+        decimal-leading-zero
+      );
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      color: #c9c2b2;
+      font-family:
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: 1.15rem;
+    }
+
+    .painter-card h3 {
+      margin: 0 45px 8px 0;
+      font-family:
+        "Playfair Display",
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: 1.7rem;
+      line-height: 1.12;
+      font-weight: 600;
+    }
+
+    .painter-meta {
+      min-height: 27px;
+      margin-bottom: 16px;
+      color: var(--gold);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .painter-desc {
+      margin: 0;
+      color: #4f4d46;
+      font-size: 0.93rem;
+      line-height: 1.65;
+    }
+
+    .painter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: auto;
+      padding-top: 25px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 13px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+    }
+
+    .button:hover {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .button.secondary:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .info-section {
+      margin-top: 90px;
+      padding-top: 70px;
+      border-top: 1px solid var(--line);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+      );
+      gap: 40px;
+    }
+
+    .info-block h3 {
+      margin: 0 0 12px;
+      font-family:
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: 1.45rem;
+    }
+
+    .info-block p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .info-block ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .info-block a {
+      color: var(--ink);
+      text-underline-offset: 3px;
+    }
+
+    footer {
+      background: var(--ink);
+      color: #d8d6cd;
+      padding: 45px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .footer-main {
+      font-family:
+        "Baskerville",
+        "Times New Roman",
+        serif;
+      font-size: 1.25rem;
+      color: var(--white);
+    }
+
+    .footer-note {
+      max-width: 650px;
+      margin-top: 8px;
+      color: #9e9f98;
+      font-size: 0.78rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: flex-end;
+    }
+
+    .footer-links a {
+      color: #d8d6cd;
+      font-size: 0.78rem;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    :focus-visible {
+      outline: 3px solid #d0a84f;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 1080px) {
+      .painters-grid {
+        grid-template-columns: repeat(
+          2,
+          minmax(0, 1fr)
+        );
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .container {
+        width: min(
+          calc(100% - 32px),
+          var(--max-width)
+        );
+      }
+
+      .topbar-inner {
+        min-height: 62px;
+      }
+
+      .brand-tag {
+        display: none;
+      }
+
+      .nav {
+        gap: 13px;
+      }
+
+      .nav a {
+        font-size: 0.7rem;
+      }
+
+      .hero {
+        padding: 80px 0;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .painters-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 16vw, 5rem);
+      }
+
+      main {
+        padding: 55px 0;
+      }
+
+      .info-section {
+        margin-top: 65px;
+        padding-top: 50px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .container {
+        width: min(
+          calc(100% - 24px),
+          var(--max-width)
+        );
+      }
+
+      .topbar-inner {
+        gap: 10px;
+      }
+
+      .brand-main {
+        font-size: 1.1rem;
+      }
+
+      .nav {
+        gap: 8px;
+      }
+
+      .nav a {
+        font-size: 0.64rem;
+      }
+
+      .painter-card {
+        padding: 23px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    @media print {
+      .topbar,
+      .controls,
+      .status,
+      .painter-actions,
+      footer {
+        display: none !important;
+      }
+
+      body {
+        background: white;
+      }
+
+      .hero {
+        color: black;
+        background: white;
+        padding: 40px 0;
+      }
+
+      .hero::before {
+        display: none;
+      }
+
+      .hero-subtitle,
+      .hero-note {
+        color: black;
+      }
+
+      .painter-card {
+        break-inside: avoid;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+
+      <a
+        class="brand"
+        href="/"
+        aria-label="NVO987"
+      >
+        <span class="brand-main">NVO987.eu</span>
+        <span class="brand-tag">
+          Peintres français
+        </span>
+      </a>
+
+      <nav
+        class="nav"
+        aria-label="Navigation principale"
+      >
+        <a href="#painters">Peintres</a>
+        <a href="#mentions">Mentions</a>
+        <a href="#sources">Sources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <header class="hero">
+    <div class="container hero-content">
+
+      <p class="eyebrow">
+        NVO987 • Culture visuelle
+      </p>
+
+      <h1>
+        Peintres français
+      </h1>
+
+      <p class="hero-subtitle">
+        Artistes • Peinture • Données culturelles
+      </p>
+
+      <p class="hero-note">
+        Publication culturelle et documentaire utilisant
+        des données ouvertes issues de Wikidata.
+        Aucune affiliation avec une institution
+        représentée ou mentionnée dans les données.
+      </p>
+
+    </div>
+  </header>
+
+  <main>
+
+    <section
+      id="painters"
+      class="container"
+    >
+
+      <div class="section-heading">
+        <h2>Peintres</h2>
+      </div>
+
+      <p class="section-intro">
+        Répertoire de peintres français construit à partir
+        de données ouvertes de Wikidata. Les informations
+        peuvent être incomplètes, évoluer ou contenir
+        des erreurs.
+      </p>
+
+      <div class="controls">
+
+        <label>
+          <span class="sr-only">
+            Rechercher un peintre
+          </span>
+
+          <input
+            id="searchInput"
+            class="control"
+            type="search"
+            placeholder="Rechercher un peintre..."
+            autocomplete="off"
+          >
+        </label>
+
+        <label>
+          <span class="sr-only">
+            Nombre de résultats
+          </span>
+
+          <select
+            id="limitSelect"
+            class="control"
+          >
+            <option value="20">20 résultats</option>
+            <option value="40">40 résultats</option>
+            <option value="80">80 résultats</option>
+            <option value="120">120 résultats</option>
+            <option value="200">200 résultats</option>
+          </select>
+        </label>
+
+      </div>
+
+      <div
+        id="statusBox"
+        class="status"
+        role="status"
+        aria-live="polite"
+      >
+        Chargement des peintres…
+      </div>
+
+      <div
+        id="paintersGrid"
+        class="painters-grid"
+      ></div>
+
+    </section>
+
+    <section
+      id="mentions"
+      class="container info-section"
+    >
+
+      <div class="section-heading">
+        <h2>Mentions</h2>
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-block">
+          <h3>Publication</h3>
+
+          <p>
+            Site :
+            <a href="https://peintres-fr.nvo987.eu/">
+              peintres-fr.nvo987.eu
+            </a>
+          </p>
+
+          <p>
+            Éditeur :
+            NVO987 – Culture Visuelle Moderne
+            et Contemporaine
+          </p>
+
+          <p>
+            Publication culturelle et documentaire.
+          </p>
+
+          <p>
+            Paris, France.
+          </p>
+
+          <p>
+            Ce site n'est pas affilié à une institution
+            ou organisation représentée dans les données.
+          </p>
+
+          <p>
+            <a
+              href="https://nvo987.fr/mentions-legales.html"
+              rel="noopener"
+            >
+              Mentions légales
+            </a>
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>Vie privée</h3>
+
+          <p>
+            Le site est conçu selon un principe
+            de confidentialité par défaut.
+          </p>
+
+          <p>
+            Aucun compte utilisateur, aucune collecte
+            de données personnelles, aucun suivi
+            comportemental et aucun profilage
+            publicitaire ne sont nécessaires au
+            fonctionnement du site.
+          </p>
+
+          <p>
+            Aucun cookie publicitaire ou outil
+            d'analyse comportementale n'est utilisé.
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>Données</h3>
+
+          <p>
+            Les données proviennent de Wikidata
+            et peuvent être incomplètes, incorrectes
+            ou évoluer avec le temps.
+          </p>
+
+          <p>
+            La présente publication ne constitue
+            pas une base biographique officielle.
+          </p>
+
+          <p>
+            Mise à jour automatique quotidienne
+            des données.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section
+      id="sources"
+      class="container info-section"
+    >
+
+      <div class="section-heading">
+        <h2>Sources</h2>
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-block">
+          <h3>Wikidata</h3>
+
+          <p>
+            Données structurées utilisées pour
+            constituer le répertoire.
+          </p>
+
+          <p>
+            <a
+              href="https://www.wikidata.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikidata
+            </a>
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>Licence</h3>
+
+          <p>
+            Les données Wikidata sont disponibles
+            sous licence CC0 1.0 Universal.
+          </p>
+
+          <p>
+            <a
+              href="https://creativecommons.org/publicdomain/zero/1.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CC0 1.0 Universal
+            </a>
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>Requête</h3>
+
+          <p>
+            Les données sont récupérées automatiquement
+            depuis le service de requêtes Wikidata.
+          </p>
+
+          <p>
+            <a
+              href="https://query.wikidata.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikidata Query Service
+            </a>
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section
+      id="contact"
+      class="container info-section"
+    >
+
+      <div class="section-heading">
+        <h2>Contact</h2>
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-block">
+
+          <h3>NVO987</h3>
+
+          <p>
+            Pour toute question concernant
+            la publication :
+          </p>
+
+          <p>
+            <a href="mailto:contact@nvo987.eu">
+              contact@nvo987.eu
+            </a>
+          </p>
+
+        </div>
+
+        <div class="info-block">
+
+          <h3>Identité</h3>
+
+          <p>
+            DID :
+            <a
+              href="https://identity.nvo987.us/.well-known/did.json"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              did:web:identity.nvo987.us
+            </a>
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+
+    <div class="container footer-inner">
+
+      <div>
+
+        <div class="footer-main">
+          © 2026 NVO987
+        </div>
+
+        <div class="footer-note">
+          Peintres français · Données Wikidata CC0 ·
+          Publication indépendante ·
+          Pas d'affiliation institutionnelle.
+          ISSN 3131-3213
+        </div>
+
+      </div>
+
+      <div class="footer-links">
+
+        <a href="#painters">
+          Peintres
+        </a>
+
+        <a href="#sources">
+          Sources
+        </a>
+
+        <a href="#contact">
+          Contact
+        </a>
+
+        <a
+          href="https://nvo987.fr/mentions-legales.html"
+          rel="noopener"
+        >
+          Mentions légales
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script>
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const paintersGrid =
+      document.getElementById("paintersGrid");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const limitSelect =
+      document.getElementById("limitSelect");
+
+    let allPainters = [];
+
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    function normalize(value) {
+      return String(value ?? "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+
+    function formatDate(date) {
+      if (!date) {
+        return "";
+      }
+
+      const match = String(date).match(
+        /^(\d{4})-(\d{2})-(\d{2})/
+      );
+
+      if (!match) {
+        return "";
+      }
+
+      return match[1];
+    }
+
+
+    function buildCard(painter) {
+      const name = escapeHTML(
+        painter.name || "Peintre"
+      );
+
+      const birth = formatDate(
+        painter.birth
+      );
+
+      const death = formatDate(
+        painter.death
+      );
+
+      const birthPlace = escapeHTML(
+        painter.birthPlace || ""
+      );
+
+      const descriptionRaw =
+        painter.description || "";
+
+      let description =
+        escapeHTML(descriptionRaw);
+
+      if (description.length > 220) {
+        description =
+          description.slice(0, 217) + "...";
+      }
+
+      const website =
+        escapeHTML(
+          painter.website || ""
+        );
+
+      const source =
+        escapeHTML(
+          painter.source || ""
+        );
+
+      let dates = "";
+
+      if (birth && death) {
+        dates = `${birth} — ${death}`;
+      } else if (birth) {
+        dates = `Né en ${birth}`;
+      } else if (death) {
+        dates = `Décédé en ${death}`;
+      } else {
+        dates = "Dates inconnues";
+      }
+
+      const location =
+        birthPlace || "Lieu de naissance inconnu";
+
+      const card =
+        document.createElement("article");
+
+      card.className = "painter-card";
+
+      card.innerHTML = `
+        <h3>${name}</h3>
+
+        <div class="painter-meta">
+          ${escapeHTML(dates)}
+          · ${location}
+        </div>
+
+        <p class="painter-desc">
+          ${description || "Aucune description disponible."}
+        </p>
+
+        <div class="painter-actions">
+
+          ${
+            website
+              ? `
+                <a
+                  class="button"
+                  href="${website}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Site officiel
+                </a>
+              `
+              : ""
+          }
+
+          ${
+            source
+              ? `
+                <a
+                  class="button secondary"
+                  href="${source}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikidata
+                </a>
+              `
+              : ""
+          }
+
+        </div>
+      `;
+
+      return card;
+    }
+
+
+    function renderPainters() {
+      const query =
+        normalize(
+          searchInput.value.trim()
+        );
+
+      const limit =
+        parseInt(
+          limitSelect.value,
+          10
+        );
+
+      paintersGrid.innerHTML = "";
+
+      let filtered =
+        allPainters;
+
+      if (query) {
+        filtered =
+          allPainters.filter(
+            painter =>
+              normalize(
+                JSON.stringify(painter)
+              ).includes(query)
+          );
+      }
+
+      const visible =
+        filtered.slice(0, limit);
+
+      if (filtered.length === 0) {
+        statusBox.className =
+          "status warning";
+
+        statusBox.textContent =
+          "Aucun peintre trouvé.";
+
+        return;
+      }
+
+      statusBox.className =
+        "status success";
+
+      statusBox.textContent =
+        `${visible.length} résultat(s) affiché(s) sur ${filtered.length}.`;
+
+      visible.forEach(
+        painter => {
+          paintersGrid.appendChild(
+            buildCard(painter)
+          );
+        }
+      );
+    }
+
+
+    async function loadPainters() {
+      statusBox.className =
+        "status";
+
+      statusBox.textContent =
+        "Chargement des peintres…";
+
+      try {
+        const response =
+          await fetch(
+            "painters.json?v=" +
+            Date.now(),
+            {
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            `HTTP ${response.status}`
+          );
+        }
+
+        const data =
+          await response.json();
+
+        if (
+          !data ||
+          !Array.isArray(data.painters)
+        ) {
+          throw new Error(
+            "Format painters.json invalide."
+          );
+        }
+
+        allPainters =
+          data.painters;
+
+        statusBox.className =
+          "status success";
+
+        statusBox.textContent =
+          `${allPainters.length} peintre(s) chargé(s).`;
+
+        renderPainters();
+
+      } catch (error) {
+
+        console.error(
+          "Erreur de chargement:",
+          error
+        );
+
+        statusBox.className =
+          "status error";
+
+        statusBox.textContent =
+          "Impossible de charger les peintres.";
+
+      }
+    }
+
+
+    searchInput.addEventListener(
+      "input",
+      renderPainters
+    );
+
+    limitSelect.addEventListener(
+      "change",
+      renderPainters
+    );
+
+    loadPainters();
+  </script>
+
+</body>
+  </html> 
