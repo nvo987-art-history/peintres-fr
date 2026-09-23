@@ -1,177 +1,152 @@
+<!-- ==========================================================
+     FILE: index.html
+     NVO987.eu – Peintres français
+     Static / GitHub Pages compatible / Privacy-friendly
+     Data loaded locally from painters.json (generated from Wikidata)
+
+     LEGAL / COMPLIANCE SUMMARY (IMPORTANT):
+     - Data source: Wikidata (CC0 1.0 Universal - Public Domain Dedication)
+     - No cookies, no analytics, no tracking, no profiling
+     - No user accounts, no user database, no marketing pixels
+     - Local client-side search only (no server queries from the website)
+     - Hosted on GitHub Pages (third-party infrastructure logs may exist)
+     - Independent informational produced work / no affiliation
+========================================================== -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
+  <!-- BASIC -->
   <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <title>Peintres français | NVO987 - Culture Visuelle Moderne et Contemporaine</title>
 
-  <title>
-    Peintres français | NVO987 - Culture Visuelle Moderne et Contemporaine
-  </title>
+  <meta name="description" content="NVO987 is a multidisciplinary artistic and cultural initiative exploring the intersections of visual culture and art history. Peintres français basés sur Wikidata (CC0). Recherche locale instantanée. Aucun cookie, aucun tracking, aucune collecte de données personnelles.">
 
-  <meta
-    name="description"
-    content="Peintres français, artistes et données culturelles issues de Wikidata."
-  >
+  <meta name="keywords" content="peintres français, peinture française, artistes français, histoire de l'art, art français, Wikidata, NVO987">
 
-  <meta
-    name="keywords"
-    content="peintres français, peinture française, artistes français, art, Wikidata, NVO987"
-  >
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
-  <meta
-    name="robots"
-    content="index, follow"
-  >
+  <meta name="color-scheme" content="light">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
 
-  <meta
-    name="color-scheme"
-    content="light"
-  >
+  <!-- DID document -->
+  <link rel="alternate" type="application/did+json" href="https://identity.nvo987.us/.well-known/did.json">
 
-  <meta
-    name="format-detection"
-    content="telephone=no"
-  >
+  <!-- DID domain linkage proof -->
+  <link rel="alternate" type="application/did+ld+json" href="https://identity.nvo987.us/.well-known/did-configuration.json">
 
-  <link
-    rel="canonical"
-    href="https://peintres-fr.nvo987.eu/"
-  >
+  <!-- Canonical DID -->
+  <meta name="did" content="did:web:identity.nvo987.us">
 
-  <link
-    rel="alternate"
-    type="application/json"
-    href="https://identity.nvo987.us/.well-known/did.json"
-  >
+  <!-- Identity authority -->
+  <link rel="me" href="https://identity.nvo987.us">
 
-  <link
-    rel="me"
-    href="https://identity.nvo987.us"
-  >
+  <!-- Machine endpoints -->
+  <link rel="alternate" type="application/ld+json" href="https://identity.nvo987.us/machine/graph.jsonld">
+  <link rel="alternate" type="application/ld+json" href="https://identity.nvo987.us/machine/agents.jsonld">
+  <link rel="alternate" type="application/ld+json" href="https://identity.nvo987.us/machine/vc.jsonld">
 
-  <meta
-    name="did"
-    content="did:web:identity.nvo987.us"
-  >
+  <!-- SECURITY -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'none'; frame-ancestors 'none';">
 
-  <meta
-    property="og:type"
-    content="website"
-  >
+  <!-- CANONICAL -->
+  <link rel="canonical" href="https://peintres-fr.nvo987.eu/">
 
-  <meta
-    property="og:title"
-    content="Peintres français | NVO987"
-  >
-
-  <meta
-    property="og:description"
-    content="Répertoire documentaire de peintres français et de données issues de Wikidata."
-  >
-
-  <meta
-    property="og:url"
-    content="https://peintres-fr.nvo987.eu/"
-  >
-
-  <meta
-    property="og:image"
-    content="https://peintres-fr.nvo987.eu/banner.jpg"
-  >
-
-  <meta
-    name="twitter:card"
-    content="summary_large_image"
-  >
-
-  <meta
-    name="twitter:title"
-    content="Peintres français | NVO987"
-  >
-
-  <meta
-    name="twitter:description"
-    content="Répertoire documentaire de peintres français."
-  >
-
-  <meta
-    name="twitter:image"
-    content="https://peintres-fr.nvo987.eu/banner.jpg"
-  >
-
-  <link
-    rel="icon"
-    href="/favicon.ico"
-  >
-
-  <link
-    rel="apple-touch-icon"
-    href="/apple-touch-icon.png"
-  >
-
-  <link
-    rel="manifest"
-    href="/site.webmanifest"
-  >
-
-  <meta
-    name="theme-color"
-    content="#11130f"
-  >
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Peintres français",
-    "url": "https://peintres-fr.nvo987.eu/",
-    "publisher": {
-      "@type": "Organization",
-      "name": "NVO987 – Culture Visuelle Moderne et Contemporaine",
-      "url": "https://nvo987.fr/"
-    }
-  }
-  </script>
-
+  <!-- =========================================================
+       PREMIUM INLINE CSS
+       Editorial / Museum / Cultural Institution
+       ========================================================= -->
   <style>
+    /* =========================================================
+       01 — DESIGN TOKENS
+       ========================================================= */
     :root {
-      --ink: #11130f;
-      --paper: #f3f0e7;
-      --paper-light: #faf8f1;
-      --gold: #b18a43;
-      --green: #24362d;
-      --muted: #68665e;
-      --line: #d7d1c2;
-      --white: #ffffff;
-      --danger: #7b2d26;
-      --success: #315d43;
-      --shadow: 0 18px 50px rgba(17, 19, 15, 0.08);
-      --radius: 4px;
-      --max-width: 1320px;
+      --black: #111310;
+      --black-2: #171916;
+      --black-3: #20231f;
+
+      --paper: #f1eee6;
+      --paper-2: #e8e4da;
+      --paper-3: #faf8f2;
+      --white: #fffdf8;
+
+      --text: #171916;
+      --text-soft: #4f534c;
+      --text-muted: #7a7d75;
+
+      --gold: #ad8b57;
+      --gold-dark: #876b3e;
+      --gold-light: #c8ad7b;
+
+      --line: rgba(17, 19, 16, .14);
+      --line-dark: rgba(255, 255, 255, .13);
+
+      --success: #496454;
+      --success-bg: rgba(73, 100, 84, .09);
+
+      --warning: #876d3e;
+      --warning-bg: rgba(135, 109, 62, .09);
+
+      --danger: #8a5049;
+      --danger-bg: rgba(138, 80, 73, .09);
+
+      --display: "Playfair Display", "Iowan Old Style",
+                 "Baskerville", "Times New Roman", serif;
+
+      --sans: "Inter", "Helvetica Neue", Helvetica,
+              Arial, sans-serif;
+
+      --container: 1320px;
+      --header-height: 82px;
+
+      --ease: cubic-bezier(.2, .75, .25, 1);
+      --ease-soft: cubic-bezier(.22, 1, .36, 1);
     }
 
-    * {
+
+    /* =========================================================
+       02 — RESET
+       ========================================================= */
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 110px;
     }
 
     body {
       margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family:
-        Inter,
-        Helvetica,
-        Arial,
-        sans-serif;
-      line-height: 1.65;
+      min-width: 320px;
+      min-height: 100vh;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--paper-3) 0%,
+          var(--paper) 38%,
+          #e9e6dd 100%
+        );
+
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: var(--gold);
+      color: var(--white);
     }
 
     a {
@@ -179,987 +154,1947 @@
     }
 
     img {
+      display: block;
       max-width: 100%;
       height: auto;
     }
 
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
     .container {
       width: min(
-        calc(100% - 48px),
-        var(--max-width)
+        calc(100% - 64px),
+        var(--container)
       );
+
       margin-inline: auto;
     }
 
+
+    /* =========================================================
+       03 — TOPBAR / MASTHEAD
+       ========================================================= */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(17, 19, 15, 0.97);
-      color: var(--white);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 1000;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(17, 19, 16, .985),
+          rgba(17, 19, 16, .96)
+        );
+
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, .09);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .topbar-inner {
-      min-height: 68px;
+      min-height: var(--header-height);
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+
+      gap: 50px;
     }
 
     .brand {
       display: flex;
       align-items: baseline;
-      gap: 12px;
-      text-decoration: none;
+
+      min-width: 0;
+      gap: 18px;
+    }
+
+    .brand-name {
+      position: relative;
+
+      color: var(--white);
+      font-family: var(--display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1;
+
       white-space: nowrap;
     }
 
-    .brand-main {
-      font-family:
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: 1.35rem;
-      letter-spacing: 0.08em;
-      font-weight: 700;
-    }
-
     .brand-tag {
-      color: #c8b98d;
-      font-size: 0.75rem;
+      padding-left: 18px;
+
+      border-left: 1px solid rgba(255, 255, 255, .18);
+
+      color: rgba(255, 253, 248, .5);
+
+      font-size: .63rem;
+      font-weight: 650;
+      letter-spacing: .19em;
+      line-height: 1.2;
       text-transform: uppercase;
-      letter-spacing: 0.13em;
+
+      white-space: nowrap;
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 3px;
     }
 
     .nav a {
-      color: #eeeae0;
+      position: relative;
+
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 42px;
+      padding: 0 15px;
+
+      color: rgba(255, 253, 248, .64);
+
+      font-size: .65rem;
+      font-weight: 650;
+      letter-spacing: .15em;
       text-decoration: none;
-      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.09em;
+
+      transition:
+        color .3s var(--ease),
+        background .3s var(--ease);
     }
 
-    .nav a:hover {
-      color: #d3b56f;
+    .nav a::before {
+      content: "";
+
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 5px;
+
+      height: 1px;
+
+      background: var(--gold);
+
+      transform: scaleX(0);
+      transform-origin: right;
+
+      transition:
+        transform .4s var(--ease);
     }
 
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--white);
+    }
+
+    .nav a:hover::before,
+    .nav a:focus-visible::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+
+    /* =========================================================
+       04 — HERO
+       ========================================================= */
     .hero {
       position: relative;
+
+      min-height: min(720px, calc(100vh - 125px));
+
+      display: flex;
+      align-items: flex-end;
+
+      margin-top: 34px;
+      margin-bottom: 125px;
+
+      padding:
+        clamp(55px, 8vw, 105px)
+        clamp(35px, 7vw, 100px);
+
       overflow: hidden;
-      background: var(--green);
-      color: var(--white);
-      padding: 110px 0 105px;
+
+      background:
+        linear-gradient(
+          116deg,
+          #10120f 0%,
+          #171a17 46%,
+          #25261f 100%
+        );
+
+      isolation: isolate;
+
+      box-shadow:
+        0 35px 90px rgba(18, 20, 17, .16);
     }
 
     .hero::before {
-      content: "NVO987";
+      content: "";
+
       position: absolute;
-      right: -25px;
-      bottom: -70px;
-      font-family:
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: clamp(8rem, 24vw, 22rem);
-      line-height: 0.8;
-      font-weight: 700;
-      letter-spacing: -0.08em;
-      color: rgba(255,255,255,0.035);
+      inset: 18px;
+
+      border: 1px solid rgba(255, 253, 248, .1);
+
       pointer-events: none;
+      z-index: -1;
     }
 
-    .hero-content {
+    .hero::after {
+      content: "NVO987";
+
+      position: absolute;
+
+      right: -55px;
+      bottom: -55px;
+
+      color: transparent;
+
+      font-family: var(--display);
+      font-size: clamp(10rem, 22vw, 23rem);
+      font-weight: 600;
+      letter-spacing: -.09em;
+      line-height: .75;
+
+      -webkit-text-stroke: 1px rgba(255, 253, 248, .075);
+
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-text {
       position: relative;
-      z-index: 1;
-      max-width: 950px;
+
+      width: min(900px, 100%);
+
+      padding-left: clamp(20px, 3vw, 42px);
+
+      border-left: 1px solid rgba(200, 173, 123, .72);
     }
 
-    .eyebrow {
-      margin: 0 0 18px;
-      color: #d0b36d;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
+    .hero-text::before {
+      content: "01";
+
+      position: absolute;
+
+      left: -8px;
+      top: -38px;
+
+      transform: translateX(-100%);
+
+      color: var(--gold-light);
+
+      font-size: .61rem;
       font-weight: 700;
+      letter-spacing: .22em;
     }
 
     .hero h1 {
+      max-width: 950px;
+
       margin: 0;
-      max-width: 900px;
-      font-family:
-        "Playfair Display",
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: clamp(3.4rem, 8vw, 7.6rem);
-      line-height: 0.92;
-      letter-spacing: -0.045em;
-      font-weight: 600;
+
+      color: var(--white);
+
+      font-family: var(--display);
+      font-size: clamp(4rem, 8vw, 8.4rem);
+      font-weight: 500;
+      letter-spacing: -.065em;
+      line-height: .87;
     }
 
-    .hero-subtitle {
-      max-width: 760px;
-      margin: 32px 0 0;
-      font-family:
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: clamp(1.2rem, 2.2vw, 1.7rem);
-      color: #e4dfd3;
+    .hero-sub {
+      margin: 38px 0 0;
+
+      color: var(--gold-light);
+
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      line-height: 1.7;
+      text-transform: uppercase;
     }
 
     .hero-note {
-      max-width: 740px;
-      margin: 28px 0 0;
-      color: #bfc2b8;
-      font-size: 0.92rem;
+      max-width: 760px;
+
+      margin: 22px 0 0;
+
+      color: rgba(255, 253, 248, .58);
+
+      font-size: .82rem;
+      line-height: 1.85;
     }
 
-    main {
-      padding: 80px 0;
+
+    /* =========================================================
+       05 — MAIN
+       ========================================================= */
+    .main {
+      position: relative;
     }
 
-    section {
-      scroll-margin-top: 90px;
+    .section {
+      position: relative;
+
+      padding-bottom: 140px;
+
+      scroll-margin-top: 110px;
     }
 
-    .section-heading {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 30px;
-      margin-bottom: 25px;
+    .section-header {
+      display: grid;
+
+      grid-template-columns:
+        minmax(270px, .72fr)
+        minmax(0, 1.28fr);
+
+      gap: clamp(45px, 8vw, 125px);
+
+      align-items: start;
+
+      margin-bottom: 52px;
     }
 
-    .section-heading h2 {
+    .section-header h2 {
+      position: relative;
+
       margin: 0;
-      font-family:
-        "Playfair Display",
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      line-height: 1;
-      font-weight: 600;
-      letter-spacing: -0.035em;
+      padding-top: 22px;
+
+      font-family: var(--display);
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: .98;
     }
 
-    .section-intro {
-      max-width: 800px;
-      margin: 0 0 36px;
-      color: var(--muted);
-      font-size: 1rem;
+    .section-header h2::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 52px;
+      height: 2px;
+
+      background: var(--gold);
     }
 
+    .section-header p {
+      max-width: 760px;
+
+      margin: 4px 0 0;
+
+      color: var(--text-soft);
+
+      font-size: .9rem;
+      line-height: 1.9;
+    }
+
+
+    /* =========================================================
+       06 — SEARCH / CONTROLS
+       ========================================================= */
     .controls {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 180px;
-      gap: 14px;
-      margin-bottom: 22px;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        225px;
+
+      gap: 0;
+
+      margin-bottom: 16px;
     }
 
-    .control {
-      width: 100%;
+    .controls input,
+    .controls select {
+      min-height: 68px;
+
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--paper-light);
-      color: var(--ink);
-      padding: 14px 16px;
-      font: inherit;
+      border-radius: 0;
+
       outline: none;
+
+      background: rgba(255, 253, 248, .7);
+
+      color: var(--text);
+
+      box-shadow: none;
+
+      transition:
+        background .3s var(--ease),
+        border-color .3s var(--ease),
+        box-shadow .3s var(--ease);
     }
 
-    .control:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(177, 138, 67, 0.15);
+    .controls input {
+      width: 100%;
+
+      padding: 0 23px;
+
+      border-right: 0;
+
+      font-size: .88rem;
     }
 
+    .controls select {
+      width: 100%;
+
+      padding: 0 19px;
+
+      cursor: pointer;
+
+      font-size: .73rem;
+      font-weight: 650;
+      letter-spacing: .06em;
+    }
+
+    .controls input::placeholder {
+      color: #8c8f87;
+    }
+
+    .controls input:hover,
+    .controls select:hover {
+      background: var(--white);
+    }
+
+    .controls input:focus,
+    .controls select:focus {
+      position: relative;
+      z-index: 2;
+
+      border-color: rgba(173, 139, 87, .75);
+
+      background: var(--white);
+
+      box-shadow:
+        inset 0 0 0 1px rgba(173, 139, 87, .2),
+        0 8px 30px rgba(17, 19, 16, .045);
+    }
+
+
+    /* =========================================================
+       07 — STATUS
+       ========================================================= */
     .status {
-      border-left: 3px solid var(--gold);
-      background: var(--paper-light);
-      padding: 13px 16px;
-      margin-bottom: 28px;
-      color: var(--muted);
-      font-size: 0.9rem;
+      min-height: 46px;
+
+      display: flex;
+      align-items: center;
+
+      margin-bottom: 34px;
+      padding: 10px 15px;
+
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+
+      font-size: .68rem;
+      font-weight: 650;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .status.info {
+      border-color: var(--line);
+
+      background: rgba(17, 19, 16, .025);
+
+      color: var(--text-muted);
     }
 
     .status.success {
-      border-left-color: var(--success);
+      border-color: rgba(73, 100, 84, .18);
+
+      background: var(--success-bg);
+
+      color: var(--success);
+    }
+
+    .status.warn {
+      border-color: rgba(135, 109, 62, .2);
+
+      background: var(--warning-bg);
+
+      color: var(--warning);
     }
 
     .status.error {
-      border-left-color: var(--danger);
+      border-color: rgba(138, 80, 73, .2);
+
+      background: var(--danger-bg);
+
       color: var(--danger);
     }
 
-    .status.warning {
-      border-left-color: var(--gold);
-    }
 
-    .painters-grid {
-      counter-reset: painter;
+    /* =========================================================
+       08 — PAINTERS / EDITORIAL GRID
+       ========================================================= */
+    .grid {
       display: grid;
-      grid-template-columns: repeat(
-        3,
-        minmax(0, 1fr)
-      );
-      gap: 18px;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 0;
+
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
     }
 
-    .painter-card {
-      counter-increment: painter;
+    .place-card {
       position: relative;
+
       display: flex;
+      min-height: 355px;
+
       flex-direction: column;
-      min-height: 285px;
-      padding: 29px;
-      background: var(--paper-light);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+
+      padding:
+        34px
+        32px
+        30px;
+
       overflow: hidden;
+
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 253, 248, .78),
+          rgba(246, 243, 235, .62)
+        );
+
+      transition:
+        background .45s var(--ease),
+        transform .45s var(--ease);
     }
 
-    .painter-card::before {
-      content: counter(
-        painter,
-        decimal-leading-zero
-      );
+    .place-card::before {
+      content: counter(place, decimal-leading-zero);
+
       position: absolute;
-      top: 18px;
-      right: 22px;
-      color: #c9c2b2;
-      font-family:
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: 1.15rem;
-    }
 
-    .painter-card h3 {
-      margin: 0 45px 8px 0;
-      font-family:
-        "Playfair Display",
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: 1.7rem;
-      line-height: 1.12;
-      font-weight: 600;
-    }
+      top: 27px;
+      right: 28px;
 
-    .painter-meta {
-      min-height: 27px;
-      margin-bottom: 16px;
-      color: var(--gold);
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      color: rgba(17, 19, 16, .22);
+
+      font-size: .62rem;
       font-weight: 700;
+      letter-spacing: .16em;
     }
 
-    .painter-desc {
-      margin: 0;
-      color: #4f4d46;
-      font-size: 0.93rem;
-      line-height: 1.65;
+    .grid {
+      counter-reset: place;
     }
 
-    .painter-actions {
+    .place-card {
+      counter-increment: place;
+    }
+
+    .place-card::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      bottom: 0;
+
+      width: 0;
+      height: 2px;
+
+      background: var(--gold);
+
+      transition:
+        width .55s var(--ease);
+    }
+
+    .place-card:hover {
+      z-index: 2;
+
+      background: var(--white);
+
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 22px 45px rgba(17, 19, 16, .08);
+    }
+
+    .place-card:hover::after {
+      width: 100%;
+    }
+
+    .place-card h3 {
+      position: relative;
+      z-index: 1;
+
+      max-width: 82%;
+
+      margin: 0 0 15px;
+
+      font-family: var(--display);
+      font-size: 1.62rem;
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1.12;
+    }
+
+    .place-meta {
+      margin-bottom: 25px;
+
+      color: var(--gold-dark);
+
+      font-size: .61rem;
+      font-weight: 750;
+      letter-spacing: .15em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .place-desc {
+      flex: 1;
+
+      max-width: 95%;
+
+      color: var(--text-soft);
+
+      font-size: .82rem;
+      line-height: 1.8;
+    }
+
+    .place-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
-      margin-top: auto;
-      padding-top: 25px;
-    }
+      gap: 8px;
 
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 38px;
-      padding: 8px 13px;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: var(--white);
-      text-decoration: none;
-      border-radius: 2px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      font-weight: 700;
-    }
+      margin-top: 30px;
+      padding-top: 18px;
 
-    .button:hover {
-      background: var(--green);
-      border-color: var(--green);
-    }
-
-    .button.secondary {
-      background: transparent;
-      color: var(--ink);
-    }
-
-    .button.secondary:hover {
-      background: var(--ink);
-      color: var(--white);
-    }
-
-    .info-section {
-      margin-top: 90px;
-      padding-top: 70px;
       border-top: 1px solid var(--line);
     }
 
-    .info-grid {
+
+    /* =========================================================
+       09 — BUTTONS
+       ========================================================= */
+    .btn {
+      position: relative;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 39px;
+
+      padding: 7px 15px;
+
+      border: 1px solid var(--black);
+      border-radius: 0;
+
+      background: var(--black);
+      color: var(--white);
+
+      font-size: .61rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      line-height: 1;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      transition:
+        background .3s var(--ease),
+        color .3s var(--ease),
+        border-color .3s var(--ease),
+        transform .3s var(--ease);
+    }
+
+    .btn::after {
+      content: "↗";
+
+      margin-left: 9px;
+
+      color: var(--gold-light);
+
+      font-size: .72rem;
+
+      transition:
+        transform .3s var(--ease);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      background: var(--gold);
+      border-color: var(--gold);
+
+      color: var(--white);
+
+      transform: translateY(-2px);
+    }
+
+    .btn:hover::after,
+    .btn:focus-visible::after {
+      transform: translate(2px, -2px);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border-color: var(--line-strong, rgba(17, 19, 16, .25));
+
+      color: var(--text);
+    }
+
+    .btn.secondary::after {
+      color: var(--gold-dark);
+    }
+
+    .btn.secondary:hover,
+    .btn.secondary:focus-visible {
+      background: var(--black);
+      border-color: var(--black);
+
+      color: var(--white);
+    }
+
+
+    /* =========================================================
+       10 — LEGAL / SOURCES / CONTACT
+       ========================================================= */
+    .legal-card,
+    .sources-card {
+      position: relative;
+
+      padding:
+        clamp(32px, 5vw, 68px)
+        clamp(25px, 6vw, 78px);
+
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+
+      background:
+        linear-gradient(
+          105deg,
+          rgba(255, 253, 248, .75),
+          rgba(242, 239, 231, .48)
+        );
+
+      box-shadow:
+        0 18px 50px rgba(17, 19, 16, .035);
+    }
+
+    .legal-card::before,
+    .sources-card::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      top: 0;
+
+      width: 3px;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          180deg,
+          var(--gold),
+          rgba(173, 139, 87, .15)
+        );
+    }
+
+    .legal-card h3,
+    .sources-card h3 {
+      margin: 43px 0 13px;
+
+      font-family: var(--display);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -.025em;
+      line-height: 1.25;
+    }
+
+    .legal-card h3:first-child,
+    .sources-card h3:first-child {
+      margin-top: 0;
+    }
+
+    .legal-card p,
+    .sources-card p {
+      max-width: 940px;
+
+      margin: 0 0 18px;
+
+      color: var(--text-soft);
+
+      font-size: .86rem;
+      line-height: 1.85;
+    }
+
+    .legal-card ul,
+    .sources-card ul {
       display: grid;
-      grid-template-columns: repeat(
-        3,
-        minmax(0, 1fr)
-      );
-      gap: 40px;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 0 50px;
+
+      margin: 28px 0;
+      padding: 0;
+
+      list-style: none;
     }
 
-    .info-block h3 {
-      margin: 0 0 12px;
-      font-family:
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: 1.45rem;
+    .legal-card li,
+    .sources-card li {
+      position: relative;
+
+      padding: 12px 0 12px 25px;
+
+      border-bottom: 1px solid var(--line);
+
+      color: var(--text-soft);
+
+      font-size: .82rem;
     }
 
-    .info-block p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 0.92rem;
+    .legal-card li::before,
+    .sources-card li::before {
+      content: "—";
+
+      position: absolute;
+
+      left: 0;
+
+      color: var(--gold);
+
+      font-weight: 700;
     }
 
-    .info-block ul {
-      margin: 0;
-      padding-left: 20px;
-      color: var(--muted);
-      font-size: 0.92rem;
+    .legal-card a,
+    .sources-card a,
+    .footer a {
+      color: var(--gold-dark);
+
+      font-weight: 650;
+
+      text-decoration-line: underline;
+      text-decoration-color: rgba(135, 107, 62, .32);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+
+      transition:
+        color .25s ease,
+        text-decoration-color .25s ease;
     }
 
-    .info-block a {
-      color: var(--ink);
-      text-underline-offset: 3px;
+    .legal-card a:hover,
+    .sources-card a:hover,
+    .footer a:hover {
+      color: var(--gold);
+      text-decoration-color: var(--gold);
     }
 
-    footer {
-      background: var(--ink);
-      color: #d8d6cd;
-      padding: 45px 0;
+    .small-note {
+      color: var(--text-muted) !important;
+
+      font-size: .72rem !important;
+      letter-spacing: .015em;
+    }
+
+    .muted {
+      color: var(--text-muted) !important;
+    }
+
+
+    /* =========================================================
+       11 — FOOTER
+       All original footer data preserved + ISSN
+       ========================================================= */
+    .footer {
+      position: relative;
+
+      margin-top: 0;
+      padding: 82px 0 55px;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          125deg,
+          #10120f 0%,
+          #161916 55%,
+          #20221e 100%
+        );
+
+      color: rgba(255, 253, 248, .68);
+    }
+
+    .footer::before {
+      content: "";
+
+      position: absolute;
+
+      width: 600px;
+      height: 600px;
+
+      right: -300px;
+      top: -390px;
+
+      border: 1px solid rgba(200, 173, 123, .15);
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 0 90px rgba(200, 173, 123, .025),
+        0 0 0 180px rgba(200, 173, 123, .012);
+    }
+
+    .footer::after {
+      content: "NVO987";
+
+      position: absolute;
+
+      left: -20px;
+      bottom: -80px;
+
+      color: transparent;
+
+      font-family: var(--display);
+      font-size: 12rem;
+      font-weight: 600;
+      letter-spacing: -.08em;
+      line-height: 1;
+
+      -webkit-text-stroke: 1px rgba(255, 253, 248, .035);
+
+      pointer-events: none;
     }
 
     .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 30px;
+      position: relative;
+      z-index: 1;
+
+      display: grid;
+
+      grid-template-columns:
+        1.25fr
+        .85fr
+        1.15fr;
+
+      column-gap: 65px;
+      row-gap: 18px;
     }
 
-    .footer-main {
-      font-family:
-        "Baskerville",
-        "Times New Roman",
-        serif;
-      font-size: 1.25rem;
+    .footer p {
+      margin: 0;
+
+      font-size: .71rem;
+      line-height: 1.8;
+    }
+
+    .footer p:first-child {
+      grid-column: 1 / 3;
+
+      color: var(--white);
+
+      font-family: var(--display);
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: -.015em;
+    }
+
+    .footer p:nth-child(2) {
+      grid-column: 3;
+
+      align-self: start;
+
+      color: var(--gold-light);
+
+      font-size: .64rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .footer p:nth-child(3) {
+      grid-column: 1 / -1;
+
+      margin-top: 24px;
+      padding-top: 24px;
+
+      border-top: 1px solid var(--line-dark);
+
+      color: rgba(255, 253, 248, .43) !important;
+
+      font-size: .69rem;
+    }
+
+    .footer p:nth-child(4) {
+      grid-column: 1;
+
+      padding-top: 5px;
+    }
+
+    .footer p:nth-child(5) {
+      grid-column: 2 / 4;
+
+      padding-top: 5px;
+    }
+
+    .footer p:nth-child(6) {
+      grid-column: 1;
+
+      margin-top: 10px;
+      padding-top: 20px;
+
+      border-top: 1px solid rgba(255, 255, 255, .08);
+
+      color: var(--gold-light);
+
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .footer p:nth-child(7) {
+      grid-column: 2 / 4;
+
+      margin-top: 10px;
+      padding-top: 20px;
+
+      border-top: 1px solid rgba(255, 255, 255, .08);
+
+      color: rgba(255, 253, 248, .42) !important;
+
+      font-size: .68rem;
+    }
+
+    .footer .muted,
+    .footer .small-note {
+      color: rgba(255, 253, 248, .43) !important;
+    }
+
+    .footer strong {
       color: var(--white);
     }
 
-    .footer-note {
-      max-width: 650px;
-      margin-top: 8px;
-      color: #9e9f98;
-      font-size: 0.78rem;
+    .footer a {
+      color: var(--gold-light);
     }
 
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      justify-content: flex-end;
-    }
 
-    .footer-links a {
-      color: #d8d6cd;
-      font-size: 0.78rem;
-      text-decoration: none;
-    }
-
-    .footer-links a:hover {
-      color: var(--white);
-    }
-
+    /* =========================================================
+       12 — ACCESSIBILITY
+       ========================================================= */
     :focus-visible {
-      outline: 3px solid #d0a84f;
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 1080px) {
-      .painters-grid {
-        grid-template-columns: repeat(
-          2,
-          minmax(0, 1fr)
-        );
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-    }
-
-    @media (max-width: 820px) {
-      .container {
-        width: min(
-          calc(100% - 32px),
-          var(--max-width)
-        );
-      }
-
-      .topbar-inner {
-        min-height: 62px;
-      }
-
-      .brand-tag {
-        display: none;
-      }
-
-      .nav {
-        gap: 13px;
-      }
-
-      .nav a {
-        font-size: 0.7rem;
-      }
-
-      .hero {
-        padding: 80px 0;
-      }
-
-      .controls {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-      }
-
-      .footer-links {
-        justify-content: flex-start;
-      }
-    }
-
-    @media (max-width: 620px) {
-      .painters-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-heading {
-        align-items: flex-start;
-      }
-
-      .hero h1 {
-        font-size: clamp(3rem, 16vw, 5rem);
-      }
-
-      main {
-        padding: 55px 0;
-      }
-
-      .info-section {
-        margin-top: 65px;
-        padding-top: 50px;
-      }
-    }
-
-    @media (max-width: 390px) {
-      .container {
-        width: min(
-          calc(100% - 24px),
-          var(--max-width)
-        );
-      }
-
-      .topbar-inner {
-        gap: 10px;
-      }
-
-      .brand-main {
-        font-size: 1.1rem;
-      }
-
-      .nav {
-        gap: 8px;
-      }
-
-      .nav a {
-        font-size: 0.64rem;
-      }
-
-      .painter-card {
-        padding: 23px;
-      }
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
     }
 
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
       }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
     }
 
-    @media print {
-      .topbar,
-      .controls,
-      .status,
-      .painter-actions,
-      footer {
-        display: none !important;
-      }
 
-      body {
-        background: white;
+    /* =========================================================
+       13 — LARGE TABLET
+       ========================================================= */
+    @media (max-width: 1080px) {
+
+      .container {
+        width: min(
+          calc(100% - 46px),
+          var(--container)
+        );
       }
 
       .hero {
-        color: black;
-        background: white;
-        padding: 40px 0;
+        min-height: 590px;
+      }
+
+      .hero::after {
+        right: -70px;
+      }
+
+      .section-header {
+        grid-template-columns:
+          minmax(220px, .7fr)
+          minmax(0, 1.3fr);
+
+        gap: 45px;
+      }
+
+      .grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        grid-template-columns:
+          1fr 1fr;
+
+        column-gap: 45px;
+      }
+
+      .footer p:first-child {
+        grid-column: 1 / -1;
+      }
+
+      .footer p:nth-child(2) {
+        grid-column: 1 / -1;
+      }
+
+      .footer p:nth-child(5),
+      .footer p:nth-child(7) {
+        grid-column: 1 / -1;
+      }
+    }
+
+
+    /* =========================================================
+       14 — TABLET
+       ========================================================= */
+    @media (max-width: 820px) {
+
+      .topbar-inner {
+        min-height: 74px;
+
+        gap: 25px;
+      }
+
+      .brand {
+        gap: 12px;
+      }
+
+      .brand-tag {
+        padding-left: 12px;
+      }
+
+      .nav a {
+        padding-inline: 10px;
+      }
+
+      .nav a::before {
+        left: 10px;
+        right: 10px;
+      }
+
+      .hero {
+        margin-top: 24px;
+        margin-bottom: 100px;
+
+        min-height: 540px;
+
+        padding:
+          55px
+          48px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.7rem, 10vw, 6rem);
+      }
+
+      .section-header {
+        grid-template-columns: 1fr;
+
+        gap: 24px;
+      }
+
+      .section-header p {
+        max-width: 680px;
+      }
+
+      .controls {
+        grid-template-columns:
+          minmax(0, 1fr)
+          190px;
+      }
+
+      .legal-card ul,
+      .sources-card ul {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    /* =========================================================
+       15 — MOBILE
+       ========================================================= */
+    @media (max-width: 620px) {
+
+      .container {
+        width: min(
+          calc(100% - 30px),
+          var(--container)
+        );
+      }
+
+      .topbar-inner {
+        min-height: auto;
+
+        padding: 15px 0 12px;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 13px;
+      }
+
+      .brand {
+        justify-content: space-between;
+
+        width: 100%;
+      }
+
+      .brand-name {
+        font-size: 1.25rem;
+      }
+
+      .brand-tag {
+        font-size: .54rem;
+        letter-spacing: .13em;
+      }
+
+      .nav {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+          repeat(4, minmax(0, 1fr));
+
+        gap: 2px;
+      }
+
+      .nav a {
+        min-height: 36px;
+
+        padding:
+          4px
+          2px
+          7px;
+
+        font-size: .52rem;
+        letter-spacing: .075em;
+
+        text-align: center;
+      }
+
+      .nav a::before {
+        left: 3px;
+        right: 3px;
+        bottom: 1px;
+      }
+
+      .hero {
+        min-height: 555px;
+
+        margin-top: 15px;
+        margin-bottom: 78px;
+
+        padding:
+          42px
+          25px;
+
+        box-shadow:
+          0 22px 55px rgba(18, 20, 17, .13);
       }
 
       .hero::before {
+        inset: 10px;
+      }
+
+      .hero::after {
+        right: -120px;
+        bottom: -15px;
+
+        font-size: 9rem;
+      }
+
+      .hero-text {
+        padding-left: 19px;
+      }
+
+      .hero-text::before {
+        left: -5px;
+        top: -27px;
+
+        font-size: .52rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.2rem, 15vw, 4.8rem);
+        line-height: .9;
+      }
+
+      .hero-sub {
+        margin-top: 28px;
+
+        font-size: .58rem;
+        letter-spacing: .16em;
+      }
+
+      .hero-note {
+        margin-top: 18px;
+
+        font-size: .72rem;
+        line-height: 1.8;
+      }
+
+      .section {
+        padding-bottom: 90px;
+      }
+
+      .section-header {
+        margin-bottom: 32px;
+      }
+
+      .section-header h2 {
+        font-size: 2.75rem;
+      }
+
+      .section-header p {
+        font-size: .81rem;
+        line-height: 1.8;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .controls input,
+      .controls select {
+        min-height: 57px;
+      }
+
+      .controls input {
+        border-right: 1px solid var(--line);
+        border-bottom: 0;
+      }
+
+      .status {
+        margin-bottom: 25px;
+
+        min-height: 44px;
+
+        font-size: .6rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .place-card {
+        min-height: 305px;
+
+        padding:
+          29px
+          24px
+          25px;
+      }
+
+      .place-card::before {
+        top: 22px;
+        right: 22px;
+      }
+
+      .place-card h3 {
+        max-width: 76%;
+        font-size: 1.48rem;
+      }
+
+      .place-meta {
+        margin-bottom: 20px;
+      }
+
+      .place-desc {
+        font-size: .79rem;
+      }
+
+      .legal-card,
+      .sources-card {
+        padding:
+          34px
+          25px;
+      }
+
+      .legal-card::before,
+      .sources-card::before {
+        width: 2px;
+      }
+
+      .legal-card h3,
+      .sources-card h3 {
+        margin-top: 35px;
+        font-size: 1.35rem;
+      }
+
+      .legal-card p,
+      .sources-card p {
+        font-size: .8rem;
+      }
+
+      .footer {
+        padding: 58px 0 38px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+
+        column-gap: 0;
+        row-gap: 15px;
+      }
+
+      .footer p:first-child,
+      .footer p:nth-child(2),
+      .footer p:nth-child(3),
+      .footer p:nth-child(4),
+      .footer p:nth-child(5),
+      .footer p:nth-child(6),
+      .footer p:nth-child(7) {
+        grid-column: auto;
+      }
+
+      .footer p:nth-child(2) {
+        margin-top: -4px;
+      }
+
+      .footer p:nth-child(3) {
+        margin-top: 15px;
+      }
+
+      .footer p:nth-child(6),
+      .footer p:nth-child(7) {
+        margin-top: 4px;
+      }
+    }
+
+
+    /* =========================================================
+       16 — VERY SMALL SCREENS
+       ========================================================= */
+    @media (max-width: 390px) {
+
+      .brand-tag {
         display: none;
       }
 
-      .hero-subtitle,
-      .hero-note {
-        color: black;
+      .hero {
+        min-height: 500px;
+
+        padding:
+          35px
+          21px;
       }
 
-      .painter-card {
-        break-inside: avoid;
+      .hero h1 {
+        font-size: 2.9rem;
+      }
+
+      .hero-sub {
+        font-size: .54rem;
+      }
+
+      .section-header h2 {
+        font-size: 2.45rem;
+      }
+
+      .place-card {
+        min-height: 290px;
+      }
+    }
+
+
+    /* =========================================================
+       17 — PRINT
+       ========================================================= */
+    @media print {
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .topbar {
+        position: static;
+
+        background: #fff;
+
+        border-bottom: 1px solid #bbb;
         box-shadow: none;
+      }
+
+      .brand-name,
+      .brand-tag,
+      .nav a {
+        color: #000;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+
+        margin-top: 25px;
+
+        background: #fff;
+
+        border: 1px solid #aaa;
+
+        box-shadow: none;
+      }
+
+      .hero::before,
+      .hero::after,
+      .hero-text::before {
+        display: none;
+      }
+
+      .hero h1,
+      .hero-note {
+        color: #000;
+      }
+
+      .hero-sub {
+        color: #555;
+      }
+
+      .controls,
+      .status {
+        display: none;
+      }
+
+      .grid {
+        border-color: #bbb;
+      }
+
+      .place-card,
+      .legal-card,
+      .sources-card {
+        background: #fff;
+
+        box-shadow: none;
+
+        break-inside: avoid;
+      }
+
+      .footer {
+        background: #fff;
+
+        border-top: 1px solid #aaa;
+
+        color: #000;
+      }
+
+      .footer::before,
+      .footer::after {
+        display: none;
+      }
+
+      .footer strong,
+      .footer p,
+      .footer a {
+        color: #000 !important;
       }
     }
   </style>
+
+  <!-- SOCIAL PREVIEW -->
+  <meta property="og:site_name" content="NVO987.eu">
+  <meta property="og:title" content="Peintres français – Histoire de l'art">
+  <meta property="og:description" content="Peintres français. Données Wikidata (CC0). Aucun cookie, aucun tracking.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://peintres-fr.nvo987.eu/">
+  <meta property="og:image" content="https://peintres-fr.nvo987.eu/banner.jpg">
+  <meta property="og:locale" content="fr_FR">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Peintres français">
+  <meta name="twitter:description" content="Peintres français. Open Data Wikidata (CC0).">
+  <meta name="twitter:image" content="https://peintres-fr.nvo987.eu/banner.jpg">
+  <meta name="twitter:dnt" content="on">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#111310">
+
 </head>
 
 <body>
 
-  <header class="topbar">
-    <div class="container topbar-inner">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
 
-      <a
-        class="brand"
-        href="/"
-        aria-label="NVO987"
-      >
-        <span class="brand-main">NVO987.eu</span>
-        <span class="brand-tag">
-          Peintres français
-        </span>
-      </a>
+        <div class="brand">
+          <span class="brand-name">NVO987.eu</span>
+          <span class="brand-tag">Histoire de l’art</span>
+        </div>
 
-      <nav
-        class="nav"
-        aria-label="Navigation principale"
-      >
-        <a href="#painters">Peintres</a>
-        <a href="#mentions">Mentions</a>
-        <a href="#sources">Sources</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <nav class="nav" aria-label="Navigation principale">
+          <a href="#painters">Peintres</a>
+          <a href="#mentions">Mentions</a>
+          <a href="#sources">Sources</a>
+          <a href="#contact">Contact</a>
+        </nav>
 
-    </div>
-  </header>
-
-  <header class="hero">
-    <div class="container hero-content">
-
-      <p class="eyebrow">
-        NVO987 • Culture visuelle
-      </p>
-
-      <h1>
-        Peintres français
-      </h1>
-
-      <p class="hero-subtitle">
-        Artistes • Peinture • Données culturelles
-      </p>
-
-      <p class="hero-note">
-        Publication culturelle et documentaire utilisant
-        des données ouvertes issues de Wikidata.
-        Aucune affiliation avec une institution
-        représentée ou mentionnée dans les données.
-      </p>
-
-    </div>
-  </header>
-
-  <main>
-
-    <section
-      id="painters"
-      class="container"
-    >
-
-      <div class="section-heading">
-        <h2>Peintres</h2>
       </div>
+    </div>
+  </div>
 
-      <p class="section-intro">
-        Répertoire de peintres français construit à partir
-        de données ouvertes de Wikidata. Les informations
-        peuvent être incomplètes, évoluer ou contenir
-        des erreurs.
-      </p>
+  <!-- HERO -->
+  <div class="container">
+    <header class="hero">
+      <div class="hero-text">
+        <h1>Peintres français</h1>
 
-      <div class="controls">
+        <p class="hero-sub">
+          Histoire de l’art • Peinture française • Open Data
+        </p>
 
-        <label>
-          <span class="sr-only">
-            Rechercher un peintre
-          </span>
+        <p class="hero-note">
+          Publication culturelle et documentaire en ligne • Base Open Data locale
+          (Wikidata CC0) • Aucun cookie • Aucun tracking • Aucune collecte
+        </p>
+      </div>
+    </header>
+  </div>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="container">
+
+      <!-- PAINTERS -->
+      <section id="painters" class="section">
+
+        <div class="section-header">
+          <h2>Peintres français</h2>
+
+          <p>
+            Cette publication culturelle et documentaire en ligne permet la consultation,
+            la recherche et le filtrage de <strong>peintres français</strong> issus de
+            l’histoire de l’art.
+            Les informations sont issues d’une base locale téléchargée depuis <strong>Wikidata</strong>.
+            Aucun traitement serveur, aucune analyse comportementale, aucune publicité.
+          </p>
+        </div>
+
+        <div class="controls">
 
           <input
             id="searchInput"
-            class="control"
-            type="search"
-            placeholder="Rechercher un peintre..."
+            type="text"
+            placeholder="Rechercher un peintre français..."
             autocomplete="off"
-          >
-        </label>
+            inputmode="search"
+            aria-label="Rechercher un peintre français">
 
-        <label>
-          <span class="sr-only">
-            Nombre de résultats
-          </span>
-
-          <select
-            id="limitSelect"
-            class="control"
-          >
-            <option value="20">20 résultats</option>
+          <select id="limitSelect" aria-label="Nombre de résultats">
+            <option value="20" selected>20 résultats</option>
             <option value="40">40 résultats</option>
             <option value="80">80 résultats</option>
             <option value="120">120 résultats</option>
             <option value="200">200 résultats</option>
           </select>
-        </label>
 
-      </div>
+        </div>
 
-      <div
-        id="statusBox"
-        class="status"
-        role="status"
-        aria-live="polite"
-      >
-        Chargement des peintres…
-      </div>
+        <div id="statusBox" class="status info">
+          Chargement des peintres…
+        </div>
 
-      <div
-        id="paintersGrid"
-        class="painters-grid"
-      ></div>
+        <div id="paintersGrid" class="grid"></div>
 
-    </section>
+      </section>
 
-    <section
-      id="mentions"
-      class="container info-section"
-    >
+      <!-- MENTIONS -->
+      <section id="mentions" class="section">
 
-      <div class="section-heading">
-        <h2>Mentions</h2>
-      </div>
+        <div class="section-header">
+          <h2>Mentions légales / conformité</h2>
+          <p>
+            Transparence, confidentialité, Open Data, non-affiliation et limitation de responsabilité.
+          </p>
+        </div>
 
-      <div class="info-grid">
+        <div class="legal-card">
 
-        <div class="info-block">
-          <h3>Publication</h3>
+          <h3>1. Éditeur du site</h3>
 
           <p>
-            Site :
-            <a href="https://peintres-fr.nvo987.eu/">
-              peintres-fr.nvo987.eu
-            </a>
+            Le présent site web <strong>peintres-fr.nvo987.eu</strong> constitue une publication
+            culturelle et documentaire en ligne éditée par l’association
+            <strong>NVO987 – Culture Visuelle Moderne et Contemporaine</strong>.
           </p>
 
           <p>
-            Éditeur :
-            NVO987 – Culture Visuelle Moderne
-            et Contemporaine
-          </p>
-
-          <p>
-            Publication culturelle et documentaire.
-          </p>
-
-          <p>
-            Paris, France.
-          </p>
-
-          <p>
-            Ce site n'est pas affilié à une institution
-            ou organisation représentée dans les données.
-          </p>
-
-          <p>
-            <a
-              href="https://nvo987.fr/mentions-legales.html"
-              rel="noopener"
-            >
+            Les mentions légales complètes et officielles sont accessibles ici :
+            <a href="https://nvo987.fr/mentions-legales.html"
+               target="_blank"
+               rel="noopener noreferrer">
               Mentions légales
-            </a>
-          </p>
-        </div>
-
-        <div class="info-block">
-          <h3>Vie privée</h3>
-
-          <p>
-            Le site est conçu selon un principe
-            de confidentialité par défaut.
+            </a>.
           </p>
 
+          <h3>2. Nature du service</h3>
+
           <p>
-            Aucun compte utilisateur, aucune collecte
-            de données personnelles, aucun suivi
-            comportemental et aucun profilage
-            publicitaire ne sont nécessaires au
-            fonctionnement du site.
+            Ce site est une <strong>publication culturelle et documentaire en ligne</strong>,
+            sous la forme d’une ressource documentaire consultable et régulièrement actualisée,
+            permettant la consultation, la recherche et le filtrage de
+            <strong>peintres français</strong> issus de l’histoire de l’art.
           </p>
 
           <p>
-            Aucun cookie publicitaire ou outil
-            d'analyse comportementale n'est utilisé.
-          </p>
-        </div>
-
-        <div class="info-block">
-          <h3>Données</h3>
-
-          <p>
-            Les données proviennent de Wikidata
-            et peuvent être incomplètes, incorrectes
-            ou évoluer avec le temps.
+            La publication est éditée par
+            <strong>NVO987 – Culture Visuelle Moderne et Contemporaine</strong>,
+            à Paris, France.
           </p>
 
+          <p class="small-note">
+            Il s’agit d’un service d’information à but culturel et éducatif.
+          </p>
+
+          <h3>3. Non-affiliation / absence de représentation</h3>
+
           <p>
-            La présente publication ne constitue
-            pas une base biographique officielle.
+            <strong>Ce site n’est affilié à aucune institution officielle de l’art,
+            de la culture ou du patrimoine.</strong>
           </p>
 
           <p>
-            Mise à jour automatique quotidienne
-            des données.
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section
-      id="sources"
-      class="container info-section"
-    >
-
-      <div class="section-heading">
-        <h2>Sources</h2>
-      </div>
-
-      <div class="info-grid">
-
-        <div class="info-block">
-          <h3>Wikidata</h3>
-
-          <p>
-            Données structurées utilisées pour
-            constituer le répertoire.
+            Les noms, marques et dénominations cités restent la propriété de leurs détenteurs respectifs.
           </p>
 
-          <p>
-            <a
-              href="https://www.wikidata.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Wikidata
-            </a>
-          </p>
-        </div>
-
-        <div class="info-block">
-          <h3>Licence</h3>
+          <h3>4. Données personnelles / RGPD</h3>
 
           <p>
-            Les données Wikidata sont disponibles
-            sous licence CC0 1.0 Universal.
+            Ce site applique une approche stricte <strong>privacy by design</strong>.
           </p>
 
-          <p>
-            <a
-              href="https://creativecommons.org/publicdomain/zero/1.0/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              CC0 1.0 Universal
-            </a>
-          </p>
-        </div>
+          <ul>
+            <li>Aucun compte utilisateur</li>
+            <li>Aucune collecte de données personnelles</li>
+            <li>Aucun tracking</li>
+            <li>Aucun profilage publicitaire</li>
+            <li>Aucune analyse comportementale</li>
+          </ul>
 
-        <div class="info-block">
-          <h3>Requête</h3>
+          <h3>5. Cookies / tracking</h3>
 
           <p>
-            Les données sont récupérées automatiquement
-            depuis le service de requêtes Wikidata.
+            Aucun cookie publicitaire ni outil d’analyse n’est utilisé.
           </p>
 
-          <p>
-            <a
-              href="https://query.wikidata.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Wikidata Query Service
-            </a>
-          </p>
-        </div>
-
-      </div>
-
-    </section>
-
-    <section
-      id="contact"
-      class="container info-section"
-    >
-
-      <div class="section-heading">
-        <h2>Contact</h2>
-      </div>
-
-      <div class="info-grid">
-
-        <div class="info-block">
-
-          <h3>NVO987</h3>
+          <h3>6. Exactitude / absence de garantie</h3>
 
           <p>
-            Pour toute question concernant
-            la publication :
+            Les informations proviennent de Wikidata et peuvent être inexactes ou incomplètes.
           </p>
 
+          <h3>7. Signalement / retrait</h3>
+
           <p>
-            <a href="mailto:contact@nvo987.eu">
-              contact@nvo987.eu
-            </a>
+            Contact :
+            <a href="mailto:contact@nvo987.eu">contact@nvo987.eu</a>
+          </p>
+
+          <p class="small-note">
+            Mise à jour : chaque semaine.
           </p>
 
         </div>
 
-        <div class="info-block">
+      </section>
 
-          <h3>Identité</h3>
+      <!-- SOURCES -->
+      <section id="sources" class="section">
+
+        <div class="section-header">
+          <h2>Sources & licences</h2>
+          <p>
+            Déclaration de réutilisation Open Data, transparence et licence libre.
+          </p>
+        </div>
+
+        <div class="sources-card">
+
+          <h3>Source des données</h3>
 
           <p>
-            DID :
-            <a
-              href="https://identity.nvo987.us/.well-known/did.json"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            Les informations affichées sur ce site proviennent de la base publique
+            <strong>Wikidata</strong>.
+          </p>
+
+          <ul>
+
+            <li>
+              <strong>Plateforme officielle :</strong>
+              <a href="https://www.wikidata.org/"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                Wikidata.org
+              </a>
+            </li>
+
+            <li>
+              <strong>Licence :</strong>
+              <a href="https://creativecommons.org/publicdomain/zero/1.0/"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                CC0 1.0 Universal
+              </a>
+            </li>
+
+            <li>
+              <strong>Accès technique :</strong>
+              <a href="https://query.wikidata.org/"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                Wikidata Query Service
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+
+        <div class="section-header">
+          <h2>Contact</h2>
+          <p>Contact officiel et identité DID.</p>
+        </div>
+
+        <div class="sources-card">
+
+          <p>
+            Email officiel :
+            <a href="mailto:contact@nvo987.eu">contact@nvo987.eu</a>
+          </p>
+
+          <p>
+            Identité DID :
+            <a href="https://identity.nvo987.us"
+               target="_blank"
+               rel="noopener noreferrer">
               did:web:identity.nvo987.us
             </a>
           </p>
 
         </div>
 
-      </div>
-
-    </section>
-
-  </main>
-
-  <footer>
-
-    <div class="container footer-inner">
-
-      <div>
-
-        <div class="footer-main">
-          © 2026 NVO987
-        </div>
-
-        <div class="footer-note">
-          Peintres français · Données Wikidata CC0 ·
-          Publication indépendante ·
-          Pas d'affiliation institutionnelle.
-          ISSN 3131-3213
-        </div>
-
-      </div>
-
-      <div class="footer-links">
-
-        <a href="#painters">
-          Peintres
-        </a>
-
-        <a href="#sources">
-          Sources
-        </a>
-
-        <a href="#contact">
-          Contact
-        </a>
-
-        <a
-          href="https://nvo987.fr/mentions-legales.html"
-          rel="noopener"
-        >
-          Mentions légales
-        </a>
-
-      </div>
+      </section>
 
     </div>
+  </main>
 
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+
+      <p>
+        © 2026 NVO987 – Culture Visuelle Moderne et Contemporaine
+      </p>
+
+      <p>
+        <strong>Peintres français</strong>
+      </p>
+
+      <p class="muted">
+        Publication culturelle et documentaire en ligne • Aucun cookie • Aucun suivi • Aucune collecte
+      </p>
+
+      <p>
+        Éditeur :
+        <strong>NVO987 – Culture Visuelle Moderne et Contemporaine</strong>
+      </p>
+
+      <p>
+        Mentions légales :
+        <a href="https://nvo987.fr/mentions-legales.html"
+           target="_blank"
+           rel="noopener noreferrer">
+          https://nvo987.fr/mentions-legales.html
+        </a>
+      </p>
+
+      <p>
+        ISSN 3131-3213
+      </p>
+
+      <p class="small-note">
+        Données : Wikidata (CC0 1.0) • Source publique ouverte • Publication indépendante
+      </p>
+
+    </div>
   </footer>
 
+  <!-- SCRIPT -->
   <script>
-    const statusBox =
-      document.getElementById("statusBox");
-
-    const paintersGrid =
-      document.getElementById("paintersGrid");
-
-    const searchInput =
-      document.getElementById("searchInput");
-
-    const limitSelect =
-      document.getElementById("limitSelect");
+    const statusBox = document.getElementById("statusBox");
+    const paintersGrid = document.getElementById("paintersGrid");
+    const searchInput = document.getElementById("searchInput");
+    const limitSelect = document.getElementById("limitSelect");
 
     let allPainters = [];
 
+    function escapeHTML(str) {
+      if (!str) return "";
 
-    function escapeHTML(value) {
-      return String(value ?? "")
+      return String(str)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -1167,47 +2102,39 @@
         .replace(/'/g, "&#039;");
     }
 
-
-    function normalize(value) {
-      return String(value ?? "")
+    function normalize(str) {
+      return (str || "")
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
     }
 
-
-    function formatDate(date) {
-      if (!date) {
-        return "";
-      }
-
-      const match = String(date).match(
-        /^(\d{4})-(\d{2})-(\d{2})/
-      );
-
-      if (!match) {
-        return "";
-      }
-
-      return match[1];
-    }
-
-
     function buildCard(painter) {
+
       const name = escapeHTML(
-        painter.name || "Peintre"
+        painter.name || "Peintre français"
       );
 
-      const birth = formatDate(
-        painter.birth
+      const birth = escapeHTML(
+        painter.birth || ""
       );
 
-      const death = formatDate(
-        painter.death
+      const death = escapeHTML(
+        painter.death || ""
       );
 
       const birthPlace = escapeHTML(
-        painter.birthPlace || ""
+        painter.birthPlace ||
+        painter.city ||
+        ""
+      );
+
+      const website = escapeHTML(
+        painter.website || ""
+      );
+
+      const wikidata = escapeHTML(
+        painter.source || ""
       );
 
       const descriptionRaw =
@@ -1218,80 +2145,74 @@
 
       if (description.length > 220) {
         description =
-          description.slice(0, 217) + "...";
+          description.slice(0, 220) + "...";
       }
-
-      const website =
-        escapeHTML(
-          painter.website || ""
-        );
-
-      const source =
-        escapeHTML(
-          painter.source || ""
-        );
-
-      let dates = "";
-
-      if (birth && death) {
-        dates = `${birth} — ${death}`;
-      } else if (birth) {
-        dates = `Né en ${birth}`;
-      } else if (death) {
-        dates = `Décédé en ${death}`;
-      } else {
-        dates = "Dates inconnues";
-      }
-
-      const location =
-        birthPlace || "Lieu de naissance inconnu";
 
       const card =
         document.createElement("article");
 
-      card.className = "painter-card";
+      card.className = "place-card";
+
+      let meta = "";
+
+      if (birth || death) {
+        if (birth && death) {
+          meta = birth + " — " + death;
+        } else if (birth) {
+          meta = "Né(e) " + birth;
+        } else {
+          meta = "Décédé(e) " + death;
+        }
+      }
+
+      if (birthPlace) {
+        if (meta) {
+          meta += " • ";
+        }
+
+        meta += birthPlace;
+      }
 
       card.innerHTML = `
         <h3>${name}</h3>
 
-        <div class="painter-meta">
-          ${escapeHTML(dates)}
-          · ${location}
+        <div class="place-meta">
+          ${
+            meta
+              ? `<span>${meta}</span>`
+              : `<span class="muted">Informations biographiques inconnues</span>`
+          }
         </div>
 
-        <p class="painter-desc">
-          ${description || "Aucune description disponible."}
-        </p>
+        <div class="place-desc">
+          ${
+            description
+              ? description
+              : `<span class="muted">Aucune description disponible.</span>`
+          }
+        </div>
 
-        <div class="painter-actions">
+        <div class="place-actions">
 
           ${
             website
-              ? `
-                <a
-                  class="button"
-                  href="${website}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Site officiel
-                </a>
-              `
+              ? `<a class="btn"
+                    href="${website}"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow">
+                    Site officiel
+                 </a>`
               : ""
           }
 
           ${
-            source
-              ? `
-                <a
-                  class="button secondary"
-                  href="${source}"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Wikidata
-                </a>
-              `
+            wikidata
+              ? `<a class="btn secondary"
+                    href="${wikidata}"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow">
+                    Wikidata
+                 </a>`
               : ""
           }
 
@@ -1301,40 +2222,37 @@
       return card;
     }
 
-
     function renderPainters() {
+
       const query =
-        normalize(
-          searchInput.value.trim()
-        );
+        normalize(searchInput.value.trim());
 
       const limit =
-        parseInt(
-          limitSelect.value,
-          10
-        );
+        parseInt(limitSelect.value, 10);
 
       paintersGrid.innerHTML = "";
 
-      let filtered =
-        allPainters;
+      let filtered = allPainters;
 
-      if (query) {
-        filtered =
-          allPainters.filter(
-            painter =>
-              normalize(
-                JSON.stringify(painter)
-              ).includes(query)
-          );
+      if (query.length > 0) {
+
+        filtered = filtered.filter(painter => {
+
+          const blob =
+            normalize(JSON.stringify(painter));
+
+          return blob.includes(query);
+
+        });
       }
 
-      const visible =
+      filtered =
         filtered.slice(0, limit);
 
       if (filtered.length === 0) {
+
         statusBox.className =
-          "status warning";
+          "status warn";
 
         statusBox.textContent =
           "Aucun peintre trouvé.";
@@ -1346,30 +2264,31 @@
         "status success";
 
       statusBox.textContent =
-        `${visible.length} résultat(s) affiché(s) sur ${filtered.length}.`;
+        filtered.length +
+        " résultat(s) affiché(s)";
 
-      visible.forEach(
-        painter => {
-          paintersGrid.appendChild(
-            buildCard(painter)
-          );
-        }
-      );
+      filtered.forEach(painter => {
+
+        paintersGrid.appendChild(
+          buildCard(painter)
+        );
+
+      });
     }
 
-
     async function loadPainters() {
-      statusBox.className =
-        "status";
-
-      statusBox.textContent =
-        "Chargement des peintres…";
 
       try {
+
+        statusBox.className =
+          "status info";
+
+        statusBox.textContent =
+          "Chargement des peintres…";
+
         const response =
           await fetch(
-            "painters.json?v=" +
-            Date.now(),
+            "painters.json?v=" + Date.now(),
             {
               cache: "no-store"
             }
@@ -1377,7 +2296,7 @@
 
         if (!response.ok) {
           throw new Error(
-            `HTTP ${response.status}`
+            "HTTP " + response.status
           );
         }
 
@@ -1385,11 +2304,11 @@
           await response.json();
 
         if (
-          !data ||
+          !data.painters ||
           !Array.isArray(data.painters)
         ) {
           throw new Error(
-            "Format painters.json invalide."
+            "Invalid JSON structure"
           );
         }
 
@@ -1400,26 +2319,23 @@
           "status success";
 
         statusBox.textContent =
-          `${allPainters.length} peintre(s) chargé(s).`;
+          allPainters.length +
+          " peintre(s) chargé(s)";
 
         renderPainters();
 
       } catch (error) {
 
-        console.error(
-          "Erreur de chargement:",
-          error
-        );
+        console.error(error);
 
         statusBox.className =
           "status error";
 
         statusBox.textContent =
-          "Impossible de charger les peintres.";
+          "Erreur lors du chargement des données.";
 
       }
     }
-
 
     searchInput.addEventListener(
       "input",
@@ -1435,4 +2351,4 @@
   </script>
 
 </body>
-  </html> 
+  </html>
