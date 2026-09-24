@@ -16,10 +16,9 @@ def log(msg):
 
 
 def fetch_sparql_page(limit, offset, retries=3):
-    """Francia festők lekérése a francia Wikipédia festő kategóriájából."""
+    """Francia festők lekérése a francia Wikipédia kategóriájából."""
     query = f"""
     SELECT DISTINCT ?person ?personLabel ?article ?website WHERE {{
-
       SERVICE wikibase:mwapi {{
         bd:serviceParam
           wikibase:endpoint "fr.wikipedia.org";
@@ -28,19 +27,13 @@ def fetch_sparql_page(limit, offset, retries=3):
           mwapi:gcmtitle "Catégorie:Peintre français";
           mwapi:gcmtype "page";
           mwapi:gcmnamespace "0";
-          mwapi:gcmprop "ids|title";
           mwapi:gcmlimit "max".
 
-        ?member wikibase:apiOutput mwapi:title .
-        ?item wikibase:apiOutputItem mwapi:item .
+        ?article wikibase:apiOutput mwapi:title .
       }}
 
-      BIND(?item AS ?person)
-
-      OPTIONAL {{
-        ?article schema:about ?person ;
-                 schema:isPartOf <https://fr.wikipedia.org/> .
-      }}
+      ?article schema:about ?person ;
+               schema:isPartOf <https://fr.wikipedia.org/> .
 
       OPTIONAL {{
         ?person wdt:P856 ?website .
@@ -84,8 +77,7 @@ def fetch_sparql_page(limit, offset, retries=3):
 
         except Exception as e:
             log(
-                f"  [Újrapróbálkozás {attempt}/{retries}] "
-                f"Hiba: {e}"
+                f"  [Újrapróbálkozás {attempt}/{retries}] Hiba: {e}"
             )
             time.sleep(4 * attempt)
 
@@ -93,7 +85,7 @@ def fetch_sparql_page(limit, offset, retries=3):
 
 
 def main():
-    log("Francia festők adatainak lekérése a francia Wikipédia kategóriájából...")
+    log("Francia festők adatainak lekérése...")
     painters_map = {}
 
     limit = 5000
@@ -127,7 +119,6 @@ def main():
         log(f"  -> {len(bindings)} elem beérkezett.")
 
         for item in bindings:
-
             person_uri = item.get(
                 "person",
                 {}
@@ -170,7 +161,6 @@ def main():
 
             if qid not in painters_map:
                 painters_map[qid] = {
-                    "id": qid,
                     "name": name if name != qid else "",
                     "wikidata": f"https://www.wikidata.org/wiki/{qid}",
                     "wikipedia": wikipedia,
@@ -178,28 +168,17 @@ def main():
                 }
 
             else:
-                # Ha a korábbi sorban hiányzott, de most megvan,
-                # frissítjük
-                if (
-                    wikipedia
-                    and not painters_map[qid]["wikipedia"]
-                ):
+                if wikipedia and not painters_map[qid]["wikipedia"]:
                     painters_map[qid]["wikipedia"] = wikipedia
 
-                if (
-                    website
-                    and not painters_map[qid]["website"]
-                ):
+                if website and not painters_map[qid]["website"]:
                     painters_map[qid]["website"] = website
 
-        # Ha kevesebb érkezett mint a limit,
-        # elértük a végét
         if len(bindings) < limit:
             break
 
         offset += limit
         page += 1
-
         time.sleep(2)
 
     painters = list(painters_map.values())
@@ -209,7 +188,7 @@ def main():
     )
 
     output = {
-        "source": "Wikidata / Wikipédia - Catégorie:Peintre français (CC0)",
+        "source": "French Wikipedia - Catégorie:Peintre français",
         "count": len(painters),
         "painters": painters
     }
