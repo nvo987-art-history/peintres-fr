@@ -16,22 +16,48 @@ def log(msg):
 
 
 def fetch_sparql_page(limit, offset, retries=3):
-    """SPARQL lekérdezés futtatása közvetlen Wikipédia és Weboldal linkekkel."""
+    """Francia festők lekérése a francia Wikipédia festő kategóriájából."""
     query = f"""
-    SELECT ?person ?personLabel ?article ?website WHERE {{
-      ?person wdt:P106 wd:Q1028181 ;
-              wdt:P27 wd:Q142 .
+    SELECT DISTINCT ?person ?personLabel ?article ?website WHERE {{
+
+      SERVICE wikibase:mwapi {{
+        bd:serviceParam
+          wikibase:endpoint "fr.wikipedia.org";
+          wikibase:api "Generator";
+          mwapi:generator "categorymembers";
+          mwapi:gcmtitle "Catégorie:Peintre français";
+          mwapi:gcmtype "page";
+          mwapi:gcmnamespace "0";
+          mwapi:gcmprop "ids|title";
+          mwapi:gcmlimit "max".
+
+        ?member wikibase:apiOutput mwapi:title .
+        ?item wikibase:apiOutputItem mwapi:item .
+      }}
+
+      BIND(?item AS ?person)
+
       OPTIONAL {{
         ?article schema:about ?person ;
                  schema:isPartOf <https://fr.wikipedia.org/> .
       }}
-      OPTIONAL {{ ?person wdt:P856 ?website . }}
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "fr,en" . }}
+
+      OPTIONAL {{
+        ?person wdt:P856 ?website .
+      }}
+
+      SERVICE wikibase:label {{
+        bd:serviceParam wikibase:language "fr,en" .
+      }}
     }}
     LIMIT {limit}
     OFFSET {offset}
     """
-    data = urllib.parse.urlencode({"query": query, "format": "json"}).encode("utf-8")
+
+    data = urllib.parse.urlencode(
+        {"query": query, "format": "json"}
+    ).encode("utf-8")
+
     req = urllib.request.Request(
         SPARQL_URL,
         data=data,
@@ -45,17 +71,29 @@ def fetch_sparql_page(limit, offset, retries=3):
 
     for attempt in range(1, retries + 1):
         try:
-            with urllib.request.urlopen(req, timeout=60, context=ssl_context) as response:
-                content = response.read().decode("utf-8", errors="replace")
+            with urllib.request.urlopen(
+                req,
+                timeout=60,
+                context=ssl_context
+            ) as response:
+                content = response.read().decode(
+                    "utf-8",
+                    errors="replace"
+                )
                 return json.loads(content, strict=False)
+
         except Exception as e:
-            log(f"  [Újrapróbálkozás {attempt}/{retries}] Hiba: {e}")
+            log(
+                f"  [Újrapróbálkozás {attempt}/{retries}] "
+                f"Hiba: {e}"
+            )
             time.sleep(4 * attempt)
+
     return None
 
 
 def main():
-    log("Francia festők adatainak lekérése (Gyors, egyszerűsített mód)...")
+    log("Francia festők adatainak lekérése a francia Wikipédia kategóriájából...")
     painters_map = {}
 
     limit = 5000
@@ -63,13 +101,25 @@ def main():
     page = 1
 
     while True:
-        log(f"{page}. oldal lekérése (OFFSET {offset}, LIMIT {limit})...")
+        log(
+            f"{page}. oldal lekérése "
+            f"(OFFSET {offset}, LIMIT {limit})..."
+        )
+
         res = fetch_sparql_page(limit, offset)
+
         if not res:
             log("Nem érkezett válasz, leállítás.")
             break
 
-        bindings = res.get("results", {}).get("bindings", [])
+        bindings = res.get(
+            "results",
+            {}
+        ).get(
+            "bindings",
+            []
+        )
+
         if not bindings:
             log("Nincs több találat.")
             break
@@ -77,17 +127,46 @@ def main():
         log(f"  -> {len(bindings)} elem beérkezett.")
 
         for item in bindings:
-            person_uri = item.get("person", {}).get("value", "").strip()
+
+            person_uri = item.get(
+                "person",
+                {}
+            ).get(
+                "value",
+                ""
+            ).strip()
+
             if not person_uri:
                 continue
 
             qid = person_uri.rsplit("/", 1)[-1]
+
             if not qid.startswith("Q"):
                 continue
 
-            name = item.get("personLabel", {}).get("value", "").strip()
-            wikipedia = item.get("article", {}).get("value", "").strip()
-            website = item.get("website", {}).get("value", "").strip()
+            name = item.get(
+                "personLabel",
+                {}
+            ).get(
+                "value",
+                ""
+            ).strip()
+
+            wikipedia = item.get(
+                "article",
+                {}
+            ).get(
+                "value",
+                ""
+            ).strip()
+
+            website = item.get(
+                "website",
+                {}
+            ).get(
+                "value",
+                ""
+            ).strip()
 
             if qid not in painters_map:
                 painters_map[qid] = {
@@ -97,34 +176,60 @@ def main():
                     "wikipedia": wikipedia,
                     "website": website
                 }
+
             else:
-                # Ha a korábbi sorban hiányzott, de most megvan, frissítjük
-                if wikipedia and not painters_map[qid]["wikipedia"]:
+                # Ha a korábbi sorban hiányzott, de most megvan,
+                # frissítjük
+                if (
+                    wikipedia
+                    and not painters_map[qid]["wikipedia"]
+                ):
                     painters_map[qid]["wikipedia"] = wikipedia
-                if website and not painters_map[qid]["website"]:
+
+                if (
+                    website
+                    and not painters_map[qid]["website"]
+                ):
                     painters_map[qid]["website"] = website
 
-        # Ha kevesebb érkezett mint a limit, elértük a végét
+        # Ha kevesebb érkezett mint a limit,
+        # elértük a végét
         if len(bindings) < limit:
             break
 
         offset += limit
         page += 1
-        time.sleep(2)  # Biztonsági szünet a szerver kíméléséhez
+
+        time.sleep(2)
 
     painters = list(painters_map.values())
-    painters.sort(key=lambda p: p["name"].lower())
+
+    painters.sort(
+        key=lambda p: p["name"].lower()
+    )
 
     output = {
-        "source": "Wikidata (CC0)",
+        "source": "Wikidata / Wikipédia - Catégorie:Peintre français (CC0)",
         "count": len(painters),
         "painters": painters
     }
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        json.dump(output, f, ensure_ascii=False, indent=2)
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            output,
+            f,
+            ensure_ascii=False,
+            indent=2
+        )
 
-    log(f"KÉSZ! Összesen {len(painters)} francia festő adata elmentve ide: {OUTPUT_FILE}")
+    log(
+        f"KÉSZ! Összesen {len(painters)} "
+        f"francia festő adata elmentve ide: {OUTPUT_FILE}"
+    )
 
 
 if __name__ == "__main__":
