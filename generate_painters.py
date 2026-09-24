@@ -9,12 +9,12 @@ OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
 WIKIDATA_API_URL = "https://www.wikidata.org/w/api.php"
 
-# Q1028181 = painter (festő), Q142 = France (Franciaország)
 PAINTER_TYPE = "wd:Q1028181"
 FRANCE = "wd:Q142"
 
-USER_AGENT = "Mozilla/5.0 (NVO987 Painters Bot; contact@example.com)"
-MAX_WORKERS = 20  # Párhuzamos szálak a weboldalak ellenőrzéséhez
+# Egyedi User-Agent megadása a Wikidata szabályzatának megfelelően
+USER_AGENT = "PeintresFrBot/1.0 (https://github.com/peintres-fr/peintres-fr; contact@example.com)"
+MAX_WORKERS = 10  # Visszavéve 10-re a stabilabb hálózati működésért GitHub Actions-ben
 
 ssl_context = ssl.create_default_context()
 
@@ -23,18 +23,22 @@ def safe(value):
     return (value or "").strip()
 
 
-def fetch_json(url_or_req, retries=3):
+def fetch_json(url_or_req, timeout=60, retries=5):
+    """Biztonságos JSON lekérés újrapróbálkozásokkal és megnövelt timeout-tal."""
     last_error = None
-    for attempt in range(retries):
+    for attempt in range(1, retries + 1):
         try:
             req = url_or_req
             if isinstance(url_or_req, str):
                 req = urllib.request.Request(url_or_req, headers={"User-Agent": USER_AGENT})
-            with urllib.request.urlopen(req, timeout=30, context=ssl_context) as response:
+            
+            with urllib.request.urlopen(req, timeout=timeout, context=ssl_context) as response:
                 return json.loads(response.read().decode("utf-8"))
         except Exception as error:
             last_error = error
-            time.sleep(2 * (attempt + 1))
+            print(f"  [Figyelmeztetés] Próbálkozás {attempt}/{retries} sikertelen ({error}). Újrapróbálkozás...")
+            time.sleep(3 * attempt)
+            
     raise last_error
 
 
@@ -50,7 +54,8 @@ def run_sparql(query):
         },
         method="POST"
     )
-    return fetch_json(req)
+    # SPARQL lekérdezésre 90 másodperces időkorlátot adunk
+    return fetch_json(req, timeout=90, retries=5)
 
 
 def fetch_wikipedia_links_batch(entity_ids):
@@ -69,7 +74,7 @@ def fetch_wikipedia_links_batch(entity_ids):
 
     url = f"{WIKIDATA_API_URL}?{params}"
     try:
-        data = fetch_json(url)
+        data = fetch_json(url, timeout=30, retries=3)
         entities = data.get("entities", {})
 
         links = {}
@@ -85,7 +90,7 @@ def fetch_wikipedia_links_batch(entity_ids):
             }
         return links
     except Exception as e:
-        print(f"Hiba a Wikipédia API lekérdezésénél ({ids_str[:30]}...): {e}")
+        print(f"Hiba a Wikipédia API lekérdezésénél: {e}")
         return {}
 
 
@@ -94,7 +99,7 @@ def is_valid_website(url):
         return False
     try:
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="HEAD")
-        with urllib.request.urlopen(req, timeout=8, context=ssl_context) as response:
+        with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
             return response.status < 400
     except Exception:
         try:
@@ -112,7 +117,6 @@ def check_painter_website(painter):
 
 
 def main():
-    # 1. LÉPÉS: Könnyű és gyors SPARQL lekérdezés (Wikipédia összekapcsolás nélkül)
     query = f"""
     SELECT DISTINCT
         ?person
@@ -203,7 +207,6 @@ def main():
 
     print(f"Beolvasva: {len(raw_painters)} festő.")
 
-    # 2. LÉPÉS: Wikipédia linkek lekérése kötegekben (50 ID / kérés)
     print("2/3: Wikipédia hivatkozások lekérése API-n keresztül...")
     wiki_links = {}
     batch_size = 50
@@ -212,14 +215,12 @@ def main():
         links_batch = fetch_wikipedia_links_batch(batch)
         wiki_links.update(links_batch)
 
-    # Wikipédia linkek hozzárendelése
     for painter in raw_painters:
         pid = painter["id"]
         if pid in wiki_links:
             painter["wikipedia_fr"] = wiki_links[pid]["wikipedia_fr"]
             painter["wikipedia_en"] = wiki_links[pid]["wikipedia_en"]
 
-    # 3. LÉPÉS: Weboldalak párhuzamos ellenőrzése
     print(f"3/3: Saját weboldalak ellenőrzése párhuzamosan ({MAX_WORKERS} szálon)...")
     painters = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
