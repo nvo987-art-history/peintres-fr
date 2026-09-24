@@ -1,10 +1,9 @@
-# generate_painters.py
-
 import json
+import ssl
 import time
 import urllib.parse
 import urllib.request
-import ssl
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
@@ -13,6 +12,7 @@ PAINTER_TYPE = "wd:Q49757"  # painter
 FRANCE = "wd:Q142"
 
 USER_AGENT = "Mozilla/5.0 (NVO987 Painters Bot)"
+MAX_WORKERS = 20  # Párhuzamos szálak száma
 
 ssl_context = ssl.create_default_context()
 
@@ -28,46 +28,36 @@ def is_valid_website(url):
     try:
         req = urllib.request.Request(
             url,
-            headers={
-                "User-Agent": USER_AGENT
-            },
+            headers={"User-Agent": USER_AGENT},
             method="HEAD"
         )
-
-        with urllib.request.urlopen(
-            req,
-            timeout=10,
-            context=ssl_context
-        ) as response:
+        with urllib.request.urlopen(req, timeout=8, context=ssl_context) as response:
             return response.status < 400
-
     except Exception:
-        return False
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": USER_AGENT},
+                method="GET"
+            )
+            with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
+                return response.status < 400
+        except Exception:
+            return False
 
 
 def fetch_json(req, retries=5):
     last_error = None
-
     for attempt in range(retries):
         try:
-            with urllib.request.urlopen(
-                req,
-                timeout=120,
-                context=ssl_context
-            ) as response:
+            with urllib.request.urlopen(req, timeout=120, context=ssl_context) as response:
                 data = response.read().decode("utf-8")
                 return json.loads(data)
-
         except Exception as error:
             last_error = error
-            print(
-                f"Request failed "
-                f"(attempt {attempt + 1}/{retries}): {error}"
-            )
-
+            print(f"Request failed (attempt {attempt + 1}/{retries}): {error}")
             if attempt < retries - 1:
                 time.sleep(5 * (attempt + 1))
-
     raise last_error
 
 
@@ -87,8 +77,13 @@ def run_sparql(query):
         },
         method="POST"
     )
-
     return fetch_json(req)
+
+
+def check_painter_website(painter):
+    if painter["website"]:
+        painter["website_valid"] = is_valid_website(painter["website"])
+    return painter
 
 
 def main():
@@ -124,76 +119,41 @@ def main():
     """
 
     print("Fetching French painters from Wikidata...")
-
     result = run_sparql(query)
     bindings = result.get("results", {}).get("bindings", [])
 
-    painters = []
+    raw_painters = []
     seen_ids = set()
 
     for item in bindings:
-        person_uri = safe(
-            item.get("person", {}).get("value")
-        )
-
+        person_uri = safe(item.get("person", {}).get("value"))
         if not person_uri:
             continue
 
         person_id = person_uri.rsplit("/", 1)[-1]
-
         if person_id in seen_ids:
             continue
-
         seen_ids.add(person_id)
 
-        name = safe(
-            item.get("personLabel", {}).get("value")
-        )
-
+        name = safe(item.get("personLabel", {}).get("value"))
         if not name:
             continue
 
-        description = safe(
-            item.get("description", {}).get("value")
-        )
+        description = safe(item.get("description", {}).get("value"))
+        website = safe(item.get("website", {}).get("value"))
+        birth_date = safe(item.get("birthDate", {}).get("value"))
+        death_date = safe(item.get("deathDate", {}).get("value"))
+        birth_place = safe(item.get("birthPlaceLabel", {}).get("value"))
+        coord = safe(item.get("coord", {}).get("value"))
 
-        website = safe(
-            item.get("website", {}).get("value")
-        )
-
-        birth_date = safe(
-            item.get("birthDate", {}).get("value")
-        )
-
-        death_date = safe(
-            item.get("deathDate", {}).get("value")
-        )
-
-        birth_place = safe(
-            item.get("birthPlaceLabel", {}).get("value")
-        )
-
-        coord = safe(
-            item.get("coord", {}).get("value")
-        )
-
-        lat = None
-        lon = None
-
+        lat, lon = None, None
         if coord.startswith("Point(") and coord.endswith(")"):
             try:
                 values = coord[6:-1].split()
                 lon = float(values[0])
                 lat = float(values[1])
             except (ValueError, IndexError):
-                lat = None
-                lon = None
-
-        website_valid = False
-
-        if website:
-            print(f"Checking website: {name}")
-            website_valid = is_valid_website(website)
+                pass
 
         painter = {
             "id": person_id,
@@ -205,16 +165,20 @@ def main():
             "lat": lat,
             "lon": lon,
             "website": website,
-            "website_valid": website_valid,
+            "website_valid": False,
             "description": description,
             "source": f"https://www.wikidata.org/wiki/{person_id}"
         }
+        raw_painters.append(painter)
 
-        painters.append(painter)
+    print(f"Checking websites for {len(raw_painters)} painters ({MAX_WORKERS} workers)...")
+    painters = []
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = [executor.submit(check_painter_website, p) for p in raw_painters]
+        for future in as_completed(futures):
+            painters.append(future.result())
 
-    painters.sort(
-        key=lambda painter: painter["name"].lower()
-    )
+    painters.sort(key=lambda p: p["name"].lower())
 
     output = {
         "source": "Wikidata (CC0)",
@@ -225,21 +189,10 @@ def main():
         "painters": painters
     }
 
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8"
-    ) as file:
-        json.dump(
-            output,
-            file,
-            ensure_ascii=False,
-            indent=2
-        )
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
+        json.dump(output, file, ensure_ascii=False, indent=2)
 
-    print(
-        f"Done: {len(painters)} painters written to {OUTPUT_FILE}"
-    )
+    print(f"Done: {len(painters)} painters written to {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
