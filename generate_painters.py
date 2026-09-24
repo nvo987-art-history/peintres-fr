@@ -1,6 +1,7 @@
 import json
 import ssl
 import time
+import subprocess
 import urllib.parse
 import urllib.request
 import urllib.error
@@ -59,19 +60,104 @@ def save_json(painters_map):
     )
 
 
+def git_commit_and_push(count):
+    """
+    Git commit + push.
+    Ezt minden 2 sikeres oldal, kb. 1000 festő után
+    meghívjuk.
+    """
+
+    log(
+        f"  -> Git commit + push "
+        f"({count} festő)..."
+    )
+
+    try:
+
+        subprocess.run(
+            [
+                "git",
+                "config",
+                "--global",
+                "user.name",
+                "github-actions[bot]"
+            ],
+            check=True
+        )
+
+        subprocess.run(
+            [
+                "git",
+                "config",
+                "--global",
+                "user.email",
+                "41898282+github-actions[bot]@users.noreply.github.com"
+            ],
+            check=True
+        )
+
+        subprocess.run(
+            ["git", "add", OUTPUT_FILE],
+            check=True
+        )
+
+        # Megnézzük, van-e tényleges változás.
+        status = subprocess.run(
+            [
+                "git",
+                "diff",
+                "--cached",
+                "--quiet"
+            ]
+        )
+
+        if status.returncode == 0:
+            log(
+                "  -> Nincs új változás, "
+                "commit nem szükséges."
+            )
+            return True
+
+        subprocess.run(
+            [
+                "git",
+                "commit",
+                "-m",
+                f"weekly: update painters data ({count})"
+            ],
+            check=True
+        )
+
+        subprocess.run(
+            ["git", "push"],
+            check=True
+        )
+
+        log(
+            f"  -> PUSH KÉSZ: {count} festő"
+        )
+
+        return True
+
+    except subprocess.CalledProcessError as e:
+
+        log(
+            f"  -> Git hiba: {e}"
+        )
+
+        return False
+
+
 def fetch_sparql_page(limit, offset, retries=5):
     """
     Egy SPARQL oldal lekérése.
-    429 / 502 / 503 / 504 esetén újrapróbálkozik.
+
+    429 / 502 / 503 / 504 esetén
+    újrapróbálkozik.
     """
 
     query = f"""
-    SELECT
-      ?person
-      (SAMPLE(?personLabel) AS ?name)
-      (SAMPLE(?article) AS ?articleUrl)
-      (SAMPLE(?website) AS ?websiteUrl)
-    WHERE {{
+    SELECT ?person ?personLabel ?article ?website WHERE {{
       ?person wdt:P106 wd:Q1028181 ;
               wdt:P27 wd:Q142 ;
               wdt:P31 wd:Q5 .
@@ -89,8 +175,7 @@ def fetch_sparql_page(limit, offset, retries=5):
         bd:serviceParam wikibase:language "fr,en" .
       }}
     }}
-    GROUP BY ?person
-    ORDER BY ?person
+
     LIMIT {limit}
     OFFSET {offset}
     """
@@ -114,6 +199,7 @@ def fetch_sparql_page(limit, offset, retries=5):
     for attempt in range(1, retries + 1):
 
         try:
+
             with urllib.request.urlopen(
                 req,
                 timeout=180,
@@ -139,11 +225,14 @@ def fetch_sparql_page(limit, offset, retries=5):
                 )
 
                 if retry_after:
+
                     try:
                         wait = int(retry_after)
                     except ValueError:
                         wait = 30
+
                 else:
+
                     wait = min(
                         30 * attempt,
                         180
@@ -157,6 +246,7 @@ def fetch_sparql_page(limit, offset, retries=5):
                 )
 
                 time.sleep(wait)
+
                 continue
 
             log(
@@ -203,6 +293,10 @@ def main():
     offset = 0
     page = 1
 
+    # Minden második oldal után commit + push.
+    # 500 + 500 = kb. 1000 festő.
+    pages_since_commit = 0
+
     while True:
 
         log(
@@ -220,6 +314,10 @@ def main():
             offset
         )
 
+        # ---------------------------------------------
+        # HA HIBA TÖRTÉNIK
+        # ---------------------------------------------
+
         if not res:
 
             log(
@@ -232,10 +330,18 @@ def main():
                 f"festő megmarad."
             )
 
-            # Az eddigi adatok még egyszer
-            # biztosan elmentve.
+            # Először JSON mentés
             save_json(painters_map)
 
+            # Majd az eddigiek AZONNALI commit + push
+            if painters_map:
+                git_commit_and_push(
+                    len(painters_map)
+                )
+
+            # Ezután álljon le.
+            # A workflow piros lehet,
+            # de az adatok már GitHubon vannak.
             break
 
         bindings = (
@@ -243,6 +349,10 @@ def main():
             .get("results", {})
             .get("bindings", [])
         )
+
+        # ---------------------------------------------
+        # NINCS TÖBB TALÁLAT
+        # ---------------------------------------------
 
         if not bindings:
 
@@ -252,6 +362,11 @@ def main():
 
             save_json(painters_map)
 
+            if painters_map:
+                git_commit_and_push(
+                    len(painters_map)
+                )
+
             break
 
         log(
@@ -260,7 +375,7 @@ def main():
         )
 
         # ---------------------------------------------
-        # 2. AZ ÖSSZES BEÉRKEZETT REKORD FELDOLGOZÁSA
+        # 2. REKORDOK FELDOLGOZÁSA
         # ---------------------------------------------
 
         for item in bindings:
@@ -285,21 +400,21 @@ def main():
 
             name = (
                 item
-                .get("name", {})
+                .get("personLabel", {})
                 .get("value", "")
                 .strip()
             )
 
             wikipedia = (
                 item
-                .get("articleUrl", {})
+                .get("article", {})
                 .get("value", "")
                 .strip()
             )
 
             website = (
                 item
-                .get("websiteUrl", {})
+                .get("website", {})
                 .get("value", "")
                 .strip()
             )
@@ -307,23 +422,66 @@ def main():
             if not name or name == qid:
                 continue
 
-            painters_map[qid] = {
-                "name": name,
-                "wikidata": (
-                    f"https://www.wikidata.org/wiki/{qid}"
-                ),
-                "wikipedia": wikipedia,
-                "website": website
-            }
+            # -----------------------------------------
+            # ÚJ FESTŐ
+            # -----------------------------------------
+
+            if qid not in painters_map:
+
+                painters_map[qid] = {
+                    "name": name,
+                    "wikidata": (
+                        f"https://www.wikidata.org/wiki/{qid}"
+                    ),
+                    "wikipedia": wikipedia,
+                    "website": website
+                }
+
+            # -----------------------------------------
+            # HIÁNYZÓ ADATOK PÓTLÁSA
+            # -----------------------------------------
+
+            else:
+
+                if (
+                    wikipedia
+                    and not painters_map[qid]["wikipedia"]
+                ):
+                    painters_map[qid]["wikipedia"] = wikipedia
+
+                if (
+                    website
+                    and not painters_map[qid]["website"]
+                ):
+                    painters_map[qid]["website"] = website
 
         # ---------------------------------------------
-        # 3. AZ OLDAL MENTÉSE AZONNAL
+        # 3. AZONNALI JSON MENTÉS
         # ---------------------------------------------
+
+        log(
+            f"  -> Feldolgozva: "
+            f"{len(painters_map)} festő"
+        )
 
         save_json(painters_map)
 
+        pages_since_commit += 1
+
         # ---------------------------------------------
-        # 4. HA EZ VOLT AZ UTOLSÓ OLDAL
+        # 4. MINDEN 2. OLDAL = COMMIT + PUSH
+        # ---------------------------------------------
+
+        if pages_since_commit >= 2:
+
+            git_commit_and_push(
+                len(painters_map)
+            )
+
+            pages_since_commit = 0
+
+        # ---------------------------------------------
+        # 5. UTOLSÓ OLDAL?
         # ---------------------------------------------
 
         if len(bindings) < limit:
@@ -332,10 +490,20 @@ def main():
                 "Nincs több oldal."
             )
 
+            # Ha maradt egy nem commitolt oldal,
+            # azt is pusholjuk.
+            if pages_since_commit > 0:
+
+                git_commit_and_push(
+                    len(painters_map)
+                )
+
+                pages_since_commit = 0
+
             break
 
         # ---------------------------------------------
-        # 5. KÖVETKEZŐ OLDAL
+        # 6. KÖVETKEZŐ OLDAL
         # ---------------------------------------------
 
         offset += limit
@@ -356,8 +524,7 @@ def main():
         log(
             f"KÉSZ! Összesen "
             f"{len(painters_map)} "
-            f"francia festő van a "
-            f"painters.json fájlban."
+            f"francia festő mentve."
         )
 
     else:
