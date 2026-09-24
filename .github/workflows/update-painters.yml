@@ -1,47 +1,333 @@
-# .github/workflows/update-painters.yml
+import json
+import urllib.request
+import urllib.parse
+import time
+import ssl
 
-name: Update painters.json
+OUTPUT_FILE = "painters.json"
+SPARQL_URL = "https://query.wikidata.org/sparql"
 
-on:
-  schedule:
-    - cron: "0 3 * * *"
-  workflow_dispatch:
+PAINTER_TYPE = "wd:Q1028181"
+FRANCE = "wd:Q142"
 
-permissions:
-  contents: write
+BATCH_SIZE = 500
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+def safe(val):
+    return (val or "").strip()
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
 
-      - name: Install dependencies
-        run: pip install requests
+def is_valid_website(url):
+    if not url:
+        return False
 
-      - name: Generate painters.json
-        run: python generate_painters.py
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": "Mozilla/5.0 (NVO987 French Painters Bot)"
+            }
+        )
 
-      - name: Commit and push if changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+        context = ssl.create_default_context()
 
-          git add painters.json
+        with urllib.request.urlopen(
+            req,
+            timeout=10,
+            context=context
+        ) as response:
+            return response.status < 400
 
-          if git diff --cached --quiet; then
-            echo "No changes in painters.json"
-            exit 0
-          fi
+    except Exception:
+        return False
 
-          git commit -m "Auto-update painters.json"
-          git pull --rebase
-          git push
+
+def fetch_json(req, retries=6):
+    last_error = None
+
+    for attempt in range(retries):
+        try:
+            with urllib.request.urlopen(
+                req,
+                timeout=180
+            ) as response:
+
+                data = response.read().decode("utf-8")
+
+                return json.loads(data)
+
+        except Exception as error:
+            last_error = error
+
+            print(
+                f"Request failed "
+                f"(attempt {attempt + 1}/{retries}): {error}"
+            )
+
+            if attempt < retries - 1:
+                wait = 10 * (attempt + 1)
+
+                print(
+                    f"Retrying in {wait} seconds..."
+                )
+
+                time.sleep(wait)
+
+    raise last_error
+
+
+def run_sparql(query):
+
+    data = urllib.parse.urlencode({
+        "query": query,
+        "format": "json"
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        SPARQL_URL,
+        data=data,
+        headers={
+            "User-Agent": (
+                "Mozilla/5.0 "
+                "(NVO987 French Painters Bot)"
+            ),
+            "Accept": "application/sparql-results+json",
+            "Content-Type": (
+                "application/x-www-form-urlencoded"
+            )
+        },
+        method="POST"
+    )
+
+    return fetch_json(req)
+
+
+def get_painters_batch(offset):
+
+    query = f"""
+    SELECT
+      ?person
+      ?personLabel
+      (SAMPLE(?birth) AS ?birth)
+      (SAMPLE(?death) AS ?death)
+      (SAMPLE(?birthPlaceLabel) AS ?birthPlaceLabel)
+      (SAMPLE(?website) AS ?website)
+      (SAMPLE(?description) AS ?description)
+
+    WHERE {{
+
+      ?person wdt:P31 wd:Q5 ;
+              wdt:P106 {PAINTER_TYPE} ;
+              wdt:P27 {FRANCE} .
+
+      OPTIONAL {{
+        ?person wdt:P569 ?birth .
+      }}
+
+      OPTIONAL {{
+        ?person wdt:P570 ?death .
+      }}
+
+      OPTIONAL {{
+        ?person wdt:P19 ?birthPlace .
+
+        ?birthPlace rdfs:label ?birthPlaceLabel .
+
+        FILTER(
+            LANG(?birthPlaceLabel) = "fr"
+            || LANG(?birthPlaceLabel) = "en"
+        )
+      }}
+
+      OPTIONAL {{
+        ?person wdt:P856 ?website .
+      }}
+
+      OPTIONAL {{
+        ?person schema:description ?description .
+
+        FILTER(
+            LANG(?description) = "fr"
+        )
+      }}
+
+      SERVICE wikibase:label {{
+        bd:serviceParam
+          wikibase:language "fr,en" .
+      }}
+    }}
+
+    GROUP BY
+      ?person
+      ?personLabel
+
+    ORDER BY
+      ?person
+
+    LIMIT {BATCH_SIZE}
+    OFFSET {offset}
+    """
+
+    return run_sparql(query)
+
+
+def main():
+
+    painters = []
+    seen = set()
+
+    offset = 0
+    batch_number = 1
+
+    while True:
+
+        print(
+            f"Downloading batch "
+            f"{batch_number} "
+            f"(offset {offset})..."
+        )
+
+        result = get_painters_batch(offset)
+
+        bindings = (
+            result
+            .get("results", {})
+            .get("bindings", [])
+        )
+
+        print(
+            f"Received {len(bindings)} painters."
+        )
+
+        if not bindings:
+            break
+
+        for binding in bindings:
+
+            person_uri = safe(
+                binding
+                .get("person", {})
+                .get("value")
+            )
+
+            person_id = person_uri.rsplit(
+                "/",
+                1
+            )[-1]
+
+            if not person_id:
+                continue
+
+            if person_id in seen:
+                continue
+
+            seen.add(person_id)
+
+            name = safe(
+                binding
+                .get("personLabel", {})
+                .get("value")
+            )
+
+            birth = safe(
+                binding
+                .get("birth", {})
+                .get("value")
+            )
+
+            death = safe(
+                binding
+                .get("death", {})
+                .get("value")
+            )
+
+            birth_place = safe(
+                binding
+                .get("birthPlaceLabel", {})
+                .get("value")
+            )
+
+            website = safe(
+                binding
+                .get("website", {})
+                .get("value")
+            )
+
+            description = safe(
+                binding
+                .get("description", {})
+                .get("value")
+            )
+
+            if birth:
+                birth = birth[:10]
+
+            if death:
+                death = death[:10]
+
+            painters.append({
+                "id": person_id,
+                "name": name,
+                "type": "Peintre français",
+                "birth": birth,
+                "death": death,
+                "birthPlace": birth_place,
+                "website": website,
+                "website_valid": (
+                    is_valid_website(website)
+                    if website
+                    else False
+                ),
+                "description": description,
+                "source": (
+                    "https://www.wikidata.org/wiki/"
+                    + person_id
+                )
+            })
+
+        if len(bindings) < BATCH_SIZE:
+            break
+
+        offset += BATCH_SIZE
+        batch_number += 1
+
+        time.sleep(2)
+
+    painters.sort(
+        key=lambda painter:
+        painter.get("name", "").lower()
+    )
+
+    output = {
+        "source": "Wikidata (CC0)",
+        "license": "CC0 1.0",
+        "country": "France",
+        "type": "French painters",
+        "count": len(painters),
+        "painters": painters
+    }
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as file:
+
+        json.dump(
+            output,
+            file,
+            ensure_ascii=False,
+            indent=2
+        )
+
+    print()
+    print(
+        f"Generated {len(painters)} French painters."
+    )
+    print(
+        f"Saved to {OUTPUT_FILE}"
+    )
+
+
+if __name__ == "__main__":
+    main()
