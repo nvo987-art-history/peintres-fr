@@ -16,6 +16,8 @@ USER_AGENT = (
 
 ssl_context = ssl.create_default_context()
 
+PAGE_SIZE = 500
+
 
 def log(msg):
     print(msg, flush=True)
@@ -23,8 +25,7 @@ def log(msg):
 
 def save_json(painters_map):
     """
-    Az eddig sikeresen letöltött és feldolgozott
-    festők azonnali mentése.
+    Az eddig sikeresen feldolgozott festők mentése.
     """
 
     if not painters_map:
@@ -63,8 +64,6 @@ def save_json(painters_map):
 def git_commit_and_push(count):
     """
     Git commit + push.
-    Ezt minden 2 sikeres oldal, kb. 1000 festő után
-    meghívjuk.
     """
 
     log(
@@ -101,7 +100,6 @@ def git_commit_and_push(count):
             check=True
         )
 
-        # Megnézzük, van-e tényleges változás.
         status = subprocess.run(
             [
                 "git",
@@ -112,10 +110,11 @@ def git_commit_and_push(count):
         )
 
         if status.returncode == 0:
+
             log(
-                "  -> Nincs új változás, "
-                "commit nem szükséges."
+                "  -> Nincs új változás."
             )
+
             return True
 
         subprocess.run(
@@ -148,36 +147,41 @@ def git_commit_and_push(count):
         return False
 
 
-def fetch_sparql_page(limit, offset, retries=5):
+def fetch_sparql_page(last_person_uri=None, retries=5):
     """
-    Egy SPARQL oldal lekérése.
+    500 Wikidata-személy lekérése.
 
-    429 / 502 / 503 / 504 esetén
-    újrapróbálkozik.
+    NINCS OFFSET.
+
+    Az előző oldal utolsó QID-ja után folytatjuk.
     """
+
+    if last_person_uri:
+
+        pagination_filter = f"""
+        FILTER(?person > <{last_person_uri}>)
+        """
+
+    else:
+
+        pagination_filter = ""
 
     query = f"""
-    SELECT ?person ?personLabel ?article ?website WHERE {{
-      ?person wdt:P106 wd:Q1028181 ;
-              wdt:P27 wd:Q142 ;
-              wdt:P31 wd:Q5 .
+    SELECT ?person ?personLabel
+    WHERE {{
+        ?person wdt:P106 wd:Q1028181 ;
+                wdt:P27 wd:Q142 ;
+                wdt:P31 wd:Q5 .
 
-      OPTIONAL {{
-        ?article schema:about ?person ;
-                 schema:isPartOf <https://fr.wikipedia.org/> .
-      }}
+        {pagination_filter}
 
-      OPTIONAL {{
-        ?person wdt:P856 ?website .
-      }}
-
-      SERVICE wikibase:label {{
-        bd:serviceParam wikibase:language "fr,en" .
-      }}
+        SERVICE wikibase:label {{
+            bd:serviceParam wikibase:language "fr,en" .
+        }}
     }}
 
-    LIMIT {limit}
-    OFFSET {offset}
+    ORDER BY ?person
+    LIMIT {PAGE_SIZE}
     """
 
     data = urllib.parse.urlencode({
@@ -218,7 +222,13 @@ def fetch_sparql_page(limit, offset, retries=5):
 
         except urllib.error.HTTPError as e:
 
-            if e.code in (429, 502, 503, 504):
+            if e.code in (
+                429,
+                500,
+                502,
+                503,
+                504
+            ):
 
                 retry_after = e.headers.get(
                     "Retry-After"
@@ -278,6 +288,197 @@ def fetch_sparql_page(limit, offset, retries=5):
     return None
 
 
+def fetch_details(qids, retries=5):
+    """
+    A már lekért QID-okhoz lekéri:
+    - francia Wikipédia
+    - hivatalos weboldal
+    """
+
+    if not qids:
+        return {}
+
+    values = " ".join(
+        f"wd:{qid}"
+        for qid in qids
+    )
+
+    query = f"""
+    SELECT ?person ?article ?website
+    WHERE {{
+        VALUES ?person {{
+            {values}
+        }}
+
+        OPTIONAL {{
+            ?article schema:about ?person ;
+                     schema:isPartOf <https://fr.wikipedia.org/> .
+        }}
+
+        OPTIONAL {{
+            ?person wdt:P856 ?website .
+        }}
+    }}
+    """
+
+    data = urllib.parse.urlencode({
+        "query": query,
+        "format": "json"
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        SPARQL_URL,
+        data=data,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/sparql-results+json",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method="POST"
+    )
+
+    for attempt in range(1, retries + 1):
+
+        try:
+
+            with urllib.request.urlopen(
+                req,
+                timeout=180,
+                context=ssl_context
+            ) as response:
+
+                content = response.read().decode(
+                    "utf-8",
+                    errors="replace"
+                )
+
+                result = json.loads(
+                    content,
+                    strict=False
+                )
+
+                details = {}
+
+                for item in (
+                    result
+                    .get("results", {})
+                    .get("bindings", [])
+                ):
+
+                    person_uri = (
+                        item
+                        .get("person", {})
+                        .get("value", "")
+                        .strip()
+                    )
+
+                    if not person_uri:
+                        continue
+
+                    qid = person_uri.rsplit(
+                        "/",
+                        1
+                    )[-1]
+
+                    if qid not in details:
+
+                        details[qid] = {
+                            "wikipedia": "",
+                            "website": ""
+                        }
+
+                    wikipedia = (
+                        item
+                        .get("article", {})
+                        .get("value", "")
+                        .strip()
+                    )
+
+                    website = (
+                        item
+                        .get("website", {})
+                        .get("value", "")
+                        .strip()
+                    )
+
+                    if (
+                        wikipedia
+                        and not details[qid]["wikipedia"]
+                    ):
+                        details[qid]["wikipedia"] = wikipedia
+
+                    if (
+                        website
+                        and not details[qid]["website"]
+                    ):
+                        details[qid]["website"] = website
+
+                return details
+
+        except urllib.error.HTTPError as e:
+
+            if e.code in (
+                429,
+                500,
+                502,
+                503,
+                504
+            ):
+
+                retry_after = e.headers.get(
+                    "Retry-After"
+                )
+
+                if retry_after:
+
+                    try:
+                        wait = int(retry_after)
+                    except ValueError:
+                        wait = 30
+
+                else:
+
+                    wait = min(
+                        30 * attempt,
+                        180
+                    )
+
+                log(
+                    f"  [Részletek újrapróbálkozás "
+                    f"{attempt}/{retries}] "
+                    f"HTTP {e.code}, "
+                    f"várakozás {wait} mp..."
+                )
+
+                time.sleep(wait)
+
+                continue
+
+            log(
+                f"  HTTP hiba: "
+                f"{e.code} - {e.reason}"
+            )
+
+            return {}
+
+        except Exception as e:
+
+            wait = min(
+                30 * attempt,
+                180
+            )
+
+            log(
+                f"  [Részletek újrapróbálkozás "
+                f"{attempt}/{retries}] "
+                f"Hiba: {e}"
+            )
+
+            time.sleep(wait)
+
+    return {}
+
+
 def main():
 
     log(
@@ -287,36 +488,28 @@ def main():
 
     painters_map = {}
 
-    # Egy oldal = 500 rekord
-    limit = 500
+    last_person_uri = None
 
-    offset = 0
     page = 1
 
-    # Minden második oldal után commit + push.
-    # 500 + 500 = kb. 1000 festő.
-    pages_since_commit = 0
+    # Az első 1000-es mérföldkő.
+    next_commit_target = 1000
 
     while True:
 
         log(
             f"{page}. oldal lekérése "
-            f"(OFFSET {offset}, "
-            f"LIMIT {limit})..."
+            f"(500 rekord, "
+            f"OFFSET NÉLKÜL)..."
         )
 
-        # ---------------------------------------------
-        # 1. OLDAL LETÖLTÉSE
-        # ---------------------------------------------
+        # -----------------------------------------
+        # 1. FESTŐK LEKÉRÉSE
+        # -----------------------------------------
 
         res = fetch_sparql_page(
-            limit,
-            offset
+            last_person_uri
         )
-
-        # ---------------------------------------------
-        # HA HIBA TÖRTÉNIK
-        # ---------------------------------------------
 
         if not res:
 
@@ -330,17 +523,18 @@ def main():
                 f"festő megmarad."
             )
 
-            # Először JSON mentés
+            # JSON mentés
             save_json(painters_map)
 
-            # Majd az eddigiek AZONNALI commit + push
+            # Hiba esetén mindig pusholjuk
+            # az addig elkészült állapotot.
             if painters_map:
+
                 git_commit_and_push(
                     len(painters_map)
                 )
 
-            # Ezután álljon le.
-            # A workflow piros lehet,
+            # A workflow hibásan fejezhető be,
             # de az adatok már GitHubon vannak.
             break
 
@@ -349,10 +543,6 @@ def main():
             .get("results", {})
             .get("bindings", [])
         )
-
-        # ---------------------------------------------
-        # NINCS TÖBB TALÁLAT
-        # ---------------------------------------------
 
         if not bindings:
 
@@ -363,6 +553,7 @@ def main():
             save_json(painters_map)
 
             if painters_map:
+
                 git_commit_and_push(
                     len(painters_map)
                 )
@@ -371,12 +562,14 @@ def main():
 
         log(
             f"  -> {len(bindings)} "
-            f"elem beérkezett."
+            f"festő érkezett."
         )
 
-        # ---------------------------------------------
-        # 2. REKORDOK FELDOLGOZÁSA
-        # ---------------------------------------------
+        # -----------------------------------------
+        # 2. ALAPADATOK FELDOLGOZÁSA
+        # -----------------------------------------
+
+        page_qids = []
 
         for item in bindings:
 
@@ -405,108 +598,102 @@ def main():
                 .strip()
             )
 
-            wikipedia = (
-                item
-                .get("article", {})
-                .get("value", "")
-                .strip()
-            )
-
-            website = (
-                item
-                .get("website", {})
-                .get("value", "")
-                .strip()
-            )
-
             if not name or name == qid:
                 continue
 
-            # -----------------------------------------
-            # ÚJ FESTŐ
-            # -----------------------------------------
+            painters_map[qid] = {
+                "name": name,
+                "wikidata": (
+                    f"https://www.wikidata.org/wiki/{qid}"
+                ),
+                "wikipedia": "",
+                "website": ""
+            }
+
+            page_qids.append(qid)
+
+            # Ez lesz a következő oldal kezdőpontja.
+            last_person_uri = person_uri
+
+        # -----------------------------------------
+        # 3. WIKIPÉDIA + WEBSITE
+        # -----------------------------------------
+
+        details = fetch_details(
+            page_qids
+        )
+
+        for qid, data in details.items():
 
             if qid not in painters_map:
+                continue
 
-                painters_map[qid] = {
-                    "name": name,
-                    "wikidata": (
-                        f"https://www.wikidata.org/wiki/{qid}"
-                    ),
-                    "wikipedia": wikipedia,
-                    "website": website
-                }
+            painters_map[qid]["wikipedia"] = (
+                data.get("wikipedia", "")
+            )
 
-            # -----------------------------------------
-            # HIÁNYZÓ ADATOK PÓTLÁSA
-            # -----------------------------------------
+            painters_map[qid]["website"] = (
+                data.get("website", "")
+            )
 
-            else:
+        # -----------------------------------------
+        # 4. AZONNALI JSON MENTÉS
+        # -----------------------------------------
 
-                if (
-                    wikipedia
-                    and not painters_map[qid]["wikipedia"]
-                ):
-                    painters_map[qid]["wikipedia"] = wikipedia
-
-                if (
-                    website
-                    and not painters_map[qid]["website"]
-                ):
-                    painters_map[qid]["website"] = website
-
-        # ---------------------------------------------
-        # 3. AZONNALI JSON MENTÉS
-        # ---------------------------------------------
+        current_count = len(
+            painters_map
+        )
 
         log(
             f"  -> Feldolgozva: "
-            f"{len(painters_map)} festő"
+            f"{current_count} festő"
         )
 
-        save_json(painters_map)
+        save_json(
+            painters_map
+        )
 
-        pages_since_commit += 1
+        # -----------------------------------------
+        # 5. 1000-ES MÉRFÖLDKŐ
+        # -----------------------------------------
 
-        # ---------------------------------------------
-        # 4. MINDEN 2. OLDAL = COMMIT + PUSH
-        # ---------------------------------------------
-
-        if pages_since_commit >= 2:
+        if current_count >= next_commit_target:
 
             git_commit_and_push(
-                len(painters_map)
+                current_count
             )
 
-            pages_since_commit = 0
+            # Következő mérföldkő:
+            # 2000, 3000, 4000...
+            while (
+                next_commit_target
+                <= current_count
+            ):
+                next_commit_target += 1000
 
-        # ---------------------------------------------
-        # 5. UTOLSÓ OLDAL?
-        # ---------------------------------------------
+        # -----------------------------------------
+        # 6. UTOLSÓ OLDAL?
+        # -----------------------------------------
 
-        if len(bindings) < limit:
+        if len(bindings) < PAGE_SIZE:
 
             log(
                 "Nincs több oldal."
             )
 
-            # Ha maradt egy nem commitolt oldal,
-            # azt is pusholjuk.
-            if pages_since_commit > 0:
+            # A végén mindig legyen push.
+            if painters_map:
 
                 git_commit_and_push(
-                    len(painters_map)
+                    current_count
                 )
-
-                pages_since_commit = 0
 
             break
 
-        # ---------------------------------------------
-        # 6. KÖVETKEZŐ OLDAL
-        # ---------------------------------------------
+        # -----------------------------------------
+        # 7. KÖVETKEZŐ OLDAL
+        # -----------------------------------------
 
-        offset += limit
         page += 1
 
         log(
@@ -524,7 +711,8 @@ def main():
         log(
             f"KÉSZ! Összesen "
             f"{len(painters_map)} "
-            f"francia festő mentve."
+            f"francia festő van a "
+            f"painters.json fájlban."
         )
 
     else:
