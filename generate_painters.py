@@ -7,13 +7,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
+WIKIDATA_API_URL = "https://www.wikidata.org/w/api.php"
 
 # Q1028181 = painter (festő), Q142 = France (Franciaország)
 PAINTER_TYPE = "wd:Q1028181"
 FRANCE = "wd:Q142"
 
-USER_AGENT = "Mozilla/5.0 (NVO987 Painters Bot)"
-MAX_WORKERS = 20  # Párhuzamos szálak a gyors weboldal-ellenőrzéshez
+USER_AGENT = "Mozilla/5.0 (NVO987 Painters Bot; contact@example.com)"
+MAX_WORKERS = 20  # Párhuzamos szálak a weboldalak ellenőrzéséhez
 
 ssl_context = ssl.create_default_context()
 
@@ -22,52 +23,23 @@ def safe(value):
     return (value or "").strip()
 
 
-def is_valid_website(url):
-    if not url:
-        return False
-
-    try:
-        req = urllib.request.Request(
-            url,
-            headers={"User-Agent": USER_AGENT},
-            method="HEAD"
-        )
-        with urllib.request.urlopen(req, timeout=8, context=ssl_context) as response:
-            return response.status < 400
-    except Exception:
-        try:
-            req = urllib.request.Request(
-                url,
-                headers={"User-Agent": USER_AGENT},
-                method="GET"
-            )
-            with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
-                return response.status < 400
-        except Exception:
-            return False
-
-
-def fetch_json(req, retries=5):
+def fetch_json(url_or_req, retries=3):
     last_error = None
     for attempt in range(retries):
         try:
-            with urllib.request.urlopen(req, timeout=120, context=ssl_context) as response:
-                data = response.read().decode("utf-8")
-                return json.loads(data)
+            req = url_or_req
+            if isinstance(url_or_req, str):
+                req = urllib.request.Request(url_or_req, headers={"User-Agent": USER_AGENT})
+            with urllib.request.urlopen(req, timeout=30, context=ssl_context) as response:
+                return json.loads(response.read().decode("utf-8"))
         except Exception as error:
             last_error = error
-            print(f"Request failed (attempt {attempt + 1}/{retries}): {error}")
-            if attempt < retries - 1:
-                time.sleep(10 * (attempt + 1))
+            time.sleep(2 * (attempt + 1))
     raise last_error
 
 
 def run_sparql(query):
-    data = urllib.parse.urlencode({
-        "query": query,
-        "format": "json"
-    }).encode("utf-8")
-
+    data = urllib.parse.urlencode({"query": query, "format": "json"}).encode("utf-8")
     req = urllib.request.Request(
         SPARQL_URL,
         data=data,
@@ -81,6 +53,58 @@ def run_sparql(query):
     return fetch_json(req)
 
 
+def fetch_wikipedia_links_batch(entity_ids):
+    """Lekéri a francia és angol Wikipédia linkeket 50-es adagokban az API-n keresztül."""
+    if not entity_ids:
+        return {}
+
+    ids_str = "|".join(entity_ids)
+    params = urllib.parse.urlencode({
+        "action": "wbgetentities",
+        "ids": ids_str,
+        "props": "sitelinks",
+        "sitefilter": "frwiki|enwiki",
+        "format": "json"
+    })
+
+    url = f"{WIKIDATA_API_URL}?{params}"
+    try:
+        data = fetch_json(url)
+        entities = data.get("entities", {})
+
+        links = {}
+        for qid, entity_data in entities.items():
+            sitelinks = entity_data.get("sitelinks", {})
+
+            fr_title = sitelinks.get("frwiki", {}).get("title")
+            en_title = sitelinks.get("enwiki", {}).get("title")
+
+            links[qid] = {
+                "wikipedia_fr": f"https://fr.wikipedia.org/wiki/{urllib.parse.quote(fr_title.replace(' ', '_'))}" if fr_title else "",
+                "wikipedia_en": f"https://en.wikipedia.org/wiki/{urllib.parse.quote(en_title.replace(' ', '_'))}" if en_title else ""
+            }
+        return links
+    except Exception as e:
+        print(f"Hiba a Wikipédia API lekérdezésénél ({ids_str[:30]}...): {e}")
+        return {}
+
+
+def is_valid_website(url):
+    if not url:
+        return False
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="HEAD")
+        with urllib.request.urlopen(req, timeout=8, context=ssl_context) as response:
+            return response.status < 400
+    except Exception:
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT}, method="GET")
+            with urllib.request.urlopen(req, timeout=5, context=ssl_context) as response:
+                return response.status < 400
+        except Exception:
+            return False
+
+
 def check_painter_website(painter):
     if painter["website"]:
         painter["website_valid"] = is_valid_website(painter["website"])
@@ -88,15 +112,13 @@ def check_painter_website(painter):
 
 
 def main():
-    # SPARQL lekérdezés a Francia (?wikiFr) és Angol (?wikiEn) Wikipédia linkekkel
+    # 1. LÉPÉS: Könnyű és gyors SPARQL lekérdezés (Wikipédia összekapcsolás nélkül)
     query = f"""
     SELECT DISTINCT
         ?person
         ?personLabel
         ?description
         ?website
-        ?wikiFr
-        ?wikiEn
         ?birthDate
         ?deathDate
         ?birthPlaceLabel
@@ -111,18 +133,6 @@ def main():
         OPTIONAL {{ ?person wdt:P19 ?birthPlace . }}
         OPTIONAL {{ ?person wdt:P625 ?coord . }}
 
-        # Francia Wikipédia link
-        OPTIONAL {{
-            ?wikiFr schema:about ?person ;
-                    schema:isPartOf <https://fr.wikipedia.org/> .
-        }}
-
-        # Angol Wikipédia link
-        OPTIONAL {{
-            ?wikiEn schema:about ?person ;
-                    schema:isPartOf <https://en.wikipedia.org/> .
-        }}
-
         OPTIONAL {{
             ?person schema:description ?description .
             FILTER(LANG(?description) = "fr")
@@ -134,12 +144,13 @@ def main():
     }}
     """
 
-    print("Fetching French painters from Wikidata...")
+    print("1/3: Francia festők alapadatainak lekérése a Wikidata-ról...")
     result = run_sparql(query)
     bindings = result.get("results", {}).get("bindings", [])
 
     raw_painters = []
     seen_ids = set()
+    entity_ids = []
 
     for item in bindings:
         person_uri = safe(item.get("person", {}).get("value"))
@@ -157,8 +168,6 @@ def main():
 
         description = safe(item.get("description", {}).get("value"))
         website = safe(item.get("website", {}).get("value"))
-        wiki_fr = safe(item.get("wikiFr", {}).get("value"))
-        wiki_en = safe(item.get("wikiEn", {}).get("value"))
         birth_date = safe(item.get("birthDate", {}).get("value"))
         death_date = safe(item.get("deathDate", {}).get("value"))
         birth_place = safe(item.get("birthPlaceLabel", {}).get("value"))
@@ -184,14 +193,34 @@ def main():
             "lon": lon,
             "website": website,
             "website_valid": False,
-            "wikipedia_fr": wiki_fr,
-            "wikipedia_en": wiki_en,
+            "wikipedia_fr": "",
+            "wikipedia_en": "",
             "description": description,
             "source": f"https://www.wikidata.org/wiki/{person_id}"
         }
         raw_painters.append(painter)
+        entity_ids.append(person_id)
 
-    print(f"Checking websites for {len(raw_painters)} painters ({MAX_WORKERS} workers)...")
+    print(f"Beolvasva: {len(raw_painters)} festő.")
+
+    # 2. LÉPÉS: Wikipédia linkek lekérése kötegekben (50 ID / kérés)
+    print("2/3: Wikipédia hivatkozások lekérése API-n keresztül...")
+    wiki_links = {}
+    batch_size = 50
+    for i in range(0, len(entity_ids), batch_size):
+        batch = entity_ids[i:i + batch_size]
+        links_batch = fetch_wikipedia_links_batch(batch)
+        wiki_links.update(links_batch)
+
+    # Wikipédia linkek hozzárendelése
+    for painter in raw_painters:
+        pid = painter["id"]
+        if pid in wiki_links:
+            painter["wikipedia_fr"] = wiki_links[pid]["wikipedia_fr"]
+            painter["wikipedia_en"] = wiki_links[pid]["wikipedia_en"]
+
+    # 3. LÉPÉS: Weboldalak párhuzamos ellenőrzése
+    print(f"3/3: Saját weboldalak ellenőrzése párhuzamosan ({MAX_WORKERS} szálon)...")
     painters = []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = [executor.submit(check_painter_website, p) for p in raw_painters]
@@ -212,7 +241,7 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
         json.dump(output, file, ensure_ascii=False, indent=2)
 
-    print(f"Done: {len(painters)} painters written to {OUTPUT_FILE}")
+    print(f"Sikeres futás: {len(painters)} festő elmentve ide: {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
