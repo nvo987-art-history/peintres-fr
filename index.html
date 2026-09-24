@@ -2043,7 +2043,7 @@
       </p>
 
       <p>
-        ISSN 3131-3213
+        ISSN
       </p>
 
       <p class="small-note">
@@ -2055,271 +2055,485 @@
 
   <!-- SCRIPT -->
   <script>
-    const statusBox = document.getElementById("statusBox");
-    const paintersGrid = document.getElementById("paintersGrid");
-    const searchInput = document.getElementById("searchInput");
-    const limitSelect = document.getElementById("limitSelect");
+  const statusBox = document.getElementById("statusBox");
+  const paintersGrid = document.getElementById("paintersGrid");
+  const searchInput = document.getElementById("searchInput");
+  const limitSelect = document.getElementById("limitSelect");
 
-    let allPainters = [];
+  let allPainters = [];
 
-    function escapeHTML(str) {
-      if (!str) return "";
 
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+  /* ==========================================================
+     SECURITY / HTML ESCAPING
+     ========================================================== */
+
+  function escapeHTML(str) {
+    if (str === null || str === undefined) {
+      return "";
     }
 
-    function normalize(str) {
-      return (str || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+
+  /* ==========================================================
+     URL VALIDATION
+     Only http:// and https:// links are accepted.
+     ========================================================== */
+
+  function safeURL(value) {
+
+    if (!value) {
+      return "";
     }
 
-    function buildCard(painter) {
+    try {
 
-      const name = escapeHTML(
+      const url = new URL(
+        String(value).trim()
+      );
+
+      if (
+        url.protocol !== "http:" &&
+        url.protocol !== "https:"
+      ) {
+        return "";
+      }
+
+      return url.href;
+
+    } catch (error) {
+
+      return "";
+    }
+  }
+
+
+  /* ==========================================================
+     SEARCH NORMALIZATION
+     ========================================================== */
+
+  function normalize(str) {
+
+    return String(str || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+
+  }
+
+
+  /* ==========================================================
+     BUILD PAINTER CARD
+     
+     JSON STRUCTURE:
+       name
+       wikidata
+       wikipedia
+       website
+     ========================================================== */
+
+  function buildCard(painter) {
+
+    const name =
+      escapeHTML(
         painter.name || "Peintre français"
       );
 
-      const birth = escapeHTML(
-        painter.birth || ""
+
+    const wikipedia =
+      safeURL(
+        painter.wikipedia
       );
 
-      const death = escapeHTML(
-        painter.death || ""
+
+    const wikidata =
+      safeURL(
+        painter.wikidata
       );
 
-      const birthPlace = escapeHTML(
-        painter.birthPlace ||
-        painter.city ||
-        ""
+
+    const website =
+      safeURL(
+        painter.website
       );
 
-      const website = escapeHTML(
-        painter.website || ""
-      );
 
-      const wikidata = escapeHTML(
-        painter.source || ""
-      );
+    const card =
+      document.createElement("article");
 
-      const descriptionRaw =
-        painter.description || "";
+    card.className = "place-card";
 
-      let description =
-        escapeHTML(descriptionRaw);
 
-      if (description.length > 220) {
-        description =
-          description.slice(0, 220) + "...";
-      }
+    /* --------------------------------------------------------
+       ACTION BUTTONS
+       -------------------------------------------------------- */
 
-      const card =
-        document.createElement("article");
+    let actions = "";
 
-      card.className = "place-card";
 
-      let meta = "";
+    if (wikipedia) {
 
-      if (birth || death) {
-        if (birth && death) {
-          meta = birth + " — " + death;
-        } else if (birth) {
-          meta = "Né(e) " + birth;
-        } else {
-          meta = "Décédé(e) " + death;
-        }
-      }
-
-      if (birthPlace) {
-        if (meta) {
-          meta += " • ";
-        }
-
-        meta += birthPlace;
-      }
-
-      card.innerHTML = `
-        <h3>${name}</h3>
-
-        <div class="place-meta">
-          ${
-            meta
-              ? `<span>${meta}</span>`
-              : `<span class="muted">Informations biographiques inconnues</span>`
-          }
-        </div>
-
-        <div class="place-desc">
-          ${
-            description
-              ? description
-              : `<span class="muted">Aucune description disponible.</span>`
-          }
-        </div>
-
-        <div class="place-actions">
-
-          ${
-            website
-              ? `<a class="btn"
-                    href="${website}"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow">
-                    Site officiel
-                 </a>`
-              : ""
-          }
-
-          ${
-            wikidata
-              ? `<a class="btn secondary"
-                    href="${wikidata}"
-                    target="_blank"
-                    rel="noopener noreferrer nofollow">
-                    Wikidata
-                 </a>`
-              : ""
-          }
-
-        </div>
+      actions += `
+        <a
+          class="btn"
+          href="${escapeHTML(wikipedia)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wikipedia
+        </a>
       `;
 
-      return card;
     }
 
-    function renderPainters() {
 
-      const query =
-        normalize(searchInput.value.trim());
+    if (wikidata) {
 
-      const limit =
-        parseInt(limitSelect.value, 10);
+      actions += `
+        <a
+          class="btn secondary"
+          href="${escapeHTML(wikidata)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Wikidata
+        </a>
+      `;
 
-      paintersGrid.innerHTML = "";
+    }
 
-      let filtered = allPainters;
 
-      if (query.length > 0) {
+    if (website) {
 
-        filtered = filtered.filter(painter => {
+      actions += `
+        <a
+          class="btn secondary"
+          href="${escapeHTML(website)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Site officiel
+        </a>
+      `;
 
-          const blob =
-            normalize(JSON.stringify(painter));
+    }
 
-          return blob.includes(query);
 
-        });
+    /* --------------------------------------------------------
+       CARD HTML
+       -------------------------------------------------------- */
+
+    card.innerHTML = `
+
+      <h3>
+        ${name}
+      </h3>
+
+      <div class="place-meta">
+
+        <span>
+          Peintre français
+        </span>
+
+      </div>
+
+      <div class="place-desc">
+
+        ${
+          wikipedia
+            ? `Article Wikipédia disponible.`
+            : `Aucune information biographique supplémentaire disponible.`
+        }
+
+      </div>
+
+      ${
+        actions
+          ? `
+            <div class="place-actions">
+              ${actions}
+            </div>
+          `
+          : ""
       }
+
+    `;
+
+
+    return card;
+  }
+
+
+  /* ==========================================================
+     RENDER PAINTERS
+     ========================================================== */
+
+  function renderPainters() {
+
+    const query =
+      normalize(
+        searchInput.value.trim()
+      );
+
+
+    const limit =
+      parseInt(
+        limitSelect.value,
+        10
+      );
+
+
+    paintersGrid.innerHTML = "";
+
+
+    let filtered =
+      allPainters;
+
+
+    /* --------------------------------------------------------
+       SEARCH
+       -------------------------------------------------------- */
+
+    if (query.length > 0) {
 
       filtered =
-        filtered.slice(0, limit);
+        filtered.filter(
+          painter => {
 
-      if (filtered.length === 0) {
+            const searchableText = [
 
-        statusBox.className =
-          "status warn";
+              painter.name || "",
+              painter.wikipedia || "",
+              painter.wikidata || "",
+              painter.website || ""
 
-        statusBox.textContent =
-          "Aucun peintre trouvé.";
+            ].join(" ");
 
-        return;
-      }
+
+            return normalize(
+              searchableText
+            ).includes(query);
+
+          }
+        );
+
+    }
+
+
+    /* --------------------------------------------------------
+       LIMIT
+       -------------------------------------------------------- */
+
+    filtered =
+      filtered.slice(
+        0,
+        limit
+      );
+
+
+    /* --------------------------------------------------------
+       NO RESULTS
+       -------------------------------------------------------- */
+
+    if (filtered.length === 0) {
 
       statusBox.className =
-        "status success";
+        "status warn";
 
       statusBox.textContent =
-        filtered.length +
-        " résultat(s) affiché(s)";
+        "Aucun peintre trouvé.";
 
-      filtered.forEach(painter => {
+      return;
+
+    }
+
+
+    /* --------------------------------------------------------
+       STATUS
+       -------------------------------------------------------- */
+
+    statusBox.className =
+      "status success";
+
+    statusBox.textContent =
+      filtered.length +
+      " résultat(s) affiché(s)";
+
+
+    /* --------------------------------------------------------
+       RENDER
+       -------------------------------------------------------- */
+
+    filtered.forEach(
+      painter => {
 
         paintersGrid.appendChild(
           buildCard(painter)
         );
 
-      });
-    }
+      }
+    );
 
-    async function loadPainters() {
+  }
 
-      try {
 
-        statusBox.className =
-          "status info";
+  /* ==========================================================
+     LOAD PAINTERS.JSON
+     ========================================================== */
 
-        statusBox.textContent =
-          "Chargement des peintres…";
+  async function loadPainters() {
 
-        const response =
-          await fetch(
-            "painters.json?v=" + Date.now(),
-            {
-              cache: "no-store"
-            }
-          );
+    try {
 
-        if (!response.ok) {
-          throw new Error(
-            "HTTP " + response.status
-          );
-        }
+      statusBox.className =
+        "status info";
 
-        const data =
-          await response.json();
+      statusBox.textContent =
+        "Chargement des peintres…";
 
-        if (
-          !data.painters ||
-          !Array.isArray(data.painters)
-        ) {
-          throw new Error(
-            "Invalid JSON structure"
-          );
-        }
 
-        allPainters =
-          data.painters;
+      const response =
+        await fetch(
+          "painters.json?v=" +
+          Date.now(),
+          {
+            cache: "no-store"
+          }
+        );
 
-        statusBox.className =
-          "status success";
 
-        statusBox.textContent =
-          allPainters.length +
-          " peintre(s) chargé(s)";
+      if (!response.ok) {
 
-        renderPainters();
-
-      } catch (error) {
-
-        console.error(error);
-
-        statusBox.className =
-          "status error";
-
-        statusBox.textContent =
-          "Erreur lors du chargement des données.";
+        throw new Error(
+          "HTTP " +
+          response.status
+        );
 
       }
+
+
+      const data =
+        await response.json();
+
+
+      /* ------------------------------------------------------
+         VALIDATE JSON STRUCTURE
+         ------------------------------------------------------ */
+
+      if (
+        !data ||
+        !Array.isArray(data.painters)
+      ) {
+
+        throw new Error(
+          "Invalid JSON structure"
+        );
+
+      }
+
+
+      /* ------------------------------------------------------
+         KEEP ONLY THE FOUR EXPECTED FIELDS
+         ------------------------------------------------------ */
+
+      allPainters =
+        data.painters
+          .filter(
+            painter =>
+              painter &&
+              typeof painter === "object" &&
+              painter.name
+          )
+          .map(
+            painter => ({
+
+              name:
+                String(
+                  painter.name || ""
+                ).trim(),
+
+              wikidata:
+                String(
+                  painter.wikidata || ""
+                ).trim(),
+
+              wikipedia:
+                String(
+                  painter.wikipedia || ""
+                ).trim(),
+
+              website:
+                String(
+                  painter.website || ""
+                ).trim()
+
+            })
+          );
+
+
+      /* ------------------------------------------------------
+         SUCCESS
+         ------------------------------------------------------ */
+
+      statusBox.className =
+        "status success";
+
+      statusBox.textContent =
+        allPainters.length +
+        " peintre(s) chargé(s)";
+
+
+      renderPainters();
+
+
+    } catch (error) {
+
+      console.error(
+        "Erreur chargement painters.json:",
+        error
+      );
+
+
+      statusBox.className =
+        "status error";
+
+      statusBox.textContent =
+        "Erreur lors du chargement des données.";
+
     }
 
-    searchInput.addEventListener(
-      "input",
-      renderPainters
-    );
+  }
 
-    limitSelect.addEventListener(
-      "change",
-      renderPainters
-    );
 
-    loadPainters();
-  </script>
+  /* ==========================================================
+     EVENTS
+     ========================================================== */
+
+  searchInput.addEventListener(
+    "input",
+    renderPainters
+  );
+
+
+  limitSelect.addEventListener(
+    "change",
+    renderPainters
+  );
+
+
+  /* ==========================================================
+     START
+     ========================================================== */
+
+  loadPainters();
+
+                 </script>
 
 </body>
   </html>
