@@ -22,10 +22,12 @@ def log(msg):
 
 def save_json(painters_map):
     """
-    Az eddig letöltött festők azonnali mentése.
+    Az eddig sikeresen letöltött és feldolgozott
+    festők azonnali mentése.
     """
+
     if not painters_map:
-        log("Nincs menthető adat, a painters.json nem módosul.")
+        log("Nincs menthető adat.")
         return
 
     painters = list(painters_map.values())
@@ -52,13 +54,15 @@ def save_json(painters_map):
             indent=2
         )
 
-    log(f"  -> MENTVE: {len(painters)} festő")
+    log(
+        f"  -> MENTVE: {len(painters)} festő"
+    )
 
 
 def fetch_sparql_page(limit, offset, retries=5):
     """
     Egy SPARQL oldal lekérése.
-    429/502/503/504 esetén újrapróbálkozik.
+    429 / 502 / 503 / 504 esetén újrapróbálkozik.
     """
 
     query = f"""
@@ -130,7 +134,9 @@ def fetch_sparql_page(limit, offset, retries=5):
 
             if e.code in (429, 502, 503, 504):
 
-                retry_after = e.headers.get("Retry-After")
+                retry_after = e.headers.get(
+                    "Retry-After"
+                )
 
                 if retry_after:
                     try:
@@ -138,8 +144,10 @@ def fetch_sparql_page(limit, offset, retries=5):
                     except ValueError:
                         wait = 30
                 else:
-                    # Egyre hosszabb várakozás
-                    wait = min(30 * attempt, 180)
+                    wait = min(
+                        30 * attempt,
+                        180
+                    )
 
                 log(
                     f"  [Újrapróbálkozás "
@@ -152,13 +160,18 @@ def fetch_sparql_page(limit, offset, retries=5):
                 continue
 
             log(
-                f"  HTTP hiba: {e.code} - {e.reason}"
+                f"  HTTP hiba: "
+                f"{e.code} - {e.reason}"
             )
+
             return None
 
         except Exception as e:
 
-            wait = min(30 * attempt, 180)
+            wait = min(
+                30 * attempt,
+                180
+            )
 
             log(
                 f"  [Újrapróbálkozás "
@@ -177,12 +190,16 @@ def fetch_sparql_page(limit, offset, retries=5):
 
 def main():
 
-    log("Francia festők adatainak lekérése Wikidatából...")
+    log(
+        "Francia festők adatainak "
+        "lekérése Wikidatából..."
+    )
 
     painters_map = {}
 
-    # Kisebb oldalak = stabilabb SPARQL lekérések
+    # Egy oldal = 500 rekord
     limit = 500
+
     offset = 0
     page = 1
 
@@ -190,16 +207,19 @@ def main():
 
         log(
             f"{page}. oldal lekérése "
-            f"(OFFSET {offset}, LIMIT {limit})..."
+            f"(OFFSET {offset}, "
+            f"LIMIT {limit})..."
         )
+
+        # ---------------------------------------------
+        # 1. OLDAL LETÖLTÉSE
+        # ---------------------------------------------
 
         res = fetch_sparql_page(
             limit,
             offset
         )
 
-        # Ha egy oldal végleg nem sikerül,
-        # az eddig letöltött adatokat megtartjuk.
         if not res:
 
             log(
@@ -208,9 +228,12 @@ def main():
 
             log(
                 f"Az eddig letöltött "
-                f"{len(painters_map)} festő megmarad."
+                f"{len(painters_map)} "
+                f"festő megmarad."
             )
 
+            # Az eddigi adatok még egyszer
+            # biztosan elmentve.
             save_json(painters_map)
 
             break
@@ -232,12 +255,13 @@ def main():
             break
 
         log(
-            f"  -> {len(bindings)} elem beérkezett."
+            f"  -> {len(bindings)} "
+            f"elem beérkezett."
         )
 
-        # --------------------------------------------------
-        # BEÉRKEZETT FESTŐK FELDOLGOZÁSA
-        # --------------------------------------------------
+        # ---------------------------------------------
+        # 2. AZ ÖSSZES BEÉRKEZETT REKORD FELDOLGOZÁSA
+        # ---------------------------------------------
 
         for item in bindings:
 
@@ -292,14 +316,16 @@ def main():
                 "website": website
             }
 
-        # --------------------------------------------------
-        # AZONNALI MENTÉS
-        # --------------------------------------------------
+        # ---------------------------------------------
+        # 3. AZ OLDAL MENTÉSE AZONNAL
+        # ---------------------------------------------
 
         save_json(painters_map)
 
-        # Ha kevesebb mint 500 érkezett,
-        # akkor ez volt az utolsó oldal.
+        # ---------------------------------------------
+        # 4. HA EZ VOLT AZ UTOLSÓ OLDAL
+        # ---------------------------------------------
+
         if len(bindings) < limit:
 
             log(
@@ -308,33 +334,37 @@ def main():
 
             break
 
+        # ---------------------------------------------
+        # 5. KÖVETKEZŐ OLDAL
+        # ---------------------------------------------
+
         offset += limit
         page += 1
 
-        # Kis szünet a Wikidata szerver előtt
         log(
             "  -> Várakozás 5 mp..."
         )
 
         time.sleep(5)
 
-    # ------------------------------------------------------
+    # ---------------------------------------------
     # VÉGSŐ ELLENŐRZÉS
-    # ------------------------------------------------------
+    # ---------------------------------------------
 
     if painters_map:
 
         log(
             f"KÉSZ! Összesen "
             f"{len(painters_map)} "
-            f"francia festő van a painters.json fájlban."
+            f"francia festő van a "
+            f"painters.json fájlban."
         )
 
     else:
 
         raise RuntimeError(
-            "Egyetlen festőt sem sikerült letölteni. "
-            "A meglévő painters.json nem lett felülírva."
+            "Egyetlen festőt sem sikerült "
+            "letölteni."
         )
 
 
