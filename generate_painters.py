@@ -20,7 +20,47 @@ def log(msg):
     print(msg, flush=True)
 
 
+def save_json(painters_map):
+    """
+    Az eddig letöltött festők azonnali mentése.
+    """
+    if not painters_map:
+        log("Nincs menthető adat, a painters.json nem módosul.")
+        return
+
+    painters = list(painters_map.values())
+
+    painters.sort(
+        key=lambda p: p["name"].lower()
+    )
+
+    output = {
+        "source": "Wikidata (CC0)",
+        "count": len(painters),
+        "painters": painters
+    }
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            output,
+            f,
+            ensure_ascii=False,
+            indent=2
+        )
+
+    log(f"  -> MENTVE: {len(painters)} festő")
+
+
 def fetch_sparql_page(limit, offset, retries=5):
+    """
+    Egy SPARQL oldal lekérése.
+    429/502/503/504 esetén újrapróbálkozik.
+    """
+
     query = f"""
     SELECT
       ?person
@@ -68,85 +108,142 @@ def fetch_sparql_page(limit, offset, retries=5):
     )
 
     for attempt in range(1, retries + 1):
+
         try:
             with urllib.request.urlopen(
                 req,
-                timeout=120,
+                timeout=180,
                 context=ssl_context
             ) as response:
+
                 content = response.read().decode(
                     "utf-8",
                     errors="replace"
                 )
-                return json.loads(content, strict=False)
+
+                return json.loads(
+                    content,
+                    strict=False
+                )
 
         except urllib.error.HTTPError as e:
+
             if e.code in (429, 502, 503, 504):
+
                 retry_after = e.headers.get("Retry-After")
 
                 if retry_after:
                     try:
                         wait = int(retry_after)
                     except ValueError:
-                        wait = 15
+                        wait = 30
                 else:
-                    wait = 10 * attempt
+                    # Egyre hosszabb várakozás
+                    wait = min(30 * attempt, 180)
 
                 log(
-                    f"  [Újrapróbálkozás {attempt}/{retries}] "
-                    f"HTTP {e.code}, várakozás {wait} mp..."
+                    f"  [Újrapróbálkozás "
+                    f"{attempt}/{retries}] "
+                    f"HTTP {e.code}, "
+                    f"várakozás {wait} mp..."
                 )
 
                 time.sleep(wait)
                 continue
 
-            log(f"  HTTP hiba: {e.code} - {e.reason}")
+            log(
+                f"  HTTP hiba: {e.code} - {e.reason}"
+            )
             return None
 
         except Exception as e:
+
+            wait = min(30 * attempt, 180)
+
             log(
-                f"  [Újrapróbálkozás {attempt}/{retries}] "
+                f"  [Újrapróbálkozás "
+                f"{attempt}/{retries}] "
                 f"Hiba: {e}"
             )
-            time.sleep(5 * attempt)
+
+            log(
+                f"  Várakozás {wait} mp..."
+            )
+
+            time.sleep(wait)
 
     return None
 
 
 def main():
+
     log("Francia festők adatainak lekérése Wikidatából...")
 
     painters_map = {}
 
-    # Kisebb oldalak, hogy ne legyen túl nehéz a SPARQL lekérdezés.
+    # Kisebb oldalak = stabilabb SPARQL lekérések
     limit = 500
     offset = 0
     page = 1
 
     while True:
+
         log(
             f"{page}. oldal lekérése "
             f"(OFFSET {offset}, LIMIT {limit})..."
         )
 
-        res = fetch_sparql_page(limit, offset)
+        res = fetch_sparql_page(
+            limit,
+            offset
+        )
 
+        # Ha egy oldal végleg nem sikerül,
+        # az eddig letöltött adatokat megtartjuk.
         if not res:
-            log("Nem érkezett válasz, leállítás.")
+
+            log(
+                "Ez az oldal nem tölthető le."
+            )
+
+            log(
+                f"Az eddig letöltött "
+                f"{len(painters_map)} festő megmarad."
+            )
+
+            save_json(painters_map)
+
             break
 
-        bindings = res.get("results", {}).get("bindings", [])
+        bindings = (
+            res
+            .get("results", {})
+            .get("bindings", [])
+        )
 
         if not bindings:
-            log("Nincs több találat.")
+
+            log(
+                "Nincs több találat."
+            )
+
+            save_json(painters_map)
+
             break
 
-        log(f"  -> {len(bindings)} elem beérkezett.")
+        log(
+            f"  -> {len(bindings)} elem beérkezett."
+        )
+
+        # --------------------------------------------------
+        # BEÉRKEZETT FESTŐK FELDOLGOZÁSA
+        # --------------------------------------------------
 
         for item in bindings:
 
             person_uri = (
-                item.get("person", {})
+                item
+                .get("person", {})
                 .get("value", "")
                 .strip()
             )
@@ -154,25 +251,31 @@ def main():
             if not person_uri:
                 continue
 
-            qid = person_uri.rsplit("/", 1)[-1]
+            qid = person_uri.rsplit(
+                "/",
+                1
+            )[-1]
 
             if not qid.startswith("Q"):
                 continue
 
             name = (
-                item.get("name", {})
+                item
+                .get("name", {})
                 .get("value", "")
                 .strip()
             )
 
             wikipedia = (
-                item.get("articleUrl", {})
+                item
+                .get("articleUrl", {})
                 .get("value", "")
                 .strip()
             )
 
             website = (
-                item.get("websiteUrl", {})
+                item
+                .get("websiteUrl", {})
                 .get("value", "")
                 .strip()
             )
@@ -182,48 +285,57 @@ def main():
 
             painters_map[qid] = {
                 "name": name,
-                "wikidata": f"https://www.wikidata.org/wiki/{qid}",
+                "wikidata": (
+                    f"https://www.wikidata.org/wiki/{qid}"
+                ),
                 "wikipedia": wikipedia,
                 "website": website
             }
 
+        # --------------------------------------------------
+        # AZONNALI MENTÉS
+        # --------------------------------------------------
+
+        save_json(painters_map)
+
+        # Ha kevesebb mint 500 érkezett,
+        # akkor ez volt az utolsó oldal.
         if len(bindings) < limit:
+
+            log(
+                "Nincs több oldal."
+            )
+
             break
 
         offset += limit
         page += 1
 
-        # Ne küldjük folyamatosan a lekéréseket.
-        time.sleep(3)
-
-    painters = list(painters_map.values())
-
-    painters.sort(
-        key=lambda p: p["name"].lower()
-    )
-
-    output = {
-        "source": "Wikidata (CC0)",
-        "count": len(painters),
-        "painters": painters
-    }
-
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8"
-    ) as f:
-        json.dump(
-            output,
-            f,
-            ensure_ascii=False,
-            indent=2
+        # Kis szünet a Wikidata szerver előtt
+        log(
+            "  -> Várakozás 5 mp..."
         )
 
-    log(
-        f"KÉSZ! Összesen {len(painters)} "
-        f"francia festő elmentve: {OUTPUT_FILE}"
-    )
+        time.sleep(5)
+
+    # ------------------------------------------------------
+    # VÉGSŐ ELLENŐRZÉS
+    # ------------------------------------------------------
+
+    if painters_map:
+
+        log(
+            f"KÉSZ! Összesen "
+            f"{len(painters_map)} "
+            f"francia festő van a painters.json fájlban."
+        )
+
+    else:
+
+        raise RuntimeError(
+            "Egyetlen festőt sem sikerült letölteni. "
+            "A meglévő painters.json nem lett felülírva."
+        )
 
 
 if __name__ == "__main__":
