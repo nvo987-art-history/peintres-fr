@@ -1,21 +1,20 @@
 import json
 import ssl
-import sys
 import time
 import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
 WIKIDATA_API_URL = "https://www.wikidata.org/w/api.php"
 
+# Egyedi User-Agent a Wikidata szabályzatának megfelelően
 USER_AGENT = "PeintresFrBot/1.0 (https://github.com/nvo987-art-history/peintres-fr; contact@example.com)"
 ssl_context = ssl.create_default_context()
 
 
 def log(msg):
-    """Azonnali kiírás a konzolra (flush=True), hogy a GitHub Actions-ben rögtön látszódjon."""
+    """Azonnali konzolra írás GitHub Actions-ben."""
     print(msg, flush=True)
 
 
@@ -23,7 +22,8 @@ def safe(value):
     return (value or "").strip()
 
 
-def fetch_json(url_or_req, timeout=30, retries=3):
+def fetch_json(url_or_req, timeout=30, retries=5):
+    """JSON lekérése automatikus újrapróbálkozással 429 / hálózati hiba esetén."""
     last_error = None
     for attempt in range(1, retries + 1):
         try:
@@ -33,26 +33,64 @@ def fetch_json(url_or_req, timeout=30, retries=3):
             with urllib.request.urlopen(req, timeout=timeout, context=ssl_context) as response:
                 content = response.read().decode("utf-8", errors="replace")
                 return json.loads(content, strict=False)
+        except urllib.error.HTTPError as e:
+            last_error = e
+            if e.code == 429:
+                log(f"  [429 Too Many Requests] Várakozás {6 * attempt} másodpercet...")
+                time.sleep(6 * attempt)
+            else:
+                time.sleep(3 * attempt)
         except Exception as error:
             last_error = error
-            time.sleep(2 * attempt)
+            time.sleep(3 * attempt)
     raise last_error
 
 
-def run_sparql_page(limit=1000, offset=0):
-    query = f"""
-    SELECT DISTINCT
-        ?person
-        ?personLabel
-        ?description
-        ?website
-        ?birthDate
-        ?deathDate
-        ?birthPlaceLabel
-        ?coord
-    WHERE {{
+def run_sparql(query, timeout=40):
+    data = urllib.parse.urlencode({"query": query, "format": "json"}).encode("utf-8")
+    req = urllib.request.Request(
+        SPARQL_URL,
+        data=data,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/sparql-results+json",
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        method="POST"
+    )
+    return fetch_json(req, timeout=timeout)
+
+
+def get_all_painter_ids():
+    """1. LÉPÉS: Csak a QID azonosítók lekérése (villámgyors, ~1 mp)."""
+    query = """
+    SELECT DISTINCT ?person WHERE {
         ?person wdt:P106 wd:Q1028181 ;
                 wdt:P27 wd:Q142 .
+    }
+    """
+    log("1/3: Francia festők azonosítóinak (QID) lekérése...")
+    res = run_sparql(query, timeout=60)
+    bindings = res.get("results", {}).get("bindings", [])
+
+    qids = []
+    for item in bindings:
+        uri = safe(item.get("person", {}).get("value"))
+        if uri:
+            qid = uri.rsplit("/", 1)[-1]
+            if qid.startswith("Q"):
+                qids.append(qid)
+
+    log(f"Megtalálva: {len(qids)} festő azonosító.")
+    return qids
+
+
+def fetch_batch_details(qids_chunk):
+    """2. LÉPÉS: Részletes adatok lekérése 50 festőre egyszerre."""
+    values_str = " ".join([f"wd:{qid}" for qid in qids_chunk])
+    query = f"""
+    SELECT DISTINCT ?person ?personLabel ?description ?website ?birthDate ?deathDate ?birthPlaceLabel ?coord WHERE {{
+        VALUES ?person {{ {values_str} }}
 
         OPTIONAL {{ ?person wdt:P856 ?website . }}
         OPTIONAL {{ ?person wdt:P569 ?birthDate . }}
@@ -65,31 +103,15 @@ def run_sparql_page(limit=1000, offset=0):
             FILTER(LANG(?description) = "fr")
         }}
 
-        SERVICE wikibase:label {{
-            bd:serviceParam wikibase:language "fr,en" .
-        }}
+        SERVICE wikibase:label {{ bd:serviceParam wikibase:language "fr,en" . }}
     }}
-    LIMIT {limit} OFFSET {offset}
     """
-    data = urllib.parse.urlencode({"query": query, "format": "json"}).encode("utf-8")
-    req = urllib.request.Request(
-        SPARQL_URL,
-        data=data,
-        headers={
-            "User-Agent": USER_AGENT,
-            "Accept": "application/sparql-results+json",
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        method="POST"
-    )
-    return fetch_json(req, timeout=40)
+    return run_sparql(query, timeout=30)
 
 
-def fetch_wikipedia_links_batch(entity_ids):
-    if not entity_ids:
-        return {}
-
-    ids_str = "|".join(entity_ids)
+def fetch_wikipedia_links_batch(qids_chunk):
+    """Wikipédia linkek lekérése a Wikidata API-ból."""
+    ids_str = "|".join(qids_chunk)
     params = urllib.parse.urlencode({
         "action": "wbgetentities",
         "ids": ids_str,
@@ -97,16 +119,14 @@ def fetch_wikipedia_links_batch(entity_ids):
         "sitefilter": "frwiki|enwiki",
         "format": "json"
     })
-
     url = f"{WIKIDATA_API_URL}?{params}"
     try:
-        data = fetch_json(url, timeout=20, retries=2)
+        data = fetch_json(url, timeout=20, retries=3)
         entities = data.get("entities", {})
 
         links = {}
         for qid, entity_data in entities.items():
             sitelinks = entity_data.get("sitelinks", {})
-
             fr_title = sitelinks.get("frwiki", {}).get("title")
             en_title = sitelinks.get("enwiki", {}).get("title")
 
@@ -120,21 +140,28 @@ def fetch_wikipedia_links_batch(entity_ids):
 
 
 def main():
-    log("1/3: Francia festők adatainak lekérése a Wikidatáról lapozással...")
+    qids = get_all_painter_ids()
+    if not qids:
+        log("Nem sikerült azonosítókat lekérni.")
+        return
 
     raw_painters_map = {}
-    limit = 1000
-    offset = 0
+    batch_size = 50
+    total_batches = (len(qids) + batch_size - 1) // batch_size
 
-    while True:
-        log(f"  Oldal lekérése: OFFSET {offset} (LIMIT {limit})...")
+    log(f"2/3: Részletes adatok és Wikipédia linkek lekérése {batch_size}-es csomagokban...")
+
+    for i in range(0, len(qids), batch_size):
+        chunk = qids[i:i + batch_size]
+        current_batch = (i // batch_size) + 1
+
+        if current_batch % 20 == 0 or current_batch == total_batches:
+            log(f"  Feldolgozás: {current_batch}/{total_batches} csomag ({len(raw_painters_map)} festő beolvasva)...")
+
+        # SPARQL adatok
         try:
-            res = run_sparql_page(limit=limit, offset=offset)
+            res = fetch_batch_details(chunk)
             bindings = res.get("results", {}).get("bindings", [])
-
-            if not bindings:
-                log("  Nincs több adat.")
-                break
 
             for item in bindings:
                 person_uri = safe(item.get("person", {}).get("value"))
@@ -181,35 +208,18 @@ def main():
                     "description": description,
                     "source": f"https://www.wikidata.org/wiki/{person_id}"
                 }
-
-            log(f"  Eddig beolvasva: {len(raw_painters_map)} egyedi festő.")
-            if len(bindings) < limit:
-                break
-
-            offset += limit
-
         except Exception as e:
-            log(f"  [Hiba az OFFSET {offset} lapnál]: {e}. Újrapróbálkozás...")
-            offset += limit
+            log(f"  [Hiba a(z) {current_batch}. csomagnál]: {e}")
 
-    entity_ids = list(raw_painters_map.keys())
-    log(f"Összesen {len(entity_ids)} festő alapadatai sikeresen beolvasva.")
+        # Wikipédia linkek
+        wiki_links = fetch_wikipedia_links_batch(chunk)
+        for pid, links in wiki_links.items():
+            if pid in raw_painters_map:
+                raw_painters_map[pid]["wikipedia_fr"] = links["wikipedia_fr"]
+                raw_painters_map[pid]["wikipedia_en"] = links["wikipedia_en"]
 
-    log("2/3: Wikipédia hivatkozások lekérése az API-ból párhuzamosan...")
-    wiki_batch_size = 50
-    batches = [entity_ids[i:i + wiki_batch_size] for i in range(0, len(entity_ids), wiki_batch_size)]
-
-    wiki_links = {}
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        future_to_batch = {executor.submit(fetch_wikipedia_links_batch, b): b for b in batches}
-        for future in as_completed(future_to_batch):
-            res = future.result()
-            wiki_links.update(res)
-
-    for pid, painter in raw_painters_map.items():
-        if pid in wiki_links:
-            painter["wikipedia_fr"] = wiki_links[pid]["wikipedia_fr"]
-            painter["wikipedia_en"] = wiki_links[pid]["wikipedia_en"]
+        # KÉRÉSEK KÖZÖTTI SZÜNET: Így nem kapunk 429-es Letiltást a Wikidatától!
+        time.sleep(0.3)
 
     log("3/3: Adatok rendezése és mentése...")
     painters = list(raw_painters_map.values())
