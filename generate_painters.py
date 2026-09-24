@@ -88,13 +88,15 @@ def check_painter_website(painter):
 
 
 def main():
-    # Közvetlen lekérdezés a lassú /wdt:P279* útvonal nélkül
+    # SPARQL lekérdezés a Francia (?wikiFr) és Angol (?wikiEn) Wikipédia linkekkel
     query = f"""
     SELECT DISTINCT
         ?person
         ?personLabel
         ?description
         ?website
+        ?wikiFr
+        ?wikiEn
         ?birthDate
         ?deathDate
         ?birthPlaceLabel
@@ -108,6 +110,18 @@ def main():
         OPTIONAL {{ ?person wdt:P570 ?deathDate . }}
         OPTIONAL {{ ?person wdt:P19 ?birthPlace . }}
         OPTIONAL {{ ?person wdt:P625 ?coord . }}
+
+        # Francia Wikipédia link
+        OPTIONAL {{
+            ?wikiFr schema:about ?person ;
+                    schema:isPartOf <https://fr.wikipedia.org/> .
+        }}
+
+        # Angol Wikipédia link
+        OPTIONAL {{
+            ?wikiEn schema:about ?person ;
+                    schema:isPartOf <https://en.wikipedia.org/> .
+        }}
 
         OPTIONAL {{
             ?person schema:description ?description .
@@ -143,6 +157,8 @@ def main():
 
         description = safe(item.get("description", {}).get("value"))
         website = safe(item.get("website", {}).get("value"))
+        wiki_fr = safe(item.get("wikiFr", {}).get("value"))
+        wiki_en = safe(item.get("wikiEn", {}).get("value"))
         birth_date = safe(item.get("birthDate", {}).get("value"))
         death_date = safe(item.get("deathDate", {}).get("value"))
         birth_place = safe(item.get("birthPlaceLabel", {}).get("value"))
@@ -168,6 +184,8 @@ def main():
             "lon": lon,
             "website": website,
             "website_valid": False,
+            "wikipedia_fr": wiki_fr,
+            "wikipedia_en": wiki_en,
             "description": description,
             "source": f"https://www.wikidata.org/wiki/{person_id}"
         }
