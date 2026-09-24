@@ -9,13 +9,7 @@ OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
 WIKIDATA_API_URL = "https://www.wikidata.org/w/api.php"
 
-PAINTER_TYPE = "wd:Q1028181"
-FRANCE = "wd:Q142"
-
-# Egyedi User-Agent megadása a Wikidata szabályzatának megfelelően
 USER_AGENT = "PeintresFrBot/1.0 (https://github.com/peintres-fr/peintres-fr; contact@example.com)"
-MAX_WORKERS = 10  # Visszavéve 10-re a stabilabb hálózati működésért GitHub Actions-ben
-
 ssl_context = ssl.create_default_context()
 
 
@@ -23,26 +17,25 @@ def safe(value):
     return (value or "").strip()
 
 
-def fetch_json(url_or_req, timeout=60, retries=5):
-    """Biztonságos JSON lekérés újrapróbálkozásokkal és megnövelt timeout-tal."""
+def fetch_json(url_or_req, timeout=30, retries=3):
+    """JSON lekérése érvényesítéssel és hibatűréssel."""
     last_error = None
     for attempt in range(1, retries + 1):
         try:
             req = url_or_req
             if isinstance(url_or_req, str):
                 req = urllib.request.Request(url_or_req, headers={"User-Agent": USER_AGENT})
-            
             with urllib.request.urlopen(req, timeout=timeout, context=ssl_context) as response:
-                return json.loads(response.read().decode("utf-8"))
+                content = response.read().decode("utf-8", errors="replace")
+                # strict=False segít a vezérlőkarakterek kezelésében
+                return json.loads(content, strict=False)
         except Exception as error:
             last_error = error
-            print(f"  [Figyelmeztetés] Próbálkozás {attempt}/{retries} sikertelen ({error}). Újrapróbálkozás...")
-            time.sleep(3 * attempt)
-            
+            time.sleep(2 * attempt)
     raise last_error
 
 
-def run_sparql(query):
+def run_sparql(query, timeout=40):
     data = urllib.parse.urlencode({"query": query, "format": "json"}).encode("utf-8")
     req = urllib.request.Request(
         SPARQL_URL,
@@ -54,12 +47,56 @@ def run_sparql(query):
         },
         method="POST"
     )
-    # SPARQL lekérdezésre 90 másodperces időkorlátot adunk
-    return fetch_json(req, timeout=90, retries=5)
+    return fetch_json(req, timeout=timeout)
+
+
+def get_all_painter_ids():
+    """1. LÉPÉS: Csak a QID azonosítók lekérése (villámgyors, ~1 mp)."""
+    query = """
+    SELECT DISTINCT ?person WHERE {
+        ?person wdt:P106 wd:Q1028181 ;
+                wdt:P27 wd:Q142 .
+    }
+    """
+    print("1/4: Az összes francia festő azonosítójának (QID) lekérése...")
+    result = run_sparql(query, timeout=60)
+    bindings = result.get("results", {}).get("bindings", [])
+
+    qids = []
+    for item in bindings:
+        uri = safe(item.get("person", {}).get("value"))
+        if uri:
+            qid = uri.rsplit("/", 1)[-1]
+            if qid.startswith("Q"):
+                qids.append(qid)
+    print(f"Megtalálva: {len(qids)} festő azonosító.")
+    return qids
+
+
+def fetch_batch_metadata(qid_batch):
+    """2. LÉPÉS: Részletes adatok lekérése egy 200-as ID csomagra."""
+    values_clause = " ".join([f"wd:{qid}" for qid in qid_batch])
+    query = f"""
+    SELECT DISTINCT ?person ?personLabel ?description ?website ?birthDate ?deathDate ?birthPlaceLabel ?coord WHERE {{
+        VALUES ?person {{ {values_clause} }}
+
+        OPTIONAL {{ ?person wdt:P856 ?website . }}
+        OPTIONAL {{ ?person wdt:P569 ?birthDate . }}
+        OPTIONAL {{ ?person wdt:P570 ?deathDate . }}
+        OPTIONAL {{ ?person wdt:P19 ?birthPlace . }}
+        OPTIONAL {{ ?person wdt:P625 ?coord . }}
+        OPTIONAL {{
+            ?person schema:description ?description .
+            FILTER(LANG(?description) = "fr")
+        }}
+        SERVICE wikibase:label {{ bd:serviceParam wikibase:language "fr,en" . }}
+    }}
+    """
+    return run_sparql(query, timeout=40)
 
 
 def fetch_wikipedia_links_batch(entity_ids):
-    """Lekéri a francia és angol Wikipédia linkeket 50-es adagokban az API-n keresztül."""
+    """3. LÉPÉS: Wikipédia linkek lekérése a Wikidata API-n keresztül."""
     if not entity_ids:
         return {}
 
@@ -117,101 +154,85 @@ def check_painter_website(painter):
 
 
 def main():
-    query = f"""
-    SELECT DISTINCT
-        ?person
-        ?personLabel
-        ?description
-        ?website
-        ?birthDate
-        ?deathDate
-        ?birthPlaceLabel
-        ?coord
-    WHERE {{
-        ?person wdt:P106 {PAINTER_TYPE} ;
-                wdt:P27 {FRANCE} .
+    # 1. Lekérjük az azonosítókat
+    qids = get_all_painter_ids()
+    if not qids:
+        print("Nem található egyetlen azonosító sem.")
+        return
 
-        OPTIONAL {{ ?person wdt:P856 ?website . }}
-        OPTIONAL {{ ?person wdt:P569 ?birthDate . }}
-        OPTIONAL {{ ?person wdt:P570 ?deathDate . }}
-        OPTIONAL {{ ?person wdt:P19 ?birthPlace . }}
-        OPTIONAL {{ ?person wdt:P625 ?coord . }}
+    # 2. Adatok lekérése 200-as kötegekben
+    print("2/4: Részletes adatok lekérése 200-as kötegekben (batching)...")
+    raw_painters_map = {}
+    batch_size = 200
+    total_batches = (len(qids) + batch_size - 1) // batch_size
 
-        OPTIONAL {{
-            ?person schema:description ?description .
-            FILTER(LANG(?description) = "fr")
-        }}
+    for i in range(0, len(qids), batch_size):
+        chunk_qids = qids[i:i + batch_size]
+        current_batch = (i // batch_size) + 1
+        print(f"  Köteg feldolgozása: {current_batch}/{total_batches} ({len(chunk_qids)} festő)...")
 
-        SERVICE wikibase:label {{
-            bd:serviceParam wikibase:language "fr,en" .
-        }}
-    }}
-    """
+        try:
+            res = fetch_batch_metadata(chunk_qids)
+            bindings = res.get("results", {}).get("bindings", [])
 
-    print("1/3: Francia festők alapadatainak lekérése a Wikidata-ról...")
-    result = run_sparql(query)
-    bindings = result.get("results", {}).get("bindings", [])
+            for item in bindings:
+                person_uri = safe(item.get("person", {}).get("value"))
+                if not person_uri:
+                    continue
 
-    raw_painters = []
-    seen_ids = set()
-    entity_ids = []
+                person_id = person_uri.rsplit("/", 1)[-1]
+                if person_id in raw_painters_map:
+                    continue
 
-    for item in bindings:
-        person_uri = safe(item.get("person", {}).get("value"))
-        if not person_uri:
-            continue
+                name = safe(item.get("personLabel", {}).get("value"))
+                if not name:
+                    continue
 
-        person_id = person_uri.rsplit("/", 1)[-1]
-        if person_id in seen_ids:
-            continue
-        seen_ids.add(person_id)
+                description = safe(item.get("description", {}).get("value"))
+                website = safe(item.get("website", {}).get("value"))
+                birth_date = safe(item.get("birthDate", {}).get("value"))
+                death_date = safe(item.get("deathDate", {}).get("value"))
+                birth_place = safe(item.get("birthPlaceLabel", {}).get("value"))
+                coord = safe(item.get("coord", {}).get("value"))
 
-        name = safe(item.get("personLabel", {}).get("value"))
-        if not name:
-            continue
+                lat, lon = None, None
+                if coord.startswith("Point(") and coord.endswith(")"):
+                    try:
+                        values = coord[6:-1].split()
+                        lon = float(values[0])
+                        lat = float(values[1])
+                    except (ValueError, IndexError):
+                        pass
 
-        description = safe(item.get("description", {}).get("value"))
-        website = safe(item.get("website", {}).get("value"))
-        birth_date = safe(item.get("birthDate", {}).get("value"))
-        death_date = safe(item.get("deathDate", {}).get("value"))
-        birth_place = safe(item.get("birthPlaceLabel", {}).get("value"))
-        coord = safe(item.get("coord", {}).get("value"))
+                raw_painters_map[person_id] = {
+                    "id": person_id,
+                    "name": name,
+                    "type": "French painter",
+                    "birth": birth_date[:10] if birth_date else "",
+                    "death": death_date[:10] if death_date else "",
+                    "birthPlace": birth_place,
+                    "lat": lat,
+                    "lon": lon,
+                    "website": website,
+                    "website_valid": False,
+                    "wikipedia_fr": "",
+                    "wikipedia_en": "",
+                    "description": description,
+                    "source": f"https://www.wikidata.org/wiki/{person_id}"
+                }
+        except Exception as e:
+            print(f"  [Figyelmeztetés a(z) {current_batch}. kötegnél]: {e}. Folytatás a következővel...")
 
-        lat, lon = None, None
-        if coord.startswith("Point(") and coord.endswith(")"):
-            try:
-                values = coord[6:-1].split()
-                lon = float(values[0])
-                lat = float(values[1])
-            except (ValueError, IndexError):
-                pass
+    raw_painters = list(raw_painters_map.values())
+    entity_ids = list(raw_painters_map.keys())
+    print(f"Összesen {len(raw_painters)} festő adatai sikeresen beolvasva.")
 
-        painter = {
-            "id": person_id,
-            "name": name,
-            "type": "French painter",
-            "birth": birth_date[:10] if birth_date else "",
-            "death": death_date[:10] if death_date else "",
-            "birthPlace": birth_place,
-            "lat": lat,
-            "lon": lon,
-            "website": website,
-            "website_valid": False,
-            "wikipedia_fr": "",
-            "wikipedia_en": "",
-            "description": description,
-            "source": f"https://www.wikidata.org/wiki/{person_id}"
-        }
-        raw_painters.append(painter)
-        entity_ids.append(person_id)
-
-    print(f"Beolvasva: {len(raw_painters)} festő.")
-
-    print("2/3: Wikipédia hivatkozások lekérése API-n keresztül...")
+    # 3. Wikipédia linkek
+    print("3/4: Wikipédia hivatkozások lekérése API-n keresztül...")
     wiki_links = {}
-    batch_size = 50
-    for i in range(0, len(entity_ids), batch_size):
-        batch = entity_ids[i:i + batch_size]
+    wiki_batch_size = 50
+    for i in range(0, len(entity_ids), wiki_batch_size):
+        batch = entity_ids[i:i + wiki_batch_size]
         links_batch = fetch_wikipedia_links_batch(batch)
         wiki_links.update(links_batch)
 
@@ -221,9 +242,10 @@ def main():
             painter["wikipedia_fr"] = wiki_links[pid]["wikipedia_fr"]
             painter["wikipedia_en"] = wiki_links[pid]["wikipedia_en"]
 
-    print(f"3/3: Saját weboldalak ellenőrzése párhuzamosan ({MAX_WORKERS} szálon)...")
+    # 4. Weboldalak ellenőrzése
+    print("4/4: Saját weboldalak ellenőrzése párhuzamosan (10 szálon)...")
     painters = []
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+    with ThreadPoolExecutor(max_workers=10) as executor:
         futures = [executor.submit(check_painter_website, p) for p in raw_painters]
         for future in as_completed(futures):
             painters.append(future.result())
