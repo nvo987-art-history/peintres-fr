@@ -18,6 +18,7 @@ def log(msg):
 
 
 def execute_sparql(query, retries=5):
+    """SPARQL lekérdezés végrehajtása."""
     data = urllib.parse.urlencode({
         "query": query,
         "format": "json"
@@ -43,14 +44,14 @@ def execute_sparql(query, retries=5):
         except urllib.error.HTTPError as e:
             if e.code in (429, 502, 503, 504):
                 retry_after = e.headers.get("Retry-After")
-                wait = int(retry_after) if retry_after and retry_after.isdigit() else min(15 * attempt, 90)
+                wait = int(retry_after) if retry_after and retry_after.isdigit() else min(10 * attempt, 60)
                 log(f"  [Újrapróbálkozás {attempt}/{retries}] HTTP {e.code}, várakozás {wait} mp...")
                 time.sleep(wait)
             else:
                 log(f"  HTTP hiba: {e.code} - {e.reason}")
                 return None
         except Exception as e:
-            wait = min(15 * attempt, 90)
+            wait = min(10 * attempt, 60)
             log(f"  [Újrapróbálkozás {attempt}/{retries}] Hiba: {e}, várakozás {wait} mp...")
             time.sleep(wait)
 
@@ -58,7 +59,7 @@ def execute_sparql(query, retries=5):
 
 
 def fetch_all_painter_qids():
-    """1. LÉPÉS: QID-k lekérése egyetlen gyors lekérdezéssel."""
+    """1. LÉPÉS: Az összes (~17 000) QID lekérése egyetlen gyors kereséssel (~2-3 mp)."""
     log("Francia festők QID azonosítóinak lekérése...")
     query = """
     SELECT DISTINCT ?person WHERE {
@@ -72,24 +73,27 @@ def fetch_all_painter_qids():
         return []
 
     bindings = res.get("results", {}).get("bindings", [])
-    qids = []
-    for item in bindings:
-        uri = item.get("person", {}).get("value", "")
-        qid = uri.rsplit("/", 1)[-1]
-        if qid.startswith("Q"):
-            qids.append(qid)
+    qids = [item.get("person", {}).get("value", "").rsplit("/", 1)[-1] for item in bindings]
+    qids = [q for q in qids if q.startswith("Q")]
 
-    log(f"  -> Összesen {len(qids)} festő azonosítója megtalálva.")
+    log(f"  -> Összesen {len(qids)} festő QID azonosítója megtalálva.")
     return qids
 
 
 def fetch_details_for_batch(qid_chunk):
-    """2. LÉPÉS: Részletek lekérése 200 elemes kötegekben (VALUES használatával)."""
+    """2. LÉPÉS: 2500 elemes kötegek lekérése rdfs:label használatával (villámgyors)."""
     values_str = " ".join([f"wd:{qid}" for qid in qid_chunk])
 
+    # Megjegyzés: A SERVICE wikibase:label helyett rdfs:label-t használunk,
+    # ami nagyságrendekkel gyorsabb a Wikidatának!
     query = f"""
     SELECT ?person ?personLabel ?article ?website WHERE {{
       VALUES ?person {{ {values_str} }}
+
+      OPTIONAL {{
+        ?person rdfs:label ?personLabel .
+        FILTER(LANG(?personLabel) IN ("fr", "en"))
+      }}
 
       OPTIONAL {{
         ?article schema:about ?person ;
@@ -98,10 +102,6 @@ def fetch_details_for_batch(qid_chunk):
 
       OPTIONAL {{
         ?person wdt:P856 ?website .
-      }}
-
-      SERVICE wikibase:label {{
-        bd:serviceParam wikibase:language "fr,en" .
       }}
     }}
     """
@@ -145,21 +145,21 @@ def main():
     has_error = False
 
     try:
-        # 1. QID-k lekérése
+        # 1. Az összes QID megszerzése egyben
         qids = fetch_all_painter_qids()
         if not qids:
             has_error = True
             raise RuntimeError("Nem sikerült lekérni a QID azonosítókat.")
 
-        # 2. Kötegelt adatletöltés
-        batch_size = 200
+        # 2. 2500-as nagy kötegekben való letöltés
+        batch_size = 2500
         total_batches = (len(qids) + batch_size - 1) // batch_size
 
         for i in range(0, len(qids), batch_size):
             chunk = qids[i:i + batch_size]
             current_batch = (i // batch_size) + 1
 
-            log(f"Köteg {current_batch}/{total_batches} lekérése...")
+            log(f"Köteg {current_batch}/{total_batches} lekérése ({len(chunk)} elem)...")
             res = fetch_details_for_batch(chunk)
 
             if not res:
@@ -192,6 +192,7 @@ def main():
                     if website and not painters_map[qid]["website"]:
                         painters_map[qid]["website"] = website
 
+            log(f"  -> Jelenleg feldolgozva: {len(painters_map)} festő")
             time.sleep(1)
 
     except Exception as e:
@@ -199,16 +200,14 @@ def main():
         has_error = True
 
     finally:
-        # Ez a blokk MINDIG lefut (sikeres futásnál és összeomlásnál is)
+        # Bármi történik, az eddigi adatokat elmentjük és PUSH-oljuk
         if painters_map:
-            log("-> Részleges/Teljes adatok mentése és PUSH-olása a GitHubra...")
+            log(f"-> {len(painters_map)} festő adatainak elmentése és PUSH-olása a GitHubra...")
             save_json(painters_map)
             git_commit_and_push(len(painters_map))
         else:
             log("-> Nincs menthető adat.")
 
-        # Ha hiba történt, dobot egy RuntimeError-t a legvégén,
-        # így a GitHub Actions PIROS lesz, de az adatok MÁR BENT VANNAK a repo-ban!
         if has_error:
             raise RuntimeError("A folyamat nem fejeződött be 100%-osan, de a részleges adatok mentve lettek.")
 
