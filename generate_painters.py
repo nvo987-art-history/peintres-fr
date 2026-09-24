@@ -8,7 +8,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
 
-# Q1028181 = painter (festő), Q142 = France
+# Q1028181 = painter (festő), Q142 = France (Franciaország)
 PAINTER_TYPE = "wd:Q1028181"
 FRANCE = "wd:Q142"
 
@@ -58,7 +58,7 @@ def fetch_json(req, retries=5):
             last_error = error
             print(f"Request failed (attempt {attempt + 1}/{retries}): {error}")
             if attempt < retries - 1:
-                time.sleep(5 * (attempt + 1))
+                time.sleep(10 * (attempt + 1))
     raise last_error
 
 
@@ -88,7 +88,7 @@ def check_painter_website(painter):
 
 
 def main():
-    # wdt:P106/wdt:P279* az al-kategóriákat is lekéri (pl. tájképfestő, portréfestő)
+    # Közvetlen lekérdezés a lassú /wdt:P279* útvonal nélkül
     query = f"""
     SELECT DISTINCT
         ?person
@@ -100,7 +100,7 @@ def main():
         ?birthPlaceLabel
         ?coord
     WHERE {{
-        ?person wdt:P106/wdt:P279* {PAINTER_TYPE} ;
+        ?person wdt:P106 {PAINTER_TYPE} ;
                 wdt:P27 {FRANCE} .
 
         OPTIONAL {{ ?person wdt:P856 ?website . }}
