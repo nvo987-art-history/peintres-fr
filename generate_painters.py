@@ -8,11 +8,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 OUTPUT_FILE = "painters.json"
 SPARQL_URL = "https://query.wikidata.org/sparql"
 
-PAINTER_TYPE = "wd:Q49757"  # painter
+# Q1028181 = painter (festő), Q142 = France
+PAINTER_TYPE = "wd:Q1028181"
 FRANCE = "wd:Q142"
 
 USER_AGENT = "Mozilla/5.0 (NVO987 Painters Bot)"
-MAX_WORKERS = 20  # Párhuzamos szálak száma
+MAX_WORKERS = 20  # Párhuzamos szálak a gyors weboldal-ellenőrzéshez
 
 ssl_context = ssl.create_default_context()
 
@@ -87,6 +88,7 @@ def check_painter_website(painter):
 
 
 def main():
+    # wdt:P106/wdt:P279* az al-kategóriákat is lekéri (pl. tájképfestő, portréfestő)
     query = f"""
     SELECT DISTINCT
         ?person
@@ -98,7 +100,7 @@ def main():
         ?birthPlaceLabel
         ?coord
     WHERE {{
-        ?person wdt:P106 {PAINTER_TYPE} ;
+        ?person wdt:P106/wdt:P279* {PAINTER_TYPE} ;
                 wdt:P27 {FRANCE} .
 
         OPTIONAL {{ ?person wdt:P856 ?website . }}
