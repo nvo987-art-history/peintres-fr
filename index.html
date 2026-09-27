@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Peintres français | NVO987 — Culture Visuelle Moderne et Contemporaine</title>
+
+  <meta
+    name="description"
+    content="Peintres français est une base de données publique consacrée aux entités personnelles liées à la peinture française."
+  >
+
+  <meta name="author" content="NVO987">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+  <link rel="canonical" href="https://peintres-fr.nvo987.eu/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NVO987">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Peintres français | NVO987">
+  <meta
+    property="og:description"
+    content="Base de données publique et exploitable par machine consacrée aux entités personnelles liées à la peinture française."
+  >
+  <meta property="og:url" content="https://peintres-fr.nvo987.eu/">
+
+  <meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="light">
+
+  <!-- ======================================================
+       FONTS
+       ====================================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* ======================================================
+       RESET
+       ====================================================== */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: #fff;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: #fff;
+      color: #111;
+      font-family: "DM Sans", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: #111;
+      color: #fff;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid #111;
+      outline-offset: 5px;
+    }
+
+
+    /* ======================================================
+       VARIABLES
+       ====================================================== */
+
+    :root {
+      --black: #111111;
+      --black-soft: #242424;
+
+      --gray: #6d6d6d;
+      --gray-light: #999999;
+
+      --line: #e7e7e7;
+      --line-dark: #d2d2d2;
+
+      --paper: #ffffff;
+
+      --orange: #d98a2b;
+      --orange-dark: #b86b17;
+      --orange-light: #f3b25d;
+      --orange-pale: #fff4e5;
+
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+
+      --max-width: 1240px;
+      --side: clamp(20px, 5vw, 72px);
+
+      --section-space: clamp(76px, 9vw, 135px);
+    }
+
+
+    /* ======================================================
+       LAYOUT
+       ====================================================== */
+
+    .container {
+      width: min(
+        calc(100% - (var(--side) * 2)),
+        var(--max-width)
+      );
+      margin-inline: auto;
+    }
+
+    .section {
+      padding-block: var(--section-space);
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 90px;
+    }
+
+
+    /* ======================================================
+       HEADER
+       ====================================================== */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .header-inner {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--black);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo-main {
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .logo-dot {
+      width: 6px;
+      height: 6px;
+      flex: 0 0 6px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .logo-sub {
+      color: var(--gray);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(22px, 4vw, 48px);
+    }
+
+    .main-nav a {
+      position: relative;
+      padding-block: 7px;
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .main-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 220ms ease;
+    }
+
+    .main-nav a:hover::after,
+    .main-nav a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+
+    /* ======================================================
+       NEW ANIMATED BANNER
+       ====================================================== */
+
+    .hero {
+      position: relative;
+      min-height: clamp(520px, 72vh, 720px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: #111;
+      color: #fff;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(17,17,17,0.98) 0%,
+          rgba(17,17,17,0.86) 48%,
+          rgba(17,17,17,0.45) 100%
+        );
+      content: "";
+      z-index: -1;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: -20%;
+      opacity: 0.13;
+      background-image:
+        linear-gradient(
+          rgba(255,255,255,0.12) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,0.12) 1px,
+          transparent 1px
+        );
+      background-size: 70px 70px;
+      transform: rotate(-7deg);
+      animation: gridMove 18s linear infinite;
+      z-index: -2;
+    }
+
+    .hero-orb {
+      position: absolute;
+      right: -8%;
+      top: 50%;
+      width: min(48vw, 650px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        radial-gradient(
+          circle at 38% 38%,
+          rgba(255, 194, 102, 0.98) 0%,
+          rgba(217, 138, 43, 0.88) 25%,
+          rgba(217, 138, 43, 0.34) 48%,
+          rgba(217, 138, 43, 0) 70%
+        );
+      transform: translateY(-50%);
+      filter: blur(1px);
+      animation: orbFloat 7s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .hero-ring {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      width: min(35vw, 470px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: ringPulse 6s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .hero-line {
+      position: absolute;
+      right: 3%;
+      top: 48%;
+      width: min(46vw, 620px);
+      height: 2px;
+      background: var(--orange);
+      transform: rotate(-11deg);
+      transform-origin: center;
+      box-shadow: 0 0 30px rgba(217,138,43,0.4);
+      animation: lineSweep 5s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding-block: 100px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 30px;
+      color: rgba(255,255,255,0.65);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      width: 48px;
+      height: 2px;
+      background: var(--orange);
+      content: "";
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(64px, 10vw, 145px);
+      font-weight: 500;
+      letter-spacing: -0.075em;
+      line-height: 0.86;
+    }
+
+    .hero-description {
+      max-width: 510px;
+      margin: 35px 0 0;
+      color: rgba(255,255,255,0.67);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 34px;
+      color: rgba(255,255,255,0.5);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .hero-meta span + span::before {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+    }
+
+    .hero-number {
+      position: absolute;
+      right: 3%;
+      bottom: 8%;
+      color: rgba(255,255,255,0.08);
+      font-family: var(--serif);
+      font-size: clamp(120px, 22vw, 300px);
+      font-weight: 500;
+      letter-spacing: -0.08em;
+      line-height: 0.7;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes gridMove {
+      from {
+        transform: translate3d(0, 0, 0) rotate(-7deg);
+      }
+
+      to {
+        transform: translate3d(70px, 70px, 0) rotate(-7deg);
+      }
+    }
+
+    @keyframes orbFloat {
+      0%,
+      100% {
+        transform: translateY(-50%) translateX(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-53%) translateX(-24px) scale(1.06);
+      }
+    }
+
+    @keyframes ringPulse {
+      0%,
+      100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 0.65;
+      }
+
+      50% {
+        transform: translateY(-50%) scale(1.08);
+        opacity: 0.28;
+      }
+    }
+
+    @keyframes lineSweep {
+      0%,
+      100% {
+        transform: rotate(-11deg) translateX(0);
+      }
+
+      50% {
+        transform: rotate(-8deg) translateX(-35px);
+      }
+    }
+
+
+    /* ======================================================
+       INTRO
+       ====================================================== */
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(250px, 0.55fr) minmax(300px, 1fr);
+      gap: clamp(45px, 9vw, 130px);
+      align-items: start;
+    }
+
+    .section-label {
+      margin: 0;
+      color: var(--gray);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 12px 0 0;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(46px, 6vw, 78px);
+      font-weight: 500;
+      letter-spacing: -0.06em;
+      line-height: 0.94;
+    }
+
+    .intro-copy {
+      margin: 0;
+      color: #444;
+      font-size: clamp(16px, 1.4vw, 19px);
+      line-height: 1.9;
+    }
+
+
+    /* ======================================================
+       DATABASE
+       ====================================================== */
+
+    .database-header {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.65fr) minmax(320px, 1fr);
+      gap: clamp(40px, 8vw, 120px);
+      align-items: end;
+      margin-bottom: 45px;
+    }
+
+    .database-description {
+      margin: 0;
+      color: var(--gray);
+      line-height: 1.85;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 190px;
+      gap: 0;
+      margin-bottom: 24px;
+      border-top: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      min-height: 62px;
+      border: 0;
+      border-radius: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--black);
+    }
+
+    .controls input {
+      padding: 0;
+      font-size: 15px;
+    }
+
+    .controls input::placeholder {
+      color: #929292;
+    }
+
+    .controls select {
+      padding-inline: 18px 0;
+      border-left: 1px solid var(--line);
+      color: var(--gray);
+      cursor: pointer;
+    }
+
+    .status {
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-block: 9px;
+      color: var(--gray);
+      font-size: 12px;
+    }
+
+    .status.success {
+      color: #333;
+    }
+
+    .status.warn,
+    .status.error {
+      color: #9a4f20;
+    }
+
+
+    /* ======================================================
+       PAINTER GRID
+       ====================================================== */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .place-card {
+      min-width: 0;
+      padding: 32px 30px 36px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .place-card:not(:nth-child(3n + 1)) {
+      padding-left: 30px;
+      border-left: 1px solid var(--line);
+    }
+
+    .place-card:nth-child(3n) {
+      padding-right: 0;
+    }
+
+    .place-card h3 {
+      margin: 0;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(25px, 2.5vw, 34px);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+    }
+
+    .place-meta {
+      margin-top: 13px;
+      color: var(--orange-dark);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .place-desc {
+      margin-top: 13px;
+      color: var(--gray);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .place-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      min-height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 13px;
+      border: 1px solid var(--black);
+      background: #fff;
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition:
+        background 180ms ease,
+        color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .btn:hover {
+      background: var(--black);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn.secondary {
+      border-color: var(--line-dark);
+      color: var(--gray);
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--black);
+      color: #fff;
+    }
+
+
+    /* ======================================================
+       LEGAL — CLEAN 11 POINTS
+       ====================================================== */
+
+    .legal-layout {
+      display: grid;
+      grid-template-columns: minmax(230px, 0.43fr) minmax(320px, 1fr);
+      gap: clamp(45px, 9vw, 135px);
+      align-items: start;
+    }
+
+    .legal-intro {
+      position: sticky;
+      top: 110px;
+    }
+
+    .legal-intro-note {
+      max-width: 250px;
+      margin: 24px 0 0;
+      color: var(--gray);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .legal-content {
+      max-width: 820px;
+    }
+
+    .legal-item {
+      display: grid;
+      grid-template-columns: 55px minmax(0, 1fr);
+      gap: 24px;
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .legal-item:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .legal-number {
+      color: var(--orange-dark);
+      font-family: var(--serif);
+      font-size: 25px;
+      line-height: 1;
+    }
+
+    .legal-item h2 {
+      margin: 0 0 13px;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(25px, 3vw, 38px);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+    }
+
+    .legal-item p {
+      margin: 0 0 15px;
+      color: #4c4c4c;
+      line-height: 1.8;
+    }
+
+    .legal-item p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-item strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    .legal-item ul {
+      margin: 17px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legal-item li {
+      position: relative;
+      padding: 7px 0 7px 18px;
+      color: #4c4c4c;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .legal-item li::before {
+      position: absolute;
+      top: 18px;
+      left: 1px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+      transform: translateY(-50%);
+    }
+
+    .legal-item a {
+      color: var(--black);
+      text-decoration-color: #cfcfcf;
+      text-underline-offset: 4px;
+    }
+
+    .legal-item a:hover {
+      text-decoration-color: var(--orange);
+    }
+
+
+    /* ======================================================
+       CONTACT — CLEAN SEPARATE SECTION
+       ====================================================== */
+
+    .contact-section {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.55fr) minmax(320px, 1fr);
+      gap: clamp(45px, 9vw, 135px);
+      align-items: center;
+    }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(30px, 5vw, 55px);
+      background: var(--orange-pale);
+      border: 1px solid #f0d3a8;
+    }
+
+    .contact-card::before {
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 230px;
+      height: 230px;
+      border: 1px solid rgba(184,107,23,0.18);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .contact-card-label {
+      position: relative;
+      margin: 0 0 14px;
+      color: var(--orange-dark);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .contact-card p {
+      position: relative;
+      margin: 0;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .contact-email {
+      position: relative;
+      display: inline-block;
+      margin-top: 25px;
+      color: var(--black);
+      font-size: clamp(19px, 2.4vw, 27px);
+      font-weight: 500;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .contact-email::after {
+      position: absolute;
+      right: 0;
+      bottom: -7px;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      content: "";
+      transform: scaleX(0.25);
+      transform-origin: left;
+      transition: transform 250ms ease;
+    }
+
+    .contact-email:hover::after {
+      transform: scaleX(1);
+    }
+
+
+    /* ======================================================
+       FOOTER — ORANGE / SMALLER / CLEAN
+       ====================================================== */
+
+    .site-footer {
+      position: relative;
+      overflow: hidden;
+      background: var(--orange);
+      color: #111;
+    }
+
+    .site-footer::before {
+      position: absolute;
+      right: -130px;
+      top: -160px;
+      width: 430px;
+      height: 430px;
+      border: 1px solid rgba(17,17,17,0.15);
+      border-radius: 50%;
+      content: "";
+      animation: footerCircle 9s ease-in-out infinite;
+    }
+
+    .site-footer::after {
+      position: absolute;
+      left: -100px;
+      bottom: -210px;
+      width: 430px;
+      height: 430px;
+      border: 1px solid rgba(17,17,17,0.10);
+      border-radius: 50%;
+      content: "";
+      animation: footerCircleReverse 11s ease-in-out infinite;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      min-height: 350px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 60px;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 50px;
+      padding-bottom: 38px;
+      border-bottom: 1px solid rgba(17,17,17,0.18);
+    }
+
+    .footer-brand {
+      max-width: 620px;
+    }
+
+    .footer-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 17px;
+      color: rgba(17,17,17,0.65);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .footer-kicker::before {
+      width: 28px;
+      height: 2px;
+      background: #111;
+      content: "";
+    }
+
+    .footer-title {
+      margin: 0;
+      color: #111;
+      font-family: var(--serif);
+      font-size: clamp(42px, 6vw, 78px);
+      font-weight: 500;
+      letter-spacing: -0.065em;
+      line-height: 0.9;
+    }
+
+    .footer-description {
+      max-width: 500px;
+      margin: 22px 0 0;
+      color: rgba(17,17,17,0.7);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .footer-contact {
+      flex: 0 0 auto;
+      padding-top: 3px;
+    }
+
+    .footer-contact-label {
+      margin: 0 0 8px;
+      color: rgba(17,17,17,0.58);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .footer-contact a {
+      color: #111;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer-contact a:hover {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      padding-top: 22px;
+    }
+
+    .footer-bottom span,
+    .footer-bottom a {
+      color: rgba(17,17,17,0.58);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .footer-bottom a:hover {
+      color: #111;
+    }
+
+    @keyframes footerCircle {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-25px, 20px) scale(1.08);
+      }
+    }
+
+    @keyframes footerCircleReverse {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(25px, -15px) scale(1.06);
+      }
+    }
+
+
+    /* ======================================================
+       TABLET
+       ====================================================== */
+
+    @media (max-width: 900px) {
+
+      :root {
+        --side: 30px;
+      }
+
+      .hero-orb {
+        right: -15%;
+        width: 60vw;
+      }
+
+      .hero-ring {
+        right: -4%;
+        width: 52vw;
+      }
+
+      .hero-line {
+        right: -4%;
+        width: 62vw;
+      }
+
+      .intro,
+      .database-header,
+      .legal-layout,
+      .contact-section {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .legal-intro {
+        position: static;
+      }
+
+      .legal-intro-note {
+        max-width: 500px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .place-card:not(:nth-child(3n + 1)) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .place-card:nth-child(2n) {
+        padding-left: 28px;
+        border-left: 1px solid var(--line);
+      }
+
+      .place-card:nth-child(3n) {
+        padding-right: 28px;
+      }
+
+      .place-card:nth-child(2n) {
+        padding-right: 0;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        gap: 30px;
+      }
+    }
+
+
+    /* ======================================================
+       MOBILE
+       ====================================================== */
+
+    @media (max-width: 620px) {
+
+      :root {
+        --side: 20px;
+        --section-space: 70px;
+      }
+
+      .header-inner {
+        min-height: 72px;
+        gap: 18px;
+      }
+
+      .logo-main {
+        font-size: 23px;
+      }
+
+      .logo-sub {
+        display: none;
+      }
+
+      .main-nav {
+        gap: 15px;
+      }
+
+      .main-nav a {
+        font-size: 8px;
+        letter-spacing: 0.08em;
+      }
+
+      /* Hero */
+
+      .hero {
+        min-height: 610px;
+      }
+
+      .hero-content {
+        padding-block: 80px;
+      }
+
+      .hero-kicker {
+        margin-bottom: 25px;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+        font-size: clamp(58px, 17vw, 88px);
+        line-height: 0.88;
+      }
+
+      .hero-description {
+        max-width: 330px;
+        margin-top: 27px;
+        font-size: 14px;
+      }
+
+      .hero-meta {
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        margin-top: 27px;
+      }
+
+      .hero-orb {
+        right: -45%;
+        top: 56%;
+        width: 100vw;
+      }
+
+      .hero-ring {
+        right: -31%;
+        top: 58%;
+        width: 90vw;
+      }
+
+      .hero-line {
+        right: -26%;
+        top: 58%;
+        width: 100vw;
+      }
+
+      .hero-number {
+        right: -4%;
+        bottom: 6%;
+        font-size: 42vw;
+      }
+
+      /* Content */
+
+      .section-title {
+        font-size: clamp(45px, 15vw, 68px);
+      }
+
+      .intro-copy {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      /* Database */
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .controls select {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .place-card,
+      .place-card:nth-child(2n),
+      .place-card:nth-child(3n) {
+        padding: 28px 0;
+        border-left: 0;
+      }
+
+      .place-card h3 {
+        font-size: 30px;
+      }
+
+      /* Legal */
+
+      .legal-item {
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 12px;
+        padding: 25px 0;
+      }
+
+      .legal-number {
+        font-size: 21px;
+      }
+
+      .legal-item h2 {
+        font-size: 27px;
+      }
+
+      .legal-item p {
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      /* Contact */
+
+      .contact-card {
+        padding: 28px;
+      }
+
+      .contact-email {
+        font-size: 19px;
+      }
+
+      /* Footer */
+
+      .footer-inner {
+        min-height: 330px;
+        padding-block: 52px;
+      }
+
+      .footer-title {
+        font-size: clamp(43px, 13vw, 68px);
+      }
+
+      .footer-description {
+        font-size: 12px;
+      }
+
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .site-footer::before {
+        width: 300px;
+        height: 300px;
+        right: -150px;
+        top: -110px;
+      }
+
+      .site-footer::after {
+        width: 300px;
+        height: 300px;
+        left: -160px;
+        bottom: -160px;
+      }
+    }
+
+
+    /* ======================================================
+       VERY SMALL MOBILE
+       ====================================================== */
+
+    @media (max-width: 390px) {
+
+      .main-nav {
+        gap: 10px;
+      }
+
+      .main-nav a {
+        font-size: 7px;
+      }
+
+      .hero {
+        min-height: 580px;
+      }
+
+      .hero h1 {
+        font-size: 17vw;
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .legal-item {
+        grid-template-columns: 32px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .legal-number {
+        font-size: 19px;
+      }
+
+      .legal-item h2 {
+        font-size: 24px;
+      }
+    }
+
+
+    /* ======================================================
+       REDUCED MOTION
+       ====================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition: none !important;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body id="top">
+
+  <!-- ======================================================
+       HEADER
+       ====================================================== -->
+
+  <header class="site-header">
+
+    <div class="container">
+
+      <div class="header-inner">
+
+        <a
+          class="logo"
+          href="#top"
+          aria-label="NVO987 — accueil"
+        >
+          <span class="logo-main">NVO987</span>
+          <span class="logo-dot"></span>
+          <span class="logo-sub">Culture Visuelle</span>
+        </a>
+
+        <nav
+          class="main-nav"
+          aria-label="Navigation principale"
+        >
+          <a href="#contact">Contact</a>
+          <a href="#mentions">Mentions légales</a>
+        </nav>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- ====================================================
+         NEW ANIMATED BANNER
+         ==================================================== -->
+
+    <section class="hero" aria-labelledby="hero-title">
+
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-orb" aria-hidden="true"></div>
+      <div class="hero-ring" aria-hidden="true"></div>
+      <div class="hero-line" aria-hidden="true"></div>
+
+      <div class="container">
+
+        <div class="hero-content">
+
+          <div class="hero-kicker">
+            NVO987
+          </div>
+
+          <h1 id="hero-title">
+            Peintres<br>
+            français
+          </h1>
+
+          <p class="hero-description">
+            Une base de données publique consacrée aux personnes
+            liées à la peinture française, alimentée à partir de
+            données ouvertes et réutilisables.
+          </p>
+
+          <div class="hero-meta">
+            <span>Base publique</span>
+            <span>Wikidata</span>
+            <span>CC0</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="hero-number"
+        aria-hidden="true"
+      >
+        01
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         INTRO
+         ==================================================== -->
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="intro">
+
+          <div>
+
+            <p class="section-label">
+              Base de données
+            </p>
+
+            <h2 class="section-title">
+              Peintres<br>
+              français
+            </h2>
+
+          </div>
+
+          <p class="intro-copy">
+            Peintres français est une base de données publique et
+            exploitable par machine consacrée aux entités personnelles
+            liées à la peinture française. Son jeu de données repose
+            sur des enregistrements provenant de Wikidata, réutilisables
+            sous licence CC0 1.0. Chaque enregistrement peut contenir
+            le nom de l’artiste, son identifiant Wikidata, un lien vers
+            Wikipédia et, lorsqu’il est disponible, son site web officiel.
+            Le site permet de rechercher, filtrer et consulter ces
+            informations directement depuis le navigateur.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         DATABASE
+         ==================================================== -->
+
+    <section
+      class="section"
+      id="painters"
+    >
+
+      <div class="container">
+
+        <div class="database-header">
+
+          <div>
+
+            <p class="section-label">
+              Répertoire
+            </p>
+
+            <h2 class="section-title">
+              Peintres
+            </h2>
+
+          </div>
+
+          <p class="database-description">
+            Recherchez un peintre par son nom ou parcourez les
+            enregistrements disponibles. Les résultats sont chargés
+            dynamiquement depuis le fichier de données public.
+          </p>
+
+        </div>
+
+
+        <div class="controls">
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Rechercher un peintre français..."
+            autocomplete="off"
+            inputmode="search"
+            aria-label="Rechercher un peintre français"
+          >
+
+          <select
+            id="limitSelect"
+            aria-label="Nombre de résultats"
+          >
+            <option value="20" selected>20 résultats</option>
+            <option value="40">40 résultats</option>
+            <option value="80">80 résultats</option>
+            <option value="120">120 résultats</option>
+            <option value="200">200 résultats</option>
+          </select>
+
+        </div>
+
+
+        <div
+          id="statusBox"
+          class="status"
+          role="status"
+          aria-live="polite"
+        >
+          Chargement des peintres…
+        </div>
+
+
+        <div
+          id="paintersGrid"
+          class="grid"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         LEGAL — 11 POINTS
+         ==================================================== -->
+
+    <section
+      class="section"
+      id="mentions"
+    >
+
+      <div class="container">
+
+        <div class="legal-layout">
+
+          <aside class="legal-intro">
+
+            <p class="section-label">
+              Informations
+            </p>
+
+            <h2 class="section-title">
+              Mentions<br>
+              légales
+            </h2>
+
+            <p class="legal-intro-note">
+              Informations relatives à l’éditeur, au fonctionnement
+              du service, aux données utilisées et aux conditions
+              générales de consultation.
+            </p>
+
+          </aside>
+
+
+          <div class="legal-content">
+
+
+            <!-- 01 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                01
+              </div>
+
+              <div>
+
+                <h2>
+                  Éditeur du site
+                </h2>
+
+                <p>
+                  Le présent site web
+                  <a
+                    href="https://peintres-fr.nvo987.eu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    peintres-fr.nvo987.eu
+                  </a>
+                  est édité et exploité par NVO987 Culture Visuelle
+                  Moderne et Contemporaine.
+                </p>
+
+                <p>
+                  Les informations administratives complémentaires
+                  de l’éditeur sont disponibles sur :
+                  <a
+                    href="https://www.nvo987.fr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    www.nvo987.fr
+                  </a>
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 02 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                02
+              </div>
+
+              <div>
+
+                <h2>
+                  Nature du service
+                </h2>
+
+                <p>
+                  Peintres français est une base de données en ligne
+                  consacrée aux personnes liées à la peinture française.
+                  Le service permet de rechercher et consulter les
+                  informations disponibles dans le jeu de données.
+                </p>
+
+                <p>
+                  Une même personne peut apparaître dans plusieurs
+                  contextes lorsque les données sources l’associent
+                  à différentes activités ou catégories.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 03 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                03
+              </div>
+
+              <div>
+
+                <h2>
+                  Non-affiliation
+                </h2>
+
+                <p>
+                  Ce site n’est affilié à aucune institution publique,
+                  aucun musée national, aucune collectivité territoriale
+                  et aucune plateforme officielle de la culture française.
+                </p>
+
+                <p>
+                  Les noms, marques et dénominations cités restent
+                  la propriété de leurs détenteurs respectifs.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 04 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                04
+              </div>
+
+              <div>
+
+                <h2>
+                  Données personnelles
+                </h2>
+
+                <p>
+                  Le site est conçu selon une approche de
+                  <strong>privacy by design</strong>.
+                </p>
+
+                <ul>
+                  <li>Aucune inscription ou compte utilisateur</li>
+                  <li>Aucun formulaire de collecte</li>
+                  <li>Aucune base de données utilisateur</li>
+                  <li>Aucun identifiant persistant volontairement créé</li>
+                  <li>Aucun profilage publicitaire</li>
+                  <li>Aucune analyse d’audience volontaire</li>
+                </ul>
+
+                <p>
+                  L’hébergement peut toutefois générer des journaux
+                  techniques nécessaires à la sécurité et au fonctionnement
+                  de l’infrastructure.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 05 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                05
+              </div>
+
+              <div>
+
+                <h2>
+                  Cookies et suivi
+                </h2>
+
+                <p>
+                  Aucun cookie publicitaire, outil de suivi comportemental
+                  ou pixel marketing n’est volontairement utilisé par
+                  ce site.
+                </p>
+
+                <p>
+                  Le site est conçu pour rester consultable sans
+                  acceptation de cookies non essentiels.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 06 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                06
+              </div>
+
+              <div>
+
+                <h2>
+                  Exactitude des données
+                </h2>
+
+                <p>
+                  Les informations proviennent notamment d’une base
+                  collaborative et ouverte. Elles peuvent être
+                  incomplètes, modifiées, obsolètes ou comporter
+                  des erreurs.
+                </p>
+
+                <p>
+                  En cas de divergence, les sources institutionnelles
+                  ou officielles compétentes doivent être consultées.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 07 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                07
+              </div>
+
+              <div>
+
+                <h2>
+                  Limitation de responsabilité
+                </h2>
+
+                <p>
+                  Les informations sont proposées à titre documentaire.
+                  L’utilisateur reste responsable de l’utilisation
+                  qu’il fait des données affichées sur le site.
+                </p>
+
+                <p>
+                  L’éditeur ne garantit ni la disponibilité permanente
+                  du service, ni l’absence d’erreurs techniques,
+                  ni la complétude des données.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 08 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                08
+              </div>
+
+              <div>
+
+                <h2>
+                  Liens externes
+                </h2>
+
+                <p>
+                  Le site peut contenir des liens vers des ressources
+                  externes, notamment Wikipédia, Wikidata et des sites
+                  officiels d’artistes ou d’institutions.
+                </p>
+
+                <p>
+                  Ces ressources sont indépendantes du présent site
+                  et leur contenu relève de leurs propres éditeurs.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 09 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                09
+              </div>
+
+              <div>
+
+                <h2>
+                  Signalement et correction
+                </h2>
+
+                <p>
+                  Une donnée semblant incorrecte ou une demande relative
+                  à l’affichage d’une information peut être signalée
+                  à l’adresse suivante :
+                </p>
+
+                <p>
+                  <a href="mailto:contact@nvo987.eu">
+                    contact@nvo987.eu
+                  </a>
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 10 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                10
+              </div>
+
+              <div>
+
+                <h2>
+                  Mise à jour
+                </h2>
+
+                <p>
+                  Le jeu de données est destiné à être actualisé
+                  périodiquement afin d’intégrer les modifications
+                  disponibles dans les sources utilisées.
+                </p>
+
+                <p>
+                  La fréquence effective de mise à jour peut dépendre
+                  du fonctionnement de la chaîne de publication.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 11 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">
+                11
+              </div>
+
+              <div>
+
+                <h2>
+                  Source et licence des données
+                </h2>
+
+                <p>
+                  Les informations affichées proviennent de la base
+                  publique
+                  <a
+                    href="https://www.wikidata.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Wikidata
+                  </a>.
+                </p>
+
+                <p>
+                  <strong>Plateforme officielle :</strong>
+                  <a
+                    href="https://www.wikidata.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Wikidata.org
+                  </a>
+                </p>
+
+                <p>
+                  <strong>Licence des données :</strong>
+                  <a
+                    href="https://creativecommons.org/publicdomain/zero/1.0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Creative Commons Zero (CC0 1.0 Universal)
+                  </a>
+                </p>
+
+                <p>
+                  La licence applicable aux données sources ne signifie
+                  pas nécessairement que tous les éléments de présentation,
+                  de code ou de contenu éditorial du présent site sont
+                  eux-mêmes placés sous CC0.
+                </p>
+
+              </div>
+
+            </article>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================================
+         CONTACT
+         ==================================================== -->
+
+    <section
+      class="section"
+      id="contact"
+    >
+
+      <div class="container">
+
+        <div class="contact-section">
+
+          <div>
+
+            <p class="section-label">
+              Contact
+            </p>
+
+            <h2 class="section-title">
+              Parlons<br>
+              ensemble.
+            </h2>
+
+          </div>
+
+
+          <div class="contact-card">
+
+            <p class="contact-card-label">
+              NVO987 · Culture Visuelle
+            </p>
+
+            <p>
+              Pour toute question concernant les données, le projet,
+              une correction ou une demande relative au site,
+              vous pouvez nous contacter directement.
+            </p>
+
+            <a
+              class="contact-email"
+              href="mailto:contact@nvo987.eu"
+            >
+              contact@nvo987.eu
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ======================================================
+       NEW ORANGE FOOTER
+       ====================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <p class="footer-kicker">
+            NVO987
+          </p>
+
+          <h2 class="footer-title">
+            Peintres français
+          </h2>
+
+          <p class="footer-description">
+            Culture visuelle moderne et contemporaine ·
+            Base publique consacrée aux peintres français.
+          </p>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+          <p class="footer-contact-label">
+            Contact
+          </p>
+
+          <a href="mailto:contact@nvo987.eu">
+            contact@nvo987.eu
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © NVO987
+        </span>
+
+        <a href="#top">
+          Retour en haut ↑
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ======================================================
+       DATABASE SCRIPT
+       ====================================================== -->
+
+  <script>
+
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const paintersGrid =
+      document.getElementById("paintersGrid");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const limitSelect =
+      document.getElementById("limitSelect");
+
+    let allPainters = [];
+
+
+    /* ======================================================
+       SECURITY
+       ====================================================== */
+
+    function escapeHTML(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* ======================================================
+       SAFE URL
+       ====================================================== */
+
+    function safeURL(value) {
+
+      if (!value) {
+        return "";
+      }
+
+      try {
+
+        const url =
+          new URL(
+            String(value).trim()
+          );
+
+        if (
+          url.protocol !== "http:" &&
+          url.protocol !== "https:"
+        ) {
+          return "";
+        }
+
+        return url.href;
+
+      } catch {
+
+        return "";
+
+      }
+
+    }
+
+
+    /* ======================================================
+       SEARCH NORMALIZATION
+       ====================================================== */
+
+    function normalize(value) {
+
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    }
+
+
+    /* ======================================================
+       BUILD CARD
+       ====================================================== */
+
+    function buildCard(painter) {
+
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "place-card";
+
+
+      const name =
+        escapeHTML(
+          painter.name ||
+          "Peintre français"
+        );
+
+
+      const wikipedia =
+        safeURL(
+          painter.wikipedia
+        );
+
+
+      const wikidata =
+        safeURL(
+          painter.wikidata
+        );
+
+
+      const website =
+        safeURL(
+          painter.website
+        );
+
+
+      let actions = "";
+
+
+      if (wikipedia) {
+
+        actions += `
+          <a
+            class="btn"
+            href="${escapeHTML(wikipedia)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikipedia
+          </a>
+        `;
+
+      }
+
+
+      if (wikidata) {
+
+        actions += `
+          <a
+            class="btn secondary"
+            href="${escapeHTML(wikidata)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikidata
+          </a>
+        `;
+
+      }
+
+
+      if (website) {
+
+        actions += `
+          <a
+            class="btn secondary"
+            href="${escapeHTML(website)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Site officiel
+          </a>
+        `;
+
+      }
+
+
+      card.innerHTML = `
+
+        <h3>
+          ${name}
+        </h3>
+
+        <div class="place-meta">
+          Peintre français
+        </div>
+
+        <div class="place-desc">
+          ${
+            wikipedia
+              ? "Article Wikipédia disponible."
+              : "Aucune information biographique supplémentaire disponible."
+          }
+        </div>
+
+        ${
+          actions
+            ? `
+              <div class="place-actions">
+                ${actions}
+              </div>
+            `
+            : ""
+        }
+
+      `;
+
+
+      return card;
+
+    }
+
+
+    /* ======================================================
+       RENDER
+       ====================================================== */
+
+    function renderPainters() {
+
+      const query =
+        normalize(
+          searchInput.value.trim()
+        );
+
+
+      const limit =
+        parseInt(
+          limitSelect.value,
+          10
+        );
+
+
+      paintersGrid.innerHTML = "";
+
+
+      let filtered =
+        allPainters;
+
+
+      if (query.length > 0) {
+
+        filtered =
+          filtered.filter(
+            painter => {
+
+              const searchableText = [
+
+                painter.name || "",
+                painter.wikipedia || "",
+                painter.wikidata || "",
+                painter.website || ""
+
+              ].join(" ");
+
+
+              return normalize(
+                searchableText
+              ).includes(query);
+
+            }
+          );
+
+      }
+
+
+      const totalMatches =
+        filtered.length;
+
+
+      filtered =
+        filtered.slice(
+          0,
+          limit
+        );
+
+
+      if (filtered.length === 0) {
+
+        statusBox.className =
+          "status warn";
+
+        statusBox.textContent =
+          "Aucun peintre trouvé.";
+
+        return;
+
+      }
+
+
+      statusBox.className =
+        "status success";
+
+      statusBox.textContent =
+        totalMatches +
+        " peintre(s) trouvé(s) · " +
+        filtered.length +
+        " affiché(s)";
+
+
+      filtered.forEach(
+        painter => {
+
+          paintersGrid.appendChild(
+            buildCard(painter)
+          );
+
+        }
+      );
+
+    }
+
+
+    /* ======================================================
+       LOAD DATA
+       ====================================================== */
+
+    async function loadPainters() {
+
+      try {
+
+        statusBox.className =
+          "status";
+
+        statusBox.textContent =
+          "Chargement des peintres…";
+
+
+        const response =
+          await fetch(
+            "painters.json?v=" +
+            Date.now(),
+            {
+              cache: "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "HTTP " +
+            response.status
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !data ||
+          !Array.isArray(data.painters)
+        ) {
+
+          throw new Error(
+            "Invalid JSON structure"
+          );
+
+        }
+
+
+        allPainters =
+          data.painters
+            .filter(
+              painter =>
+                painter &&
+                typeof painter === "object" &&
+                painter.name
+            )
+            .map(
+              painter => ({
+
+                name:
+                  String(
+                    painter.name || ""
+                  ).trim(),
+
+                wikidata:
+                  String(
+                    painter.wikidata || ""
+                  ).trim(),
+
+                wikipedia:
+                  String(
+                    painter.wikipedia || ""
+                  ).trim(),
+
+                website:
+                  String(
+                    painter.website || ""
+                  ).trim()
+
+              })
+            );
+
+
+        renderPainters();
+
+
+      } catch (error) {
+
+        console.error(
+          "Erreur chargement painters.json:",
+          error
+        );
+
+
+        statusBox.className =
+          "status error";
+
+        statusBox.textContent =
+          "Erreur lors du chargement des données.";
+
+      }
+
+    }
+
+
+    /* ======================================================
+       EVENTS
+       ====================================================== */
+
+    searchInput.addEventListener(
+      "input",
+      renderPainters
+    );
+
+
+    limitSelect.addEventListener(
+      "change",
+      renderPainters
+    );
+
+
+    /* ======================================================
+       START
+       ====================================================== */
+
+    loadPainters();
+
+  </script>
+
+</body>
+  </html>
