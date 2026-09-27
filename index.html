@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Peintres français | NVO987</title>
+
+  <meta name="description" content="Base de données publique consacrée aux peintres français, à partir de données Wikidata.">
+  <meta name="author" content="NVO987">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+  <link rel="canonical" href="https://peintres-fr.nvo987.eu/">
+  <link rel="alternate" hreflang="fr" href="https://peintres-fr.nvo987.eu/">
+  <link rel="alternate" hreflang="x-default" href="https://peintres-fr.nvo987.eu/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NVO987">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Peintres français | NVO987">
+  <meta property="og:description" content="Base de données publique consacrée aux peintres français, à partir de données Wikidata.">
+  <meta property="og:url" content="https://peintres-fr.nvo987.eu/">
+  <meta property="og:image" content="https://peintres-fr.nvo987.eu/og-image.jpg">
+  <meta property="og:image:alt" content="Peintres français — NVO987">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Peintres français | NVO987">
+  <meta name="twitter:description" content="Base de données publique consacrée aux peintres français.">
+  <meta name="twitter:image" content="https://peintres-fr.nvo987.eu/og-image.jpg">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#f7f3e9">
+
+  <!-- Identité DID -->
+  <link
+    rel="alternate"
+    type="application/did+json"
+    href="https://identity.nvo987.us/.well-known/did.json"
+  >
+  <link
+    rel="alternate"
+    type="application/did+ld+json"
+    href="https://identity.nvo987.us/.well-known/did-configuration.json"
+  >
+  <meta name="did" content="did:web:identity.nvo987.us">
+  <link rel="me" href="https://identity.nvo987.us">
+
+  <!-- Typographie -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --paper: #f7f3e9;
+      --paper-light: #fbf8f0;
+      --ink: #171513;
+      --muted: #625e56;
+      --line: rgba(23, 21, 19, .16);
+      --line-strong: rgba(23, 21, 19, .30);
+      --orange: #c9501b;
+      --yellow: #e5bd32;
+      --footer: #171513;
+
+      --serif: "Cormorant Garamond", Georgia, serif;
+      --sans: "Manrope", Arial, sans-serif;
+
+      --width: 1120px;
+      --space: clamp(4rem, 7vw, 7rem);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: var(--yellow);
+      color: var(--ink);
+    }
+
+    a {
+      color: var(--orange);
+      text-underline-offset: .18em;
+    }
+
+    a:hover {
+      color: var(--ink);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--width));
+      margin-inline: auto;
+    }
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .topbar {
+      position: relative;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 243, 233, .94);
+      backdrop-filter: blur(10px);
+    }
+
+    .topbar-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: .8rem;
+      min-width: 0;
+    }
+
+    .brand-name {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .brand-tag {
+      color: var(--muted);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .nav a {
+      position: relative;
+      color: var(--ink);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: -.25rem;
+      left: 0;
+      height: 1px;
+      background: var(--orange);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform .18s ease;
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .hero {
+      position: relative;
+      min-height: clamp(390px, 54vh, 560px);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 5rem 0;
+    }
+
+    .hero-kicker {
+      margin: 0 0 1.2rem;
+      color: var(--orange);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(4.4rem, 10vw, 8.5rem);
+      font-weight: 600;
+      letter-spacing: -.06em;
+      line-height: .78;
+    }
+
+    .hero-description {
+      max-width: 620px;
+      margin: 2rem 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .hero-art {
+      position: absolute;
+      top: 50%;
+      right: 4%;
+      width: min(34vw, 410px);
+      aspect-ratio: 1;
+      border: 1px solid var(--ink);
+      border-radius: 55% 45% 62% 38% / 42% 58% 42% 58%;
+      transform: translateY(-50%) rotate(16deg);
+      opacity: .7;
+      pointer-events: none;
+    }
+
+    .hero-art::before {
+      position: absolute;
+      top: 28%;
+      right: -5%;
+      width: 72%;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+      transform: rotate(-12deg);
+    }
+
+    .hero-art::after {
+      position: absolute;
+      right: 15%;
+      bottom: 20%;
+      width: 52%;
+      height: 38%;
+      border-top: 7px solid var(--yellow);
+      border-radius: 50%;
+      content: "";
+      transform: rotate(15deg);
+    }
+
+    /* =========================
+       SECTIONS
+       ========================= */
+
+    .section {
+      padding: var(--space) 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 80px;
+    }
+
+    .section-intro {
+      display: grid;
+      grid-template-columns: minmax(240px, .65fr) minmax(320px, 1fr);
+      gap: clamp(2rem, 7vw, 7rem);
+      align-items: start;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -.045em;
+      line-height: .86;
+    }
+
+    .section-intro p {
+      max-width: 680px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* =========================
+       DATABASE
+       ========================= */
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 190px;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      min-height: 48px;
+      padding: .5rem 0;
+      border: 0;
+      border-bottom: 1px solid var(--line-strong);
+      border-radius: 0;
+      outline: none;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .controls input:focus,
+    .controls select:focus {
+      border-bottom-color: var(--orange);
+    }
+
+    .controls input::placeholder {
+      color: #817c72;
+    }
+
+    .status {
+      margin-bottom: 1.8rem;
+      padding: .8rem 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .status.success {
+      color: var(--orange);
+    }
+
+    .status.warn,
+    .status.error {
+      color: var(--orange);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .painter-card {
+      min-width: 0;
+      padding: 1.8rem 1.8rem 2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .painter-card:not(:nth-child(3n + 1)) {
+      padding-left: 1.8rem;
+      border-left: 1px solid var(--line);
+    }
+
+    .painter-card:nth-child(3n) {
+      padding-right: 0;
+    }
+
+    .painter-card h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 2.5vw, 2.5rem);
+      font-weight: 600;
+      letter-spacing: -.025em;
+      line-height: .95;
+    }
+
+    .painter-type {
+      margin-top: .8rem;
+      color: var(--orange);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .painter-desc {
+      margin-top: .65rem;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .painter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-top: 1.2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      justify-content: center;
+      padding: .4rem .85rem;
+      border: 1px solid var(--orange);
+      border-radius: 999px;
+      background: var(--orange);
+      color: var(--ink);
+      font-size: .74rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .18s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .btn.secondary {
+      border-color: var(--line-strong);
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--orange);
+      background: var(--orange);
+      color: var(--ink);
+    }
+
+    /* =========================
+       LEGAL / SOURCES / CONTACT
+       ========================= */
+
+    .content-column {
+      max-width: 850px;
+      margin-left: clamp(0px, 12vw, 130px);
+    }
+
+    .legal-block + .legal-block {
+      margin-top: 2.7rem;
+    }
+
+    .legal-block h3,
+    .source-block h3 {
+      margin: 0 0 .7rem;
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 600;
+      letter-spacing: -.03em;
+      line-height: .95;
+    }
+
+    .legal-block p,
+    .source-block p,
+    .legal-block li {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .legal-block ul {
+      margin: 1rem 0 0;
+      padding-left: 1.25rem;
+      border-left: 1px solid var(--orange);
+    }
+
+    .legal-block li + li {
+      margin-top: .35rem;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .source-block {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .source-block h3 {
+      font-size: 2rem;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-label {
+      color: var(--muted);
+    }
+
+    .contact-value {
+      text-align: right;
+    }
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    .footer {
+      background: var(--footer);
+      color: var(--paper);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: end;
+      padding: 3.5rem 0;
+    }
+
+    .footer-title {
+      margin: 0;
+      color: var(--yellow);
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 600;
+      letter-spacing: -.04em;
+      line-height: .85;
+    }
+
+    .footer-meta {
+      margin: .8rem 0 0;
+      color: rgba(247, 243, 233, .65);
+      font-size: .82rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: .5rem 1.2rem;
+    }
+
+    .footer-links a {
+      color: var(--paper);
+      font-size: .78rem;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: var(--yellow);
+    }
+
+    /* =========================
+       TABLET
+       ========================= */
+
+    @media (max-width: 900px) {
+      .hero-art {
+        right: -7%;
+        width: 42vw;
+      }
+
+      .section-intro {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .painter-card:not(:nth-child(3n + 1)) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .painter-card:nth-child(2n) {
+        padding-left: 1.8rem;
+        border-left: 1px solid var(--line);
+      }
+
+      .painter-card:nth-child(3n) {
+        padding-right: 1.8rem;
+      }
+
+      .painter-card:nth-child(2n) {
+        padding-right: 0;
+      }
+
+      .content-column {
+        margin-left: 0;
+      }
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(calc(100% - 30px), var(--width));
+      }
+
+      .topbar-inner {
+        min-height: auto;
+        align-items: flex-start;
+        padding: 1rem 0;
+      }
+
+      .brand {
+        display: block;
+      }
+
+      .brand-name {
+        display: block;
+        font-size: 1.55rem;
+      }
+
+      .brand-tag {
+        display: block;
+        margin-top: .3rem;
+        font-size: .55rem;
+        white-space: normal;
+      }
+
+      .nav {
+        gap: .7rem;
+        padding-top: .25rem;
+      }
+
+      .nav a {
+        font-size: .6rem;
+      }
+
+      .hero {
+        min-height: 460px;
+      }
+
+      .hero-content {
+        padding: 4rem 0;
+      }
+
+      .hero h1 {
+        max-width: 95%;
+        font-size: clamp(4rem, 18vw, 6.5rem);
+      }
+
+      .hero-description {
+        max-width: 92%;
+        margin-top: 1.6rem;
+        font-size: .92rem;
+      }
+
+      .hero-art {
+        top: 62%;
+        right: -14%;
+        width: 65vw;
+        opacity: .55;
+      }
+
+      .section {
+        padding: 4.5rem 0;
+      }
+
+      .section-title {
+        font-size: clamp(3rem, 15vw, 4.3rem);
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .painter-card,
+      .painter-card:nth-child(2n),
+      .painter-card:nth-child(3n) {
+        padding: 1.7rem 0;
+        border-left: 0;
+      }
+
+      .painter-card:first-child {
+        padding-top: 1.5rem;
+      }
+
+      .source-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-row {
+        display: block;
+      }
+
+      .contact-value {
+        margin-top: .25rem;
+        text-align: left;
+        overflow-wrap: anywhere;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        align-items: start;
+        padding: 3rem 0;
+      }
+
+      .footer-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+
+      <div class="brand">
+        <span class="brand-name">NVO987.eu</span>
+        <span class="brand-tag">Histoire de l’art</span>
+      </div>
+
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#painters">Peintres</a>
+        <a href="#mentions">Mentions</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="container">
+    <header class="hero">
+
+      <div class="hero-content">
+        <p class="hero-kicker">Base de données culturelle</p>
+
+        <h1>Peintres<br>français</h1>
+
+        <p class="hero-description">
+          Une base publique consacrée aux peintres français,
+          construite à partir de données ouvertes provenant de Wikidata.
+        </p>
+      </div>
+
+      <div class="hero-art" aria-hidden="true"></div>
+
+    </header>
+  </div>
+
+  <main>
+
+    <div class="container">
+
+      <!-- DATABASE -->
+      <section id="painters" class="section">
+
+        <div class="section-intro">
+
+          <h2 class="section-title">La base</h2>
+
+          <p>
+            Consultez les artistes référencés dans le jeu de données.
+            Chaque fiche peut contenir le nom de l’artiste, son identifiant
+            Wikidata, sa page Wikipédia et, lorsqu’il est disponible,
+            son site officiel. Les données sont actualisées régulièrement
+            à partir de la source publique.
+          </p>
+
+        </div>
+
+        <div class="controls">
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Rechercher un peintre…"
+            autocomplete="off"
+            aria-label="Rechercher un peintre français"
+          >
+
+          <select id="limitSelect" aria-label="Nombre de résultats">
+            <option value="20" selected>20 résultats</option>
+            <option value="40">40 résultats</option>
+            <option value="80">80 résultats</option>
+            <option value="120">120 résultats</option>
+            <option value="200">200 résultats</option>
+          </select>
+
+        </div>
+
+        <div id="statusBox" class="status" aria-live="polite">
+          Chargement des données…
+        </div>
+
+        <div id="paintersGrid" class="grid"></div>
+
+      </section>
+
+      <!-- LEGAL -->
+      <section id="mentions" class="section">
+
+        <div class="section-intro">
+
+          <h2 class="section-title">Mentions</h2>
+
+          <p>
+            Informations relatives à l’éditeur, au fonctionnement du service
+            et à l’utilisation des données.
+          </p>
+
+        </div>
+
+        <div class="content-column">
+
+          <article class="legal-block">
+            <h3>Éditeur du site</h3>
+
+            <p>
+              Le site
+              <strong>peintres-fr.nvo987.eu</strong>
+              est édité et exploité par
+              <strong>NVO987 Culture Visuelle Moderne et Contemporaine</strong>.
+            </p>
+
+            <p>
+              Les informations administratives et mentions officielles sont
+              disponibles sur
+              <a
+                href="https://www.nvo987.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >nvo987.fr</a>.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Nature du service</h3>
+
+            <p>
+              Peintres français est une base de données publique consacrée
+              aux personnes liées à la peinture française. Elle permet de
+              rechercher et consulter les enregistrements publiés dans le
+              jeu de données.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Non-affiliation</h3>
+
+            <p>
+              Le site n’est affilié à aucune institution publique, musée,
+              fondation, plateforme culturelle ou institution artistique
+              mentionnée dans les données. Les noms, marques et dénominations
+              appartiennent à leurs détenteurs respectifs.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Données personnelles</h3>
+
+            <p>
+              Le service ne propose ni compte utilisateur, ni inscription,
+              ni formulaire de collecte, ni profilage publicitaire,
+              ni outil volontaire d’analyse d’audience.
+            </p>
+
+            <ul>
+              <li>Aucun compte utilisateur</li>
+              <li>Aucune base de profils utilisateurs</li>
+              <li>Aucun ciblage publicitaire</li>
+              <li>Aucun outil d’analyse d’audience volontaire</li>
+            </ul>
+
+            <p>
+              L’hébergement peut toutefois produire des journaux techniques
+              nécessaires au fonctionnement, à la sécurité et à la disponibilité
+              du service. Ces traitements relèvent du prestataire d’hébergement.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Cookies et suivi</h3>
+
+            <p>
+              Aucun cookie publicitaire, outil de suivi comportemental ou
+              traceur tiers destiné à l’analyse marketing n’est volontairement
+              utilisé par ce site.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Exactitude des données</h3>
+
+            <p>
+              Les données proviennent d’une source collaborative ouverte.
+              Elles peuvent être incomplètes, modifiées, obsolètes ou contenir
+              des erreurs. Les sources institutionnelles compétentes font foi
+              en cas de divergence.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Liens externes</h3>
+
+            <p>
+              Les liens vers Wikipédia, Wikidata et les sites officiels
+              renvoient vers des services tiers. Leur contenu, leur disponibilité
+              et leurs propres politiques restent sous la responsabilité de leurs
+              opérateurs.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Correction ou signalement</h3>
+
+            <p>
+              Pour signaler une information incorrecte ou demander une correction
+              d’affichage :
+              <a href="mailto:contact@nvo987.eu">contact@nvo987.eu</a>.
+            </p>
+          </article>
+
+          <article class="legal-block">
+            <h3>Mise à jour</h3>
+
+            <p>
+              Le jeu de données est vérifié et actualisé régulièrement,
+              avec une mise à jour prévue chaque semaine.
+            </p>
+          </article>
+
+        </div>
+
+      </section>
+
+      <!-- SOURCES -->
+      <section id="sources" class="section">
+
+        <div class="section-intro">
+
+          <h2 class="section-title">Sources</h2>
+
+          <p>
+            Origine des données et conditions de réutilisation.
+          </p>
+
+        </div>
+
+        <div class="content-column source-grid">
+
+          <article class="source-block">
+            <h3>Wikidata</h3>
+
+            <p>
+              Les informations affichées proviennent de la base publique
+              <strong>Wikidata</strong>.
+            </p>
+
+            <p>
+              <a
+                href="https://www.wikidata.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Wikidata.org</a>
+            </p>
+          </article>
+
+          <article class="source-block">
+            <h3>Licence</h3>
+
+            <p>
+              Les données Wikidata sont disponibles sous les conditions
+              de la licence <strong>CC0 1.0 Universal</strong>.
+            </p>
+
+            <p>
+              <a
+                href="https://creativecommons.org/publicdomain/zero/1.0/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Creative Commons Zero 1.0</a>
+            </p>
+          </article>
+
+        </div>
+
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="section">
+
+        <div class="section-intro">
+
+          <h2 class="section-title">Contact</h2>
+
+          <p>
+            Contact officiel et informations d’identité du projet.
+          </p>
+
+        </div>
+
+        <div class="content-column contact-list">
+
+          <div class="contact-row">
+            <span class="contact-label">Email</span>
+
+            <span class="contact-value">
+              <a href="mailto:contact@nvo987.eu">
+                contact@nvo987.eu
+              </a>
+            </span>
+          </div>
+
+          <div class="contact-row">
+            <span class="contact-label">Identité DID</span>
+
+            <span class="contact-value">
+              <a
+                href="https://identity.nvo987.us"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                did:web:identity.nvo987.us
+              </a>
+            </span>
+          </div>
+
+          <div class="contact-row">
+            <span class="contact-label">Site NVO987</span>
+
+            <span class="contact-value">
+              <a
+                href="https://www.nvo987.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                www.nvo987.fr
+              </a>
+            </span>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+
+    <div class="container footer-inner">
+
+      <div>
+        <p class="footer-title">Peintres français</p>
+
+        <p class="footer-meta">
+          NVO987 · Culture visuelle · Données ouvertes
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Navigation du pied de page">
+        <a href="#painters">Peintres</a>
+        <a href="#mentions">Mentions</a>
+        <a href="#sources">Sources</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+    </div>
+
+  </footer>
+
+  <script>
+    const statusBox = document.getElementById("statusBox");
+    const paintersGrid = document.getElementById("paintersGrid");
+    const searchInput = document.getElementById("searchInput");
+    const limitSelect = document.getElementById("limitSelect");
+
+    let allPainters = [];
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function safeURL(value) {
+      if (!value) return "";
+
+      try {
+        const url = new URL(String(value).trim());
+
+        if (url.protocol !== "http:" && url.protocol !== "https:") {
+          return "";
+        }
+
+        return url.href;
+      } catch {
+        return "";
+      }
+    }
+
+    function normalize(value) {
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function buildCard(painter) {
+      const name = escapeHTML(
+        painter.name || "Peintre français"
+      );
+
+      const wikipedia = safeURL(painter.wikipedia);
+      const wikidata = safeURL(painter.wikidata);
+      const website = safeURL(painter.website);
+
+      const card = document.createElement("article");
+      card.className = "painter-card";
+
+      let actions = "";
+
+      if (wikipedia) {
+        actions += `
+          <a
+            class="btn"
+            href="${escapeHTML(wikipedia)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikipédia
+          </a>
+        `;
+      }
+
+      if (wikidata) {
+        actions += `
+          <a
+            class="btn secondary"
+            href="${escapeHTML(wikidata)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikidata
+          </a>
+        `;
+      }
+
+      if (website) {
+        actions += `
+          <a
+            class="btn secondary"
+            href="${escapeHTML(website)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Site officiel
+          </a>
+        `;
+      }
+
+      card.innerHTML = `
+        <h3>${name}</h3>
+
+        <div class="painter-type">
+          Peintre français
+        </div>
+
+        <div class="painter-desc">
+          ${
+            wikipedia
+              ? "Article Wikipédia disponible."
+              : "Aucune page Wikipédia renseignée."
+          }
+        </div>
+
+        ${
+          actions
+            ? `<div class="painter-actions">${actions}</div>`
+            : ""
+        }
+      `;
+
+      return card;
+    }
+
+    function renderPainters() {
+      const query = normalize(searchInput.value.trim());
+      const limit = Number.parseInt(limitSelect.value, 10);
+
+      paintersGrid.replaceChildren();
+
+      let filtered = allPainters;
+
+      if (query) {
+        filtered = filtered.filter((painter) => {
+          const text = [
+            painter.name,
+            painter.wikipedia,
+            painter.wikidata,
+            painter.website
+          ].join(" ");
+
+          return normalize(text).includes(query);
+        });
+      }
+
+      const results = filtered.slice(0, limit);
+
+      if (!results.length) {
+        statusBox.className = "status warn";
+        statusBox.textContent = "Aucun peintre trouvé.";
+        return;
+      }
+
+      statusBox.className = "status success";
+
+      if (query) {
+        statusBox.textContent =
+          `${results.length} résultat(s) affiché(s) sur ${filtered.length}.`;
+      } else {
+        statusBox.textContent =
+          `${results.length} peintre(s) affiché(s) sur ${allPainters.length}.`;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      results.forEach((painter) => {
+        fragment.appendChild(buildCard(painter));
+      });
+
+      paintersGrid.appendChild(fragment);
+    }
+
+    async function loadPainters() {
+      statusBox.className = "status";
+      statusBox.textContent = "Chargement des données…";
+
+      try {
+        const response = await fetch(
+          `painters.json?v=${Date.now()}`,
+          {
+            cache: "no-store"
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data || !Array.isArray(data.painters)) {
+          throw new Error("Structure JSON invalide");
+        }
+
+        allPainters = data.painters
+          .filter(
+            (painter) =>
+              painter &&
+              typeof painter === "object" &&
+              typeof painter.name === "string" &&
+              painter.name.trim()
+          )
+          .map((painter) => ({
+            name: painter.name.trim(),
+            wikidata: String(painter.wikidata || "").trim(),
+            wikipedia: String(painter.wikipedia || "").trim(),
+            website: String(painter.website || "").trim()
+          }));
+
+        renderPainters();
+
+      } catch (error) {
+        console.error("Erreur de chargement :", error);
+
+        statusBox.className = "status error";
+        statusBox.textContent =
+          "Impossible de charger les données des peintres.";
+      }
+    }
+
+    searchInput.addEventListener("input", renderPainters);
+    limitSelect.addEventListener("change", renderPainters);
+
+    loadPainters();
+  </script>
+
+</body>
+  </html>
