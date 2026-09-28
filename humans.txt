@@ -1,0 +1,33 @@
+/* TEAM */
+
+Site / Project: Peintres français
+Organization: NVO987 Culture Visuelle Moderne et Contemporaine
+Website: https://peintres-fr.nvo987.eu/
+Main website: https://www.nvo987.fr/
+Contact: contact@nvo987.eu
+
+/* SITE */
+
+Language: French
+Purpose: Public database related to French painters
+Data source: Wikidata
+Data license: CC0 1.0 Universal
+Data update: Weekly
+
+/* TECHNOLOGY */
+
+Frontend: HTML5 / CSS3 / JavaScript
+Data format: JSON
+Data file: painters.json
+
+/* IDENTITY */
+
+DID: did:web:identity.nvo987.us
+Identity authority: https://identity.nvo987.us
+
+/* SOCIAL */
+
+LinkedIn: https://www.linkedin.com/in/nvo987/
+Facebook: https://www.facebook.com/nvo987/
+X: https://x.com/nvo987
+Substack: https://nvo987.substack.com/
