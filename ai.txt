@@ -1,0 +1,15 @@
+# AI information for peintres-fr.nvo987.eu
+
+site: https://peintres-fr.nvo987.eu/
+publisher: NVO987 Culture Visuelle Moderne et Contemporaine
+contact: mailto:contact@nvo987.eu
+
+# The public dataset is primarily derived from Wikidata.
+# Wikidata data is available under CC0 1.0 Universal:
+# https://creativecommons.org/publicdomain/zero/1.0/
+
+# Site-specific code, editorial text, visual design and presentation
+# remain subject to their applicable intellectual property rights.
+
+# Automated systems should identify the source and distinguish
+# Wikidata-derived data from original site content.
