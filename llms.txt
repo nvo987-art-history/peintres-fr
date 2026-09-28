@@ -1,0 +1,80 @@
+# Peintres français
+
+> Base de données publique consacrée aux personnes liées à la peinture française.
+
+## Site
+
+URL: https://peintres-fr.nvo987.eu/
+
+Publisher: NVO987 Culture Visuelle Moderne et Contemporaine
+Language: fr
+Contact: mailto:contact@nvo987.eu
+
+## Description
+
+Peintres français est une base de données publique et exploitable par machine
+consacrée aux entités personnelles liées à la peinture française.
+
+Le site permet de rechercher des personnes par nom et d'accéder, lorsque ces
+informations sont disponibles, à leurs pages Wikipédia, leurs identifiants
+Wikidata et leurs sites officiels.
+
+## Data
+
+Primary public data source:
+
+https://www.wikidata.org/
+
+Data license:
+
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The public dataset is periodically updated.
+
+The machine-readable dataset used by the web interface is:
+
+https://peintres-fr.nvo987.eu/painters.json
+
+## Machine-readable resources
+
+- Homepage: https://peintres-fr.nvo987.eu/
+- Dataset: https://peintres-fr.nvo987.eu/painters.json
+- Sitemap: https://peintres-fr.nvo987.eu/sitemap.xml
+- Robots: https://peintres-fr.nvo987.eu/robots.txt
+- Atom feed: https://peintres-fr.nvo987.eu/atom.xml
+- RSS feed: https://peintres-fr.nvo987.eu/rss.xml
+- FOAF: https://peintres-fr.nvo987.eu/foaf.xml
+
+## Important distinctions
+
+Wikidata-derived data should be treated separately from the original
+presentation, code, design and editorial content of the website.
+
+Data originating from Wikidata is subject to the applicable Wikidata
+licensing terms.
+
+The website does not claim that all information is complete, current
+or error-free.
+
+## External resources
+
+The site may link to:
+
+- Wikidata
+- Wikipedia
+- official artist websites
+- cultural and institutional resources
+
+## Identity
+
+DID:
+
+did:web:identity.nvo987.us
+
+DID document:
+
+https://identity.nvo987.us/.well-known/did.json
+
+DID configuration:
+
+https://identity.nvo987.us/.well-known/did-configuration.json
