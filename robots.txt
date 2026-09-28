@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://peintres-fr.nvo987.eu/sitemap.xml
+
+Host: https://peintres-fr.nvo987.eu/
