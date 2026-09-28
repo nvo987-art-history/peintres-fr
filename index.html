@@ -1,0 +1,2900 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Peintres français | NVO987 — Culture Visuelle Moderne et Contemporaine</title>
+
+  <meta
+    name="description"
+    content="Peintres français est une base de données publique consacrée aux personnes liées à la peinture française."
+  >
+
+  <meta name="author" content="NVO987">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+  <link rel="canonical" href="https://peintres-fr.nvo987.eu/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NVO987">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="Peintres français | NVO987">
+  <meta
+    property="og:description"
+    content="Base de données publique consacrée aux personnes liées à la peinture française."
+  >
+  <meta property="og:url" content="https://peintres-fr.nvo987.eu/">
+
+  <meta name="theme-color" content="#ffffff">
+  <meta name="color-scheme" content="light">
+
+  <!-- =====================================================
+       FONTS
+       ===================================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =====================================================
+       ROOT
+       ===================================================== */
+
+    :root {
+      --black: #111111;
+      --black-soft: #242424;
+
+      --gray: #666666;
+      --gray-light: #858585;
+
+      --line: #dedede;
+      --line-light: #ededed;
+      --line-dark: #c9c9c9;
+
+      --white: #ffffff;
+      --paper: #fafafa;
+
+      --orange: #d98a2b;
+      --orange-dark: #b96d19;
+      --orange-pale: #fff4e4;
+
+      --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+      --sans: "DM Sans", Arial, Helvetica, sans-serif;
+
+      --max-width: 1320px;
+      --side: clamp(20px, 5vw, 76px);
+
+      --section-space: clamp(80px, 10vw, 145px);
+    }
+
+
+    /* =====================================================
+       RESET
+       ===================================================== */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--white);
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid var(--orange);
+      outline-offset: 5px;
+    }
+
+
+    /* =====================================================
+       LAYOUT
+       ===================================================== */
+
+    .container {
+      width: min(
+        calc(100% - (var(--side) * 2)),
+        var(--max-width)
+      );
+      margin-inline: auto;
+    }
+
+    .section {
+      padding-block: var(--section-space);
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 100px;
+    }
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .header-inner {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 11px;
+      color: var(--black);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo-main {
+      font-family: var(--serif);
+      font-size: 31px;
+      font-weight: 600;
+      letter-spacing: -0.065em;
+      line-height: 1;
+    }
+
+    .logo-dot {
+      width: 7px;
+      height: 7px;
+      flex: 0 0 7px;
+      margin-left: 1px;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .logo-sub {
+      color: var(--gray);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 4vw, 50px);
+    }
+
+    .main-nav a {
+      position: relative;
+      padding-block: 9px;
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .main-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 220ms ease;
+    }
+
+    .main-nav a:hover::after,
+    .main-nav a:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+
+    /* =====================================================
+       TECHNICAL DRAWING HERO
+       WHITE / THIN LINES / CIRCLES / NO TEXT
+       ===================================================== */
+
+    .hero {
+      position: relative;
+      min-height: clamp(440px, 65vh, 680px);
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      isolation: isolate;
+    }
+
+    /*
+      The hero is intentionally completely text-free.
+      It is built as a technical drawing / architectural
+      construction sheet with animated geometry.
+    */
+
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: -20%;
+      opacity: 0.7;
+      background-image:
+        linear-gradient(
+          to right,
+          rgba(17, 17, 17, 0.055) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(17, 17, 17, 0.055) 1px,
+          transparent 1px
+        );
+      background-size: 72px 72px;
+      transform: perspective(900px) rotateX(58deg) rotateZ(-7deg);
+      transform-origin: center;
+      animation: technicalGrid 22s linear infinite;
+    }
+
+    .hero-circle {
+      position: absolute;
+      border: 1px solid rgba(17, 17, 17, 0.16);
+      border-radius: 50%;
+    }
+
+    .hero-circle::after {
+      position: absolute;
+      inset: 9%;
+      border: 1px solid rgba(17, 17, 17, 0.07);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .hero-circle-main {
+      width: min(54vw, 700px);
+      height: min(54vw, 700px);
+      right: 5%;
+      top: 50%;
+      transform: translateY(-50%);
+      animation: circleDrift 11s ease-in-out infinite;
+    }
+
+    .hero-circle-secondary {
+      width: min(31vw, 410px);
+      height: min(31vw, 410px);
+      right: 19%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-color: rgba(217, 138, 43, 0.32);
+      animation: circleDriftReverse 8s ease-in-out infinite;
+    }
+
+    .hero-circle-small {
+      width: 180px;
+      height: 180px;
+      left: 12%;
+      top: 17%;
+      opacity: 0.65;
+      animation: smallCircle 9s ease-in-out infinite;
+    }
+
+    .hero-crosshair {
+      position: absolute;
+      right: calc(5% + min(27vw, 350px));
+      top: 50%;
+      width: 110px;
+      height: 110px;
+      transform: translate(50%, -50%);
+    }
+
+    .hero-crosshair::before,
+    .hero-crosshair::after {
+      position: absolute;
+      background: rgba(17, 17, 17, 0.18);
+      content: "";
+    }
+
+    .hero-crosshair::before {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+    }
+
+    .hero-crosshair::after {
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+    }
+
+    .hero-crosshair-ring {
+      position: absolute;
+      inset: 36px;
+      border: 1px solid var(--orange);
+      border-radius: 50%;
+      animation: crosshairPulse 4s ease-in-out infinite;
+    }
+
+    .technical-line {
+      position: absolute;
+      height: 1px;
+      background: rgba(17, 17, 17, 0.23);
+      transform-origin: left center;
+    }
+
+    .technical-line-1 {
+      width: 57%;
+      left: -3%;
+      top: 27%;
+      transform: rotate(-13deg);
+      animation: lineMove1 8s ease-in-out infinite;
+    }
+
+    .technical-line-2 {
+      width: 70%;
+      right: -7%;
+      top: 66%;
+      transform: rotate(-7deg);
+      background: rgba(217, 138, 43, 0.55);
+      animation: lineMove2 7s ease-in-out infinite;
+    }
+
+    .technical-line-3 {
+      width: 44%;
+      left: 22%;
+      bottom: 18%;
+      transform: rotate(6deg);
+      animation: lineMove3 10s ease-in-out infinite;
+    }
+
+    .technical-point {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border: 1px solid var(--orange);
+      border-radius: 50%;
+      background: var(--white);
+    }
+
+    .technical-point-1 {
+      left: 22%;
+      top: 28%;
+    }
+
+    .technical-point-2 {
+      right: 28%;
+      top: 66%;
+    }
+
+    .technical-point-3 {
+      left: 47%;
+      bottom: 17%;
+    }
+
+    .hero-measure {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(17, 17, 17, 0.43);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero-measure::before,
+    .hero-measure::after {
+      width: 38px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+    }
+
+    .hero-measure-1 {
+      left: 8%;
+      bottom: 16%;
+      transform: rotate(-90deg);
+    }
+
+    .hero-measure-2 {
+      right: 9%;
+      top: 17%;
+      transform: rotate(90deg);
+    }
+
+    .hero-angle {
+      position: absolute;
+      left: 9%;
+      bottom: 12%;
+      width: 100px;
+      height: 100px;
+      border-top: 1px solid rgba(17, 17, 17, 0.22);
+      border-left: 1px solid rgba(17, 17, 17, 0.22);
+      transform: rotate(-16deg);
+    }
+
+    .hero-angle::before {
+      position: absolute;
+      top: 21px;
+      left: 21px;
+      width: 58px;
+      height: 58px;
+      border-top: 1px solid rgba(217, 138, 43, 0.55);
+      border-left: 1px solid rgba(217, 138, 43, 0.55);
+      content: "";
+    }
+
+    @keyframes technicalGrid {
+      0% {
+        transform:
+          perspective(900px)
+          rotateX(58deg)
+          rotateZ(-7deg)
+          translate3d(0, 0, 0);
+      }
+
+      100% {
+        transform:
+          perspective(900px)
+          rotateX(58deg)
+          rotateZ(-7deg)
+          translate3d(72px, 72px, 0);
+      }
+    }
+
+    @keyframes circleDrift {
+      0%,
+      100% {
+        transform: translateY(-50%) translateX(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-50%) translateX(-20px) rotate(2deg);
+      }
+    }
+
+    @keyframes circleDriftReverse {
+      0%,
+      100% {
+        transform: translateY(-50%) translateX(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-50%) translateX(18px) scale(1.035);
+      }
+    }
+
+    @keyframes smallCircle {
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(20px, -15px);
+      }
+    }
+
+    @keyframes crosshairPulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: scale(1.22);
+        opacity: 1;
+      }
+    }
+
+    @keyframes lineMove1 {
+      0%,
+      100% {
+        transform: rotate(-13deg) translateX(0);
+      }
+
+      50% {
+        transform: rotate(-11deg) translateX(35px);
+      }
+    }
+
+    @keyframes lineMove2 {
+      0%,
+      100% {
+        transform: rotate(-7deg) translateX(0);
+      }
+
+      50% {
+        transform: rotate(-9deg) translateX(-45px);
+      }
+    }
+
+    @keyframes lineMove3 {
+      0%,
+      100% {
+        transform: rotate(6deg) translateX(0);
+      }
+
+      50% {
+        transform: rotate(4deg) translateX(25px);
+      }
+    }
+
+
+    /* =====================================================
+       SECTION TYPOGRAPHY
+       ===================================================== */
+
+    .intro,
+    .database-header,
+    .legal-layout,
+    .contact-section {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.55fr) minmax(340px, 1fr);
+      gap: clamp(55px, 9vw, 140px);
+      align-items: start;
+    }
+
+    .section-label {
+      margin: 0;
+      color: var(--gray);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 15px 0 0;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(55px, 6.4vw, 92px);
+      font-weight: 500;
+      letter-spacing: -0.065em;
+      line-height: 0.93;
+    }
+
+    .intro-copy {
+      max-width: 760px;
+      margin: 0;
+      color: #414141;
+      font-size: clamp(18px, 1.5vw, 21px);
+      line-height: 1.9;
+    }
+
+
+    /* =====================================================
+       DATABASE
+       ===================================================== */
+
+    .database-header {
+      align-items: end;
+      margin-bottom: 50px;
+    }
+
+    .database-description {
+      max-width: 720px;
+      margin: 0;
+      color: var(--gray);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      margin-bottom: 25px;
+      border-top: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      min-height: 70px;
+      border: 0;
+      border-radius: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--black);
+    }
+
+    .controls input {
+      padding: 0;
+      font-size: 18px;
+    }
+
+    .controls input::placeholder {
+      color: #888;
+    }
+
+    .controls select {
+      padding-inline: 20px 0;
+      border-left: 1px solid var(--line);
+      color: var(--gray);
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .status {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 28px;
+      padding-block: 8px;
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .status.success {
+      color: #333;
+    }
+
+    .status.warn,
+    .status.error {
+      color: #9a4f20;
+    }
+
+
+    /* =====================================================
+       PAINTER GRID
+       ===================================================== */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .place-card {
+      min-width: 0;
+      padding: 38px 34px 42px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .place-card:not(:nth-child(3n + 1)) {
+      padding-left: 34px;
+      border-left: 1px solid var(--line);
+    }
+
+    .place-card:nth-child(3n) {
+      padding-right: 0;
+    }
+
+    .place-card h3 {
+      margin: 0;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(29px, 2.5vw, 39px);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.08;
+    }
+
+    .place-meta {
+      margin-top: 14px;
+      color: var(--orange-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .place-desc {
+      margin-top: 15px;
+      color: var(--gray);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .place-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 23px;
+    }
+
+    .btn {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 15px;
+      border: 1px solid var(--black);
+      background: var(--white);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition:
+        background 180ms ease,
+        color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .btn:hover {
+      background: var(--black);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .btn.secondary {
+      border-color: var(--line-dark);
+      color: var(--gray);
+    }
+
+    .btn.secondary:hover {
+      border-color: var(--black);
+      background: var(--black);
+      color: var(--white);
+    }
+
+
+    /* =====================================================
+       LEGAL
+       ===================================================== */
+
+    .legal-intro {
+      position: sticky;
+      top: 115px;
+    }
+
+    .legal-intro-note {
+      max-width: 360px;
+      margin: 28px 0 0;
+      color: var(--gray);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .legal-content {
+      max-width: 850px;
+    }
+
+    .legal-item {
+      display: grid;
+      grid-template-columns: 60px minmax(0, 1fr);
+      gap: 25px;
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .legal-item:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .legal-number {
+      color: var(--orange-dark);
+      font-family: var(--serif);
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .legal-item h2 {
+      margin: 0 0 15px;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+    }
+
+    .legal-item p {
+      margin: 0 0 17px;
+      color: #484848;
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .legal-item p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-item strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    .legal-item ul {
+      margin: 18px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legal-item li {
+      position: relative;
+      padding: 8px 0 8px 20px;
+      color: #484848;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .legal-item li::before {
+      position: absolute;
+      top: 19px;
+      left: 1px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--orange);
+      content: "";
+      transform: translateY(-50%);
+    }
+
+    .legal-item a {
+      color: var(--black);
+      text-decoration-color: #cfcfcf;
+      text-underline-offset: 4px;
+    }
+
+    .legal-item a:hover {
+      text-decoration-color: var(--orange);
+    }
+
+
+    /* =====================================================
+       CONTACT
+       ===================================================== */
+
+    .contact-section {
+      align-items: center;
+    }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(35px, 5vw, 65px);
+      background: var(--orange-pale);
+      border: 1px solid #efd2a8;
+    }
+
+    .contact-card::before,
+    .contact-card::after {
+      position: absolute;
+      border: 1px solid rgba(184, 107, 23, 0.16);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+
+    .contact-card::before {
+      right: -100px;
+      top: -110px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .contact-card::after {
+      right: -35px;
+      top: -45px;
+      width: 170px;
+      height: 170px;
+    }
+
+    .contact-card-label {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 15px;
+      color: var(--orange-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .contact-card p:not(.contact-card-label) {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0;
+      color: #505050;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .contact-email {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-top: 28px;
+      color: var(--black);
+      font-size: clamp(21px, 2.4vw, 29px);
+      font-weight: 500;
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .contact-email::after {
+      position: absolute;
+      right: 0;
+      bottom: -8px;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      content: "";
+      transform: scaleX(0.25);
+      transform-origin: left;
+      transition: transform 250ms ease;
+    }
+
+    .contact-email:hover::after {
+      transform: scaleX(1);
+    }
+
+
+    /* =====================================================
+       FOOTER
+       HIGHER / MORE SPACIOUS
+       ===================================================== */
+
+    .site-footer {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+      background: var(--orange);
+      color: var(--black);
+    }
+
+    .site-footer::before,
+    .site-footer::after {
+      position: absolute;
+      border: 1px solid rgba(17, 17, 17, 0.13);
+      border-radius: 50%;
+      content: "";
+      pointer-events: none;
+    }
+
+    .site-footer::before {
+      width: 620px;
+      height: 620px;
+      right: -250px;
+      top: -280px;
+      animation: footerCircle1 12s ease-in-out infinite;
+    }
+
+    .site-footer::after {
+      width: 560px;
+      height: 560px;
+      left: -280px;
+      bottom: -330px;
+      animation: footerCircle2 14s ease-in-out infinite;
+    }
+
+    .footer-inner {
+      position: relative;
+      z-index: 2;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-block: 78px 34px;
+    }
+
+    .footer-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 70px;
+      padding-bottom: 55px;
+      border-bottom: 1px solid rgba(17, 17, 17, 0.20);
+    }
+
+    .footer-brand {
+      max-width: 720px;
+    }
+
+    .footer-kicker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 21px;
+      color: rgba(17, 17, 17, 0.65);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .footer-kicker::before {
+      width: 35px;
+      height: 2px;
+      background: var(--black);
+      content: "";
+    }
+
+    .footer-title {
+      margin: 0;
+      color: var(--black);
+      font-family: var(--serif);
+      font-size: clamp(52px, 7vw, 94px);
+      font-weight: 500;
+      letter-spacing: -0.065em;
+      line-height: 0.92;
+    }
+
+    .footer-description {
+      max-width: 620px;
+      margin: 28px 0 0;
+      color: rgba(17, 17, 17, 0.72);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .footer-contact {
+      flex: 0 0 auto;
+      min-width: 250px;
+      padding-top: 5px;
+    }
+
+    .footer-contact-label {
+      margin: 0 0 10px;
+      color: rgba(17, 17, 17, 0.58);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .footer-contact a {
+      color: var(--black);
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer-contact a:hover {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+
+    /* =====================================================
+       SOCIAL ICONS
+       ===================================================== */
+
+    .footer-social {
+      margin-top: 36px;
+    }
+
+    .footer-social-title {
+      margin: 0 0 15px;
+      color: rgba(17, 17, 17, 0.58);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .social-link {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(17, 17, 17, 0.35);
+      color: var(--black);
+      text-decoration: none;
+      transition:
+        background 180ms ease,
+        color 180ms ease,
+        border-color 180ms ease,
+        transform 180ms ease;
+    }
+
+    .social-link:hover {
+      background: var(--black);
+      border-color: var(--black);
+      color: var(--orange);
+      transform: translateY(-3px);
+    }
+
+    .social-link svg {
+      width: 21px;
+      height: 21px;
+      fill: currentColor;
+    }
+
+    .social-link.substack svg {
+      width: 22px;
+      height: 22px;
+    }
+
+
+    /* =====================================================
+       FOOTER BOTTOM
+       ===================================================== */
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding-top: 28px;
+    }
+
+    .footer-bottom span,
+    .footer-bottom a {
+      color: rgba(17, 17, 17, 0.60);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--black);
+    }
+
+    @keyframes footerCircle1 {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(-35px, 30px) scale(1.06);
+      }
+    }
+
+    @keyframes footerCircle2 {
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(30px, -20px) scale(1.08);
+      }
+    }
+
+
+    /* =====================================================
+       TABLET
+       ===================================================== */
+
+    @media (max-width: 980px) {
+
+      :root {
+        --side: 30px;
+      }
+
+      .hero {
+        min-height: 520px;
+      }
+
+      .hero-circle-main {
+        width: 60vw;
+        height: 60vw;
+      }
+
+      .hero-circle-secondary {
+        width: 40vw;
+        height: 40vw;
+      }
+
+      .intro,
+      .database-header,
+      .legal-layout,
+      .contact-section {
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+
+      .legal-intro {
+        position: static;
+      }
+
+      .legal-intro-note {
+        max-width: 650px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .place-card:not(:nth-child(3n + 1)) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      .place-card:nth-child(2n) {
+        padding-left: 30px;
+        border-left: 1px solid var(--line);
+      }
+
+      .place-card:nth-child(3n) {
+        padding-right: 30px;
+      }
+
+      .place-card:nth-child(2n) {
+        padding-right: 0;
+      }
+
+      .footer-top {
+        flex-direction: column;
+        gap: 42px;
+      }
+
+      .footer-contact {
+        min-width: 0;
+      }
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
+
+    @media (max-width: 650px) {
+
+      :root {
+        --side: 20px;
+        --section-space: 72px;
+      }
+
+      body {
+        font-size: 16px;
+      }
+
+      .header-inner {
+        min-height: 76px;
+        gap: 15px;
+      }
+
+      .logo-main {
+        font-size: 27px;
+      }
+
+      .logo-sub {
+        display: none;
+      }
+
+      .main-nav {
+        gap: 14px;
+      }
+
+      .main-nav a {
+        font-size: 9px;
+        letter-spacing: 0.08em;
+      }
+
+
+      /* -----------------------------------------------------
+         HERO MOBILE
+         ----------------------------------------------------- */
+
+      .hero {
+        min-height: 430px;
+      }
+
+      .hero-grid {
+        background-size: 48px 48px;
+      }
+
+      .hero-circle-main {
+        width: 105vw;
+        height: 105vw;
+        right: -45%;
+      }
+
+      .hero-circle-secondary {
+        width: 70vw;
+        height: 70vw;
+        right: -18%;
+      }
+
+      .hero-circle-small {
+        width: 100px;
+        height: 100px;
+        left: 7%;
+        top: 15%;
+      }
+
+      .hero-crosshair {
+        right: 25%;
+        top: 59%;
+        width: 80px;
+        height: 80px;
+      }
+
+      .technical-line-1 {
+        width: 100%;
+        top: 28%;
+        left: -20%;
+      }
+
+      .technical-line-2 {
+        width: 125%;
+        right: -35%;
+        top: 65%;
+      }
+
+      .technical-line-3 {
+        width: 90%;
+        left: 5%;
+        bottom: 15%;
+      }
+
+      .hero-measure {
+        font-size: 8px;
+      }
+
+      .hero-measure-1 {
+        left: 2%;
+        bottom: 17%;
+      }
+
+      .hero-measure-2 {
+        right: 2%;
+        top: 15%;
+      }
+
+      .hero-angle {
+        left: 10%;
+        bottom: 9%;
+        width: 70px;
+        height: 70px;
+      }
+
+
+      /* -----------------------------------------------------
+         TYPOGRAPHY
+         ----------------------------------------------------- */
+
+      .section-title {
+        font-size: clamp(48px, 15vw, 70px);
+      }
+
+      .intro-copy {
+        font-size: 17px;
+        line-height: 1.8;
+      }
+
+
+      /* -----------------------------------------------------
+         DATABASE
+         ----------------------------------------------------- */
+
+      .database-description {
+        font-size: 16px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .controls input,
+      .controls select {
+        min-height: 64px;
+      }
+
+      .controls select {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .place-card,
+      .place-card:nth-child(2n),
+      .place-card:nth-child(3n) {
+        padding: 30px 0;
+        border-left: 0;
+      }
+
+      .place-card h3 {
+        font-size: 31px;
+      }
+
+      .place-desc {
+        font-size: 15px;
+      }
+
+
+      /* -----------------------------------------------------
+         LEGAL
+         ----------------------------------------------------- */
+
+      .legal-item {
+        grid-template-columns: 40px minmax(0, 1fr);
+        gap: 13px;
+        padding: 28px 0;
+      }
+
+      .legal-number {
+        font-size: 22px;
+      }
+
+      .legal-item h2 {
+        font-size: 29px;
+      }
+
+      .legal-item p {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+
+      /* -----------------------------------------------------
+         CONTACT
+         ----------------------------------------------------- */
+
+      .contact-card {
+        padding: 30px;
+      }
+
+      .contact-card p:not(.contact-card-label) {
+        font-size: 16px;
+      }
+
+      .contact-email {
+        font-size: 21px;
+      }
+
+
+      /* -----------------------------------------------------
+         FOOTER
+         ----------------------------------------------------- */
+
+      .site-footer {
+        min-height: 620px;
+      }
+
+      .footer-inner {
+        min-height: 620px;
+        padding-block: 60px 30px;
+      }
+
+      .footer-title {
+        font-size: clamp(48px, 14vw, 74px);
+      }
+
+      .footer-description {
+        font-size: 15px;
+      }
+
+      .footer-social {
+        margin-top: 30px;
+      }
+
+      .social-link {
+        width: 46px;
+        height: 46px;
+      }
+
+      .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .site-footer::before {
+        width: 400px;
+        height: 400px;
+        right: -220px;
+        top: -180px;
+      }
+
+      .site-footer::after {
+        width: 380px;
+        height: 380px;
+        left: -210px;
+        bottom: -220px;
+      }
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+       ===================================================== */
+
+    @media (max-width: 390px) {
+
+      .header-inner {
+        min-height: 70px;
+      }
+
+      .logo-main {
+        font-size: 24px;
+      }
+
+      .main-nav {
+        gap: 9px;
+      }
+
+      .main-nav a {
+        font-size: 8px;
+      }
+
+      .hero {
+        min-height: 380px;
+      }
+
+      .section-title {
+        font-size: 48px;
+      }
+
+      .place-card h3 {
+        font-size: 28px;
+      }
+
+      .legal-item {
+        grid-template-columns: 33px minmax(0, 1fr);
+        gap: 10px;
+      }
+
+      .legal-number {
+        font-size: 19px;
+      }
+
+      .legal-item h2 {
+        font-size: 25px;
+      }
+
+      .footer-title {
+        font-size: 47px;
+      }
+    }
+
+
+    /* =====================================================
+       REDUCED MOTION
+       ===================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition: none !important;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body id="top">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+
+  <header class="site-header">
+
+    <div class="container">
+
+      <div class="header-inner">
+
+        <a
+          class="logo"
+          href="#top"
+          aria-label="NVO987 — accueil"
+        >
+          <span class="logo-main">NVO987</span>
+          <span class="logo-dot" aria-hidden="true"></span>
+          <span class="logo-sub">Culture Visuelle</span>
+        </a>
+
+        <nav
+          class="main-nav"
+          aria-label="Navigation principale"
+        >
+          <a href="#contact">Contact</a>
+          <a href="#mentions">Mentions légales</a>
+        </nav>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <!-- ===================================================
+         TECHNICAL DRAWING BANNER
+         =================================================== -->
+
+    <section
+      class="hero"
+      aria-label="Illustration technique animée"
+    >
+
+      <div
+        class="hero-canvas"
+        aria-hidden="true"
+      >
+
+        <div class="hero-grid"></div>
+
+        <div class="hero-circle hero-circle-main"></div>
+
+        <div class="hero-circle hero-circle-secondary"></div>
+
+        <div class="hero-circle hero-circle-small"></div>
+
+        <div class="hero-crosshair">
+          <div class="hero-crosshair-ring"></div>
+        </div>
+
+        <div class="technical-line technical-line-1"></div>
+
+        <div class="technical-line technical-line-2"></div>
+
+        <div class="technical-line technical-line-3"></div>
+
+        <div class="technical-point technical-point-1"></div>
+
+        <div class="technical-point technical-point-2"></div>
+
+        <div class="technical-point technical-point-3"></div>
+
+        <div class="hero-measure hero-measure-1">
+          01
+        </div>
+
+        <div class="hero-measure hero-measure-2">
+          02
+        </div>
+
+        <div class="hero-angle"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         INTRO
+         =================================================== -->
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="intro">
+
+          <div>
+
+            <p class="section-label">
+              Base de données
+            </p>
+
+            <h1 class="section-title">
+              Peintres<br>
+              français
+            </h1>
+
+          </div>
+
+          <p class="intro-copy">
+            Peintres français est une base de données publique et
+            exploitable par machine consacrée aux entités personnelles
+            liées à la peinture française. Son jeu de données repose
+            sur des enregistrements provenant de Wikidata, réutilisables
+            sous licence CC0 1.0. Chaque enregistrement peut contenir
+            le nom de l’artiste, son identifiant Wikidata, un lien vers
+            Wikipédia et, lorsqu’il est disponible, son site web officiel.
+            Le site permet de rechercher, filtrer et consulter ces
+            informations directement depuis le navigateur.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         DATABASE
+         =================================================== -->
+
+    <section
+      class="section"
+      id="painters"
+    >
+
+      <div class="container">
+
+        <div class="database-header">
+
+          <div>
+
+            <p class="section-label">
+              Répertoire
+            </p>
+
+            <h2 class="section-title">
+              Peintres
+            </h2>
+
+          </div>
+
+          <p class="database-description">
+            Recherchez un peintre par son nom ou parcourez les
+            enregistrements disponibles. Les résultats sont chargés
+            dynamiquement depuis le fichier de données public.
+          </p>
+
+        </div>
+
+
+        <div class="controls">
+
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Rechercher un peintre français..."
+            autocomplete="off"
+            inputmode="search"
+            aria-label="Rechercher un peintre français"
+          >
+
+          <select
+            id="limitSelect"
+            aria-label="Nombre de résultats"
+          >
+            <option value="20" selected>20 résultats</option>
+            <option value="40">40 résultats</option>
+            <option value="80">80 résultats</option>
+            <option value="120">120 résultats</option>
+            <option value="200">200 résultats</option>
+          </select>
+
+        </div>
+
+
+        <div
+          id="statusBox"
+          class="status"
+          role="status"
+          aria-live="polite"
+        >
+          Chargement des peintres…
+        </div>
+
+
+        <div
+          id="paintersGrid"
+          class="grid"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         LEGAL
+         =================================================== -->
+
+    <section
+      class="section"
+      id="mentions"
+    >
+
+      <div class="container">
+
+        <div class="legal-layout">
+
+          <aside class="legal-intro">
+
+            <p class="section-label">
+              Informations
+            </p>
+
+            <h2 class="section-title">
+              Mentions<br>
+              légales
+            </h2>
+
+            <p class="legal-intro-note">
+              Informations relatives à l’éditeur, au fonctionnement
+              du service, aux données utilisées et aux conditions
+              générales de consultation.
+            </p>
+
+          </aside>
+
+
+          <div class="legal-content">
+
+
+            <!-- 01 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">01</div>
+
+              <div>
+
+                <h2>Éditeur du site</h2>
+
+                <p>
+                  Le présent site web
+                  <a
+                    href="https://peintres-fr.nvo987.eu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    peintres-fr.nvo987.eu
+                  </a>
+                  est édité et exploité par NVO987 Culture Visuelle
+                  Moderne et Contemporaine.
+                </p>
+
+                <p>
+                  Les informations administratives complémentaires
+                  de l’éditeur sont disponibles sur :
+                  <a
+                    href="https://www.nvo987.fr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    www.nvo987.fr
+                  </a>
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 02 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">02</div>
+
+              <div>
+
+                <h2>Nature du service</h2>
+
+                <p>
+                  Peintres français est une base de données en ligne
+                  consacrée aux personnes liées à la peinture française.
+                  Le service permet de rechercher et consulter les
+                  informations disponibles dans le jeu de données.
+                </p>
+
+                <p>
+                  Une même personne peut apparaître dans plusieurs
+                  contextes lorsque les données sources l’associent
+                  à différentes activités ou catégories.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 03 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">03</div>
+
+              <div>
+
+                <h2>Non-affiliation</h2>
+
+                <p>
+                  Ce site n’est affilié à aucune institution publique,
+                  aucun musée national, aucune collectivité territoriale
+                  et aucune plateforme officielle de la culture française.
+                </p>
+
+                <p>
+                  Les noms, marques et dénominations cités restent
+                  la propriété de leurs détenteurs respectifs.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 04 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">04</div>
+
+              <div>
+
+                <h2>Données personnelles</h2>
+
+                <p>
+                  Le site est conçu selon une approche de
+                  <strong>privacy by design</strong>.
+                </p>
+
+                <ul>
+                  <li>Aucune inscription ou compte utilisateur</li>
+                  <li>Aucun formulaire de collecte</li>
+                  <li>Aucune base de données utilisateur</li>
+                  <li>Aucun identifiant persistant volontairement créé</li>
+                  <li>Aucun profilage publicitaire</li>
+                  <li>Aucune analyse d’audience volontaire</li>
+                </ul>
+
+                <p>
+                  L’hébergement peut toutefois générer des journaux
+                  techniques nécessaires à la sécurité et au fonctionnement
+                  de l’infrastructure.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 05 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">05</div>
+
+              <div>
+
+                <h2>Cookies et suivi</h2>
+
+                <p>
+                  Aucun cookie publicitaire, outil de suivi comportemental
+                  ou pixel marketing n’est volontairement utilisé par
+                  ce site.
+                </p>
+
+                <p>
+                  Le site est conçu pour rester consultable sans
+                  acceptation de cookies non essentiels.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 06 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">06</div>
+
+              <div>
+
+                <h2>Exactitude des données</h2>
+
+                <p>
+                  Les informations proviennent notamment d’une base
+                  collaborative et ouverte. Elles peuvent être
+                  incomplètes, modifiées, obsolètes ou comporter
+                  des erreurs.
+                </p>
+
+                <p>
+                  En cas de divergence, les sources institutionnelles
+                  ou officielles compétentes doivent être consultées.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 07 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">07</div>
+
+              <div>
+
+                <h2>Limitation de responsabilité</h2>
+
+                <p>
+                  Les informations sont proposées à titre documentaire.
+                  L’utilisateur reste responsable de l’utilisation
+                  qu’il fait des données affichées sur le site.
+                </p>
+
+                <p>
+                  L’éditeur ne garantit ni la disponibilité permanente
+                  du service, ni l’absence d’erreurs techniques,
+                  ni la complétude des données.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 08 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">08</div>
+
+              <div>
+
+                <h2>Liens externes</h2>
+
+                <p>
+                  Le site peut contenir des liens vers des ressources
+                  externes, notamment Wikipédia, Wikidata et des sites
+                  officiels d’artistes ou d’institutions.
+                </p>
+
+                <p>
+                  Ces ressources sont indépendantes du présent site
+                  et leur contenu relève de leurs propres éditeurs.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 09 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">09</div>
+
+              <div>
+
+                <h2>Signalement et correction</h2>
+
+                <p>
+                  Une donnée semblant incorrecte ou une demande relative
+                  à l’affichage d’une information peut être signalée
+                  à l’adresse suivante :
+                </p>
+
+                <p>
+                  <a href="mailto:contact@nvo987.eu">
+                    contact@nvo987.eu
+                  </a>
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 10 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">10</div>
+
+              <div>
+
+                <h2>Mise à jour</h2>
+
+                <p>
+                  Le jeu de données est destiné à être actualisé
+                  périodiquement afin d’intégrer les modifications
+                  disponibles dans les sources utilisées.
+                </p>
+
+                <p>
+                  La fréquence effective de mise à jour peut dépendre
+                  du fonctionnement de la chaîne de publication.
+                </p>
+
+              </div>
+
+            </article>
+
+
+            <!-- 11 -->
+
+            <article class="legal-item">
+
+              <div class="legal-number">11</div>
+
+              <div>
+
+                <h2>Source et licence des données</h2>
+
+                <p>
+                  Les informations affichées proviennent de la base
+                  publique
+                  <a
+                    href="https://www.wikidata.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Wikidata
+                  </a>.
+                </p>
+
+                <p>
+                  <strong>Plateforme officielle :</strong>
+                  <a
+                    href="https://www.wikidata.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Wikidata.org
+                  </a>
+                </p>
+
+                <p>
+                  <strong>Licence des données :</strong>
+                  <a
+                    href="https://creativecommons.org/publicdomain/zero/1.0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Creative Commons Zero (CC0 1.0 Universal)
+                  </a>
+                </p>
+
+                <p>
+                  La licence applicable aux données sources ne signifie
+                  pas nécessairement que tous les éléments de présentation,
+                  de code ou de contenu éditorial du présent site sont
+                  eux-mêmes placés sous CC0.
+                </p>
+
+              </div>
+
+            </article>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         CONTACT
+         =================================================== -->
+
+    <section
+      class="section"
+      id="contact"
+    >
+
+      <div class="container">
+
+        <div class="contact-section">
+
+          <div>
+
+            <p class="section-label">
+              Contact
+            </p>
+
+            <h2 class="section-title">
+              Parlons<br>
+              ensemble.
+            </h2>
+
+          </div>
+
+
+          <div class="contact-card">
+
+            <p class="contact-card-label">
+              NVO987 · Culture Visuelle
+            </p>
+
+            <p>
+              Pour toute question concernant les données, le projet,
+              une correction ou une demande relative au site,
+              vous pouvez nous contacter directement.
+            </p>
+
+            <a
+              class="contact-email"
+              href="mailto:contact@nvo987.eu"
+            >
+              contact@nvo987.eu
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+
+          <p class="footer-kicker">
+            NVO987
+          </p>
+
+          <h2 class="footer-title">
+            Peintres français
+          </h2>
+
+          <p class="footer-description">
+            Culture visuelle moderne et contemporaine ·
+            Base publique consacrée aux peintres français.
+          </p>
+
+          <!-- ===============================================
+               SOCIAL NETWORKS
+               Les URLs sont centralisées ici et peuvent être
+               remplacées par les profils officiels du projet.
+               =============================================== -->
+
+          <div class="footer-social">
+
+            <p class="footer-social-title">
+              Réseaux
+            </p>
+
+            <div class="social-links">
+
+              <!-- LINKEDIN -->
+
+              <a
+                class="social-link"
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                title="LinkedIn"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M6.5 8.2H3.2V21h3.3V8.2ZM4.85 3A2.05 2.05 0 1 0 4.85 7.1 2.05 2.05 0 0 0 4.85 3ZM21 13.65c0-3.85-2.05-5.64-4.79-5.64-2.21 0-3.2 1.21-3.75 2.06V8.2H9.13V21h3.33v-6.34c0-1.67.32-3.29 2.39-3.29 2.04 0 2.07 1.92 2.07 3.4V21H21v-7.35Z"/>
+                </svg>
+              </a>
+
+
+              <!-- FACEBOOK -->
+
+              <a
+                class="social-link"
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                title="Facebook"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.87.24-1.46 1.5-1.46h1.7V4.02c-.3-.04-1.33-.12-2.53-.12-2.5 0-4.22 1.53-4.22 4.35V10H7.1v3h2.85v8h3.55Z"/>
+                </svg>
+              </a>
+
+
+              <!-- TWITTER / X -->
+
+              <a
+                class="social-link"
+                href="https://twitter.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter / X"
+                title="Twitter / X"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.26l-4.9-6.39L6.45 22H3.34l7.24-8.28L2.8 2h6.42l4.43 5.84L18.9 2Zm-1.1 17.9h1.73L8.34 4h-1.86L17.8 19.9Z"/>
+                </svg>
+              </a>
+
+
+              <!-- SUBSTACK -->
+
+              <a
+                class="social-link substack"
+                href="https://substack.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Substack"
+                title="Substack"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M4 3h16v2H4V3Zm0 4h16v2H4V7Zm0 4h16v10l-8-4.5L4 21V11Z"/>
+                </svg>
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+          <p class="footer-contact-label">
+            Contact
+          </p>
+
+          <a href="mailto:contact@nvo987.eu">
+            contact@nvo987.eu
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © NVO987
+        </span>
+
+        <a href="#top">
+          Retour en haut ↑
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =====================================================
+       DATABASE SCRIPT
+       ===================================================== -->
+
+  <script>
+
+    const statusBox =
+      document.getElementById("statusBox");
+
+    const paintersGrid =
+      document.getElementById("paintersGrid");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const limitSelect =
+      document.getElementById("limitSelect");
+
+    let allPainters = [];
+
+
+    /* =====================================================
+       SECURITY
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================================
+       SAFE URL
+       ===================================================== */
+
+    function safeURL(value) {
+
+      if (!value) {
+        return "";
+      }
+
+      try {
+
+        const url =
+          new URL(
+            String(value).trim()
+          );
+
+        if (
+          url.protocol !== "http:" &&
+          url.protocol !== "https:"
+        ) {
+          return "";
+        }
+
+        return url.href;
+
+      } catch {
+
+        return "";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SEARCH NORMALIZATION
+       ===================================================== */
+
+    function normalize(value) {
+
+      return String(value || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    }
+
+
+    /* =====================================================
+       BUILD CARD
+       ===================================================== */
+
+    function buildCard(painter) {
+
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "place-card";
+
+
+      const name =
+        escapeHTML(
+          painter.name ||
+          "Peintre français"
+        );
+
+
+      const wikipedia =
+        safeURL(
+          painter.wikipedia
+        );
+
+
+      const wikidata =
+        safeURL(
+          painter.wikidata
+        );
+
+
+      const website =
+        safeURL(
+          painter.website
+        );
+
+
+      let actions = "";
+
+
+      if (wikipedia) {
+
+        actions += `
+          <a
+            class="btn"
+            href="${escapeHTML(wikipedia)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikipedia
+          </a>
+        `;
+
+      }
+
+
+      if (wikidata) {
+
+        actions += `
+          <a
+            class="btn secondary"
+            href="${escapeHTML(wikidata)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wikidata
+          </a>
+        `;
+
+      }
+
+
+      if (website) {
+
+        actions += `
+          <a
+            class="btn secondary"
+            href="${escapeHTML(website)}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Site officiel
+          </a>
+        `;
+
+      }
+
+
+      card.innerHTML = `
+
+        <h3>
+          ${name}
+        </h3>
+
+        <div class="place-meta">
+          Peintre français
+        </div>
+
+        <div class="place-desc">
+          ${
+            wikipedia
+              ? "Article Wikipédia disponible."
+              : "Aucune information biographique supplémentaire disponible."
+          }
+        </div>
+
+        ${
+          actions
+            ? `
+              <div class="place-actions">
+                ${actions}
+              </div>
+            `
+            : ""
+        }
+
+      `;
+
+
+      return card;
+
+    }
+
+
+    /* =====================================================
+       RENDER
+       ===================================================== */
+
+    function renderPainters() {
+
+      const query =
+        normalize(
+          searchInput.value.trim()
+        );
+
+
+      const limit =
+        parseInt(
+          limitSelect.value,
+          10
+        );
+
+
+      paintersGrid.innerHTML = "";
+
+
+      let filtered =
+        allPainters;
+
+
+      if (query.length > 0) {
+
+        filtered =
+          filtered.filter(
+            painter => {
+
+              const searchableText = [
+
+                painter.name || "",
+                painter.wikipedia || "",
+                painter.wikidata || "",
+                painter.website || ""
+
+              ].join(" ");
+
+
+              return normalize(
+                searchableText
+              ).includes(query);
+
+            }
+          );
+
+      }
+
+
+      const totalMatches =
+        filtered.length;
+
+
+      filtered =
+        filtered.slice(
+          0,
+          limit
+        );
+
+
+      if (filtered.length === 0) {
+
+        statusBox.className =
+          "status warn";
+
+        statusBox.textContent =
+          "Aucun peintre trouvé.";
+
+        return;
+
+      }
+
+
+      statusBox.className =
+        "status success";
+
+      statusBox.textContent =
+        totalMatches +
+        " peintre(s) trouvé(s) · " +
+        filtered.length +
+        " affiché(s)";
+
+
+      filtered.forEach(
+        painter => {
+
+          paintersGrid.appendChild(
+            buildCard(painter)
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       LOAD DATA
+       ===================================================== */
+
+    async function loadPainters() {
+
+      try {
+
+        statusBox.className =
+          "status";
+
+        statusBox.textContent =
+          "Chargement des peintres…";
+
+
+        const response =
+          await fetch(
+            "painters.json?v=" +
+            Date.now(),
+            {
+              cache: "no-store"
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "HTTP " +
+            response.status
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !data ||
+          !Array.isArray(data.painters)
+        ) {
+
+          throw new Error(
+            "Invalid JSON structure"
+          );
+
+        }
+
+
+        allPainters =
+          data.painters
+            .filter(
+              painter =>
+                painter &&
+                typeof painter === "object" &&
+                painter.name
+            )
+            .map(
+              painter => ({
+
+                name:
+                  String(
+                    painter.name || ""
+                  ).trim(),
+
+                wikidata:
+                  String(
+                    painter.wikidata || ""
+                  ).trim(),
+
+                wikipedia:
+                  String(
+                    painter.wikipedia || ""
+                  ).trim(),
+
+                website:
+                  String(
+                    painter.website || ""
+                  ).trim()
+
+              })
+            );
+
+
+        renderPainters();
+
+
+      } catch (error) {
+
+        console.error(
+          "Erreur chargement painters.json:",
+          error
+        );
+
+
+        statusBox.className =
+          "status error";
+
+        statusBox.textContent =
+          "Erreur lors du chargement des données.";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       EVENTS
+       ===================================================== */
+
+    searchInput.addEventListener(
+      "input",
+      renderPainters
+    );
+
+
+    limitSelect.addEventListener(
+      "change",
+      renderPainters
+    );
+
+
+    /* =====================================================
+       START
+       ===================================================== */
+
+    loadPainters();
+
+  </script>
+
+</body>
+  </html>
