@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Peintres français — NVO987</title>
+  <subtitle>Base de données publique consacrée aux personnes liées à la peinture française.</subtitle>
+
+  <link href="https://peintres-fr.nvo987.eu/" rel="alternate" type="text/html"/>
+  <link href="https://peintres-fr.nvo987.eu/atom.xml" rel="self" type="application/atom+xml"/>
+
+  <id>https://peintres-fr.nvo987.eu/</id>
+
+  <updated>2026-09-28T00:00:00Z</updated>
+
+  <author>
+    <name>NVO987 Culture Visuelle Moderne et Contemporaine</name>
+    <uri>https://www.nvo987.fr/</uri>
+    <email>contact@nvo987.eu</email>
+  </author>
+
+  <entry>
+    <title>Peintres français</title>
+    <link href="https://peintres-fr.nvo987.eu/"/>
+    <id>https://peintres-fr.nvo987.eu/</id>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary>
+      Base de données publique et exploitable par machine consacrée aux
+      personnes liées à la peinture française.
+    </summary>
+  </entry>
+</feed>
