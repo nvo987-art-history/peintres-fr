@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+  <foaf:Organization rdf:about="https://www.nvo987.fr/">
+    <foaf:name>NVO987 Culture Visuelle Moderne et Contemporaine</foaf:name>
+
+    <foaf:homepage rdf:resource="https://www.nvo987.fr/"/>
+
+    <foaf:mbox rdf:resource="mailto:contact@nvo987.eu"/>
+
+    <foaf:weblog rdf:resource="https://peintres-fr.nvo987.eu/"/>
+
+    <foaf:account>
+      <foaf:OnlineAccount>
+        <foaf:accountServiceHomepage
+          rdf:resource="https://www.linkedin.com/"/>
+        <foaf:accountName>nvo987</foaf:accountName>
+        <foaf:accountProfilePage
+          rdf:resource="https://www.linkedin.com/in/nvo987/"/>
+      </foaf:OnlineAccount>
+    </foaf:account>
+
+    <foaf:account>
+      <foaf:OnlineAccount>
+        <foaf:accountServiceHomepage
+          rdf:resource="https://www.facebook.com/"/>
+        <foaf:accountName>nvo987</foaf:accountName>
+        <foaf:accountProfilePage
+          rdf:resource="https://www.facebook.com/nvo987/"/>
+      </foaf:OnlineAccount>
+    </foaf:account>
+
+    <foaf:account>
+      <foaf:OnlineAccount>
+        <foaf:accountServiceHomepage
+          rdf:resource="https://x.com/"/>
+        <foaf:accountName>nvo987</foaf:accountName>
+        <foaf:accountProfilePage
+          rdf:resource="https://x.com/nvo987"/>
+      </foaf:OnlineAccount>
+    </foaf:account>
+
+    <foaf:account>
+      <foaf:OnlineAccount>
+        <foaf:accountServiceHomepage
+          rdf:resource="https://substack.com/"/>
+        <foaf:accountName>nvo987</foaf:accountName>
+        <foaf:accountProfilePage
+          rdf:resource="https://nvo987.substack.com/"/>
+      </foaf:OnlineAccount>
+    </foaf:account>
+  </foaf:Organization>
+
+</rdf:RDF>
