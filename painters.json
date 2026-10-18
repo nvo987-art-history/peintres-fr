@@ -1,6 +1,6 @@
 {
   "source": "Wikidata (CC0)",
-  "count": 16843,
+  "count": 16848,
   "painters": [
     {
       "name": "A. Boulanger",
@@ -813,7 +813,7 @@
       "website": ""
     },
     {
-      "name": "Adolphe Dervaux père",
+      "name": "Adolphe Dervaux father",
       "wikidata": "https://www.wikidata.org/wiki/Q21605668",
       "wikipedia": "",
       "website": ""
@@ -1973,7 +1973,7 @@
     {
       "name": "Aimée Eugénie Delville-Cordier",
       "wikidata": "https://www.wikidata.org/wiki/Q99027478",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Aim%C3%A9e_Eug%C3%A9nie_Delville-Cordier",
       "website": ""
     },
     {
@@ -3363,12 +3363,6 @@
       "website": ""
     },
     {
-      "name": "Alexander Zinoview",
-      "wikidata": "https://www.wikidata.org/wiki/Q29617767",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Alexandre_Zinoview",
-      "website": ""
-    },
-    {
       "name": "Alexandra Nereïev",
       "wikidata": "https://www.wikidata.org/wiki/Q16215973",
       "wikipedia": "https://fr.wikipedia.org/wiki/Alexandra_Nere%C3%AFev",
@@ -3450,6 +3444,12 @@
       "name": "Alexandre Bertin",
       "wikidata": "https://www.wikidata.org/wiki/Q2833449",
       "wikipedia": "https://fr.wikipedia.org/wiki/Alexandre_Bertin",
+      "website": ""
+    },
+    {
+      "name": "Alexandre Bettou",
+      "wikidata": "https://www.wikidata.org/wiki/Q109294289",
+      "wikipedia": "",
       "website": ""
     },
     {
@@ -3654,12 +3654,6 @@
       "name": "Alexandre François Loisel",
       "wikidata": "https://www.wikidata.org/wiki/Q101579715",
       "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Alexandre François Louis de Girardin",
-      "wikidata": "https://www.wikidata.org/wiki/Q1727141",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Louis_de_Girardin",
       "website": ""
     },
     {
@@ -4146,6 +4140,12 @@
       "name": "Alexandre Vimont",
       "wikidata": "https://www.wikidata.org/wiki/Q50361034",
       "wikipedia": "https://fr.wikipedia.org/wiki/Alexandre_Vimont",
+      "website": ""
+    },
+    {
+      "name": "Alexandre Zinoviev",
+      "wikidata": "https://www.wikidata.org/wiki/Q29617767",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Alexandre_Zinoview",
       "website": ""
     },
     {
@@ -5157,12 +5157,6 @@
       "website": ""
     },
     {
-      "name": "Alfred Philippe Roll",
-      "wikidata": "https://www.wikidata.org/wiki/Q326167",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Alfred_Roll",
-      "website": ""
-    },
-    {
       "name": "Alfred Pierre Joseph Jeanmougin",
       "wikidata": "https://www.wikidata.org/wiki/Q106124601",
       "wikipedia": "",
@@ -5208,6 +5202,12 @@
       "name": "Alfred Robaut",
       "wikidata": "https://www.wikidata.org/wiki/Q2835426",
       "wikipedia": "https://fr.wikipedia.org/wiki/Alfred_Robaut",
+      "website": ""
+    },
+    {
+      "name": "Alfred Roll",
+      "wikidata": "https://www.wikidata.org/wiki/Q326167",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Alfred_Roll",
       "website": ""
     },
     {
@@ -6555,9 +6555,9 @@
       "website": ""
     },
     {
-      "name": "Amélie de Choiseul-Meuse",
+      "name": "Amélie de Suffren",
       "wikidata": "https://www.wikidata.org/wiki/Q23838029",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Am%C3%A9lie_de_Suffren",
       "website": ""
     },
     {
@@ -7350,7 +7350,7 @@
       "name": "André Even",
       "wikidata": "https://www.wikidata.org/wiki/Q20737485",
       "wikipedia": "https://fr.wikipedia.org/wiki/Andr%C3%A9_Even_(peintre)",
-      "website": ""
+      "website": "https://www.amisdupeintreandreeven.com/"
     },
     {
       "name": "André Fau",
@@ -9874,13 +9874,13 @@
     },
     {
       "name": "Antoine Piot",
-      "wikidata": "https://www.wikidata.org/wiki/Q21457979",
+      "wikidata": "https://www.wikidata.org/wiki/Q21288482",
       "wikipedia": "",
       "website": ""
     },
     {
       "name": "Antoine Piot",
-      "wikidata": "https://www.wikidata.org/wiki/Q21288482",
+      "wikidata": "https://www.wikidata.org/wiki/Q21457979",
       "wikipedia": "",
       "website": ""
     },
@@ -10977,6 +10977,12 @@
       "website": ""
     },
     {
+      "name": "Arnaud Martin",
+      "wikidata": "https://www.wikidata.org/wiki/Q141735067",
+      "wikipedia": "",
+      "website": "https://martinarnaud.fr/"
+    },
+    {
       "name": "Arnaud Quercy",
       "wikidata": "https://www.wikidata.org/wiki/Q138801476",
       "wikipedia": "",
@@ -11331,7 +11337,7 @@
       "website": ""
     },
     {
-      "name": "Aude de Kerros",
+      "name": "Aude De Kerros",
       "wikidata": "https://www.wikidata.org/wiki/Q2870711",
       "wikipedia": "https://fr.wikipedia.org/wiki/Aude_de_Kerros",
       "website": "http://www.audedekerros.fr/"
@@ -12255,12 +12261,6 @@
       "website": ""
     },
     {
-      "name": "Auguste Roux",
-      "wikidata": "https://www.wikidata.org/wiki/Q19961216",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Auguste-Jean-Simon_Roux",
-      "website": ""
-    },
-    {
       "name": "Auguste Salzmann",
       "wikidata": "https://www.wikidata.org/wiki/Q767017",
       "wikipedia": "https://fr.wikipedia.org/wiki/Auguste_Salzmann",
@@ -12357,6 +12357,12 @@
       "website": ""
     },
     {
+      "name": "Auguste Émile Pinchart",
+      "wikidata": "https://www.wikidata.org/wiki/Q20926482",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Auguste-%C3%89mile_Pinchart",
+      "website": ""
+    },
+    {
       "name": "Auguste-Aristide-Fernand Constantin",
       "wikidata": "https://www.wikidata.org/wiki/Q21459138",
       "wikipedia": "https://fr.wikipedia.org/wiki/Auguste-Aristide-Fernand_Constantin",
@@ -12423,13 +12429,19 @@
       "website": ""
     },
     {
+      "name": "Auguste-Jean-Simon Roux",
+      "wikidata": "https://www.wikidata.org/wiki/Q19961216",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Auguste-Jean-Simon_Roux",
+      "website": ""
+    },
+    {
       "name": "Auguste-Joseph Carrier",
       "wikidata": "https://www.wikidata.org/wiki/Q4821032",
       "wikipedia": "",
       "website": ""
     },
     {
-      "name": "Auguste-Joseph Desarnot",
+      "name": "Auguste-Joseph Desarnod",
       "wikidata": "https://www.wikidata.org/wiki/Q867840",
       "wikipedia": "https://fr.wikipedia.org/wiki/Auguste-Joseph_Desarnod",
       "website": ""
@@ -12477,12 +12489,6 @@
       "website": ""
     },
     {
-      "name": "Auguste-Émile Pinchart",
-      "wikidata": "https://www.wikidata.org/wiki/Q20926482",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Auguste-%C3%89mile_Pinchart",
-      "website": ""
-    },
-    {
       "name": "Augustin Alexandre Thierriat",
       "wikidata": "https://www.wikidata.org/wiki/Q26933708",
       "wikipedia": "https://fr.wikipedia.org/wiki/Augustin_Alexandre_Thierriat",
@@ -12516,6 +12522,12 @@
       "name": "Augustin Frison-Roche",
       "wikidata": "https://www.wikidata.org/wiki/Q99454527",
       "wikipedia": "https://fr.wikipedia.org/wiki/Augustin_Frison-Roche",
+      "website": ""
+    },
+    {
+      "name": "Augustin Félix Fortin",
+      "wikidata": "https://www.wikidata.org/wiki/Q65331",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Augustin-F%C3%A9lix_Fortin",
       "website": ""
     },
     {
@@ -12600,12 +12612,6 @@
       "name": "Augustin-Désiré Pajou",
       "wikidata": "https://www.wikidata.org/wiki/Q2871508",
       "wikipedia": "https://fr.wikipedia.org/wiki/Augustin-D%C3%A9sir%C3%A9_Pajou",
-      "website": ""
-    },
-    {
-      "name": "Augustin-Félix Fortin",
-      "wikidata": "https://www.wikidata.org/wiki/Q65331",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Augustin-F%C3%A9lix_Fortin",
       "website": ""
     },
     {
@@ -14571,12 +14577,6 @@
       "website": ""
     },
     {
-      "name": "Brun Mendonca",
-      "wikidata": "https://www.wikidata.org/wiki/Q2926891",
-      "wikipedia": "",
-      "website": ""
-    },
-    {
       "name": "Bruno Chérier",
       "wikidata": "https://www.wikidata.org/wiki/Q2926693",
       "wikipedia": "https://fr.wikipedia.org/wiki/Bruno_Ch%C3%A9rier",
@@ -14615,6 +14615,12 @@
     {
       "name": "Bruno Krief",
       "wikidata": "https://www.wikidata.org/wiki/Q90696314",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Bruno Mendonça",
+      "wikidata": "https://www.wikidata.org/wiki/Q2926891",
       "wikipedia": "",
       "website": ""
     },
@@ -15687,6 +15693,12 @@
       "website": ""
     },
     {
+      "name": "Chaim Jacob Lipchitz",
+      "wikidata": "https://www.wikidata.org/wiki/Q380426",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Chaim_Jacob_Lipchitz",
+      "website": ""
+    },
+    {
       "name": "Chalumeau",
       "wikidata": "https://www.wikidata.org/wiki/Q2948004",
       "wikipedia": "https://fr.wikipedia.org/wiki/Chalumeau_(peintre)",
@@ -15834,6 +15846,12 @@
       "name": "Charles Alfred Le Moine",
       "wikidata": "https://www.wikidata.org/wiki/Q24289867",
       "wikipedia": "https://fr.wikipedia.org/wiki/Charles_Alfred_Le_Moine",
+      "website": ""
+    },
+    {
+      "name": "Charles Alphonse du Fresnoy",
+      "wikidata": "https://www.wikidata.org/wiki/Q1063557",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Alphonse_Du_Fresnoy",
       "website": ""
     },
     {
@@ -16830,6 +16848,12 @@
       "name": "Charles François Muller",
       "wikidata": "https://www.wikidata.org/wiki/Q48028768",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Charles François Nivard",
+      "wikidata": "https://www.wikidata.org/wiki/Q20961775",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Fran%C3%A7ois_Nivard",
       "website": ""
     },
     {
@@ -18399,12 +18423,6 @@
       "website": ""
     },
     {
-      "name": "Charles-Alphonse Du Fresnoy",
-      "wikidata": "https://www.wikidata.org/wiki/Q1063557",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Alphonse_Du_Fresnoy",
-      "website": ""
-    },
-    {
       "name": "Charles-Alphonse-Paul Bellay",
       "wikidata": "https://www.wikidata.org/wiki/Q2957923",
       "wikipedia": "https://fr.wikipedia.org/wiki/Charles_Bellay",
@@ -18546,12 +18564,6 @@
       "name": "Charles-François Marchal",
       "wikidata": "https://www.wikidata.org/wiki/Q16538493",
       "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Fran%C3%A7ois_Marchal",
-      "website": ""
-    },
-    {
-      "name": "Charles-François Nivard",
-      "wikidata": "https://www.wikidata.org/wiki/Q20961775",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Fran%C3%A7ois_Nivard",
       "website": ""
     },
     {
@@ -18906,6 +18918,12 @@
       "name": "Charles-Théodore Bichet",
       "wikidata": "https://www.wikidata.org/wiki/Q52119826",
       "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Th%C3%A9odore_Bichet",
+      "website": ""
+    },
+    {
+      "name": "Charles-Théodore Frère",
+      "wikidata": "https://www.wikidata.org/wiki/Q323928",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Th%C3%A9odore_Fr%C3%A8re",
       "website": ""
     },
     {
@@ -21231,6 +21249,12 @@
       "website": ""
     },
     {
+      "name": "Clémence Martin",
+      "wikidata": "https://www.wikidata.org/wiki/Q141702107",
+      "wikipedia": "",
+      "website": "https://clemencemartin.com/"
+    },
+    {
       "name": "Clémence Richey",
       "wikidata": "https://www.wikidata.org/wiki/Q2980548",
       "wikipedia": "https://fr.wikipedia.org/wiki/Cl%C3%A9mence_Richey",
@@ -23253,6 +23277,12 @@
       "website": ""
     },
     {
+      "name": "Diane d'Orléans",
+      "wikidata": "https://www.wikidata.org/wiki/Q451724",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Diane_d%27Orl%C3%A9ans",
+      "website": ""
+    },
+    {
       "name": "Diane Esmond",
       "wikidata": "https://www.wikidata.org/wiki/Q94298977",
       "wikipedia": "",
@@ -23772,12 +23802,6 @@
       "name": "Dubois",
       "wikidata": "https://www.wikidata.org/wiki/Q104404448",
       "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Duchess Diane, Duchess of Württemberg",
-      "wikidata": "https://www.wikidata.org/wiki/Q451724",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Diane_d%27Orl%C3%A9ans",
       "website": ""
     },
     {
@@ -24327,12 +24351,6 @@
       "website": ""
     },
     {
-      "name": "Edmond Hédouin",
-      "wikidata": "https://www.wikidata.org/wiki/Q1285652",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Edmond_Alexandre_H%C3%A9douin",
-      "website": ""
-    },
-    {
       "name": "Edmond Jamois",
       "wikidata": "https://www.wikidata.org/wiki/Q125534861",
       "wikipedia": "https://fr.wikipedia.org/wiki/Edmond_Jamois",
@@ -24623,6 +24641,12 @@
     {
       "name": "Edouard Degaine",
       "wikidata": "https://www.wikidata.org/wiki/Q130330765",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Edouard Gaétan Charles Ansaloni",
+      "wikidata": "https://www.wikidata.org/wiki/Q108745078",
       "wikipedia": "",
       "website": ""
     },
@@ -25545,7 +25569,7 @@
       "website": "https://www.enriquemarinartiste.com/"
     },
     {
-      "name": "Enrique Zañartu",
+      "name": "Enrique Zanartu",
       "wikidata": "https://www.wikidata.org/wiki/Q21486073",
       "wikipedia": "https://fr.wikipedia.org/wiki/Enrique_Za%C3%B1artu",
       "website": ""
@@ -26301,15 +26325,9 @@
       "website": "http://www.eteladnan.com"
     },
     {
-      "name": "Ethel Léontine Gabain",
+      "name": "Ethel Gabain",
       "wikidata": "https://www.wikidata.org/wiki/Q5403150",
       "wikipedia": "https://fr.wikipedia.org/wiki/Ethel_L%C3%A9ontine_Gabain",
-      "website": ""
-    },
-    {
-      "name": "Etienne de Martenne",
-      "wikidata": "https://www.wikidata.org/wiki/Q104970734",
-      "wikipedia": "",
       "website": ""
     },
     {
@@ -26550,6 +26568,12 @@
       "name": "Eugène Boilly",
       "wikidata": "https://www.wikidata.org/wiki/Q77692474",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Eugène Boudin",
+      "wikidata": "https://www.wikidata.org/wiki/Q212600",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Eug%C3%A8ne_Boudin",
       "website": ""
     },
     {
@@ -26892,6 +26916,12 @@
       "name": "Eugène Edouard Salingre",
       "wikidata": "https://www.wikidata.org/wiki/Q110017574",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Eugène Edouard Soulès",
+      "wikidata": "https://www.wikidata.org/wiki/Q22337721",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Eug%C3%A8ne_%C3%89douard_Soul%C3%A8s",
       "website": ""
     },
     {
@@ -27279,12 +27309,6 @@
       "website": ""
     },
     {
-      "name": "Eugène Louis Boudin",
-      "wikidata": "https://www.wikidata.org/wiki/Q212600",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Eug%C3%A8ne_Boudin",
-      "website": ""
-    },
-    {
       "name": "Eugène Louis Gillot",
       "wikidata": "https://www.wikidata.org/wiki/Q21458826",
       "wikipedia": "https://fr.wikipedia.org/wiki/Eug%C3%A8ne-Louis_Gillot",
@@ -27648,12 +27672,6 @@
       "name": "Eugène Zigliara",
       "wikidata": "https://www.wikidata.org/wiki/Q123314255",
       "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Eugène Édouard Soulès",
-      "wikidata": "https://www.wikidata.org/wiki/Q22337721",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Eug%C3%A8ne_%C3%89douard_Soul%C3%A8s",
       "website": ""
     },
     {
@@ -28731,15 +28749,15 @@
       "website": ""
     },
     {
-      "name": "Fernand Le Quesne",
-      "wikidata": "https://www.wikidata.org/wiki/Q37825894",
-      "wikipedia": "",
+      "name": "Fernand Le Gout-Gérard",
+      "wikidata": "https://www.wikidata.org/wiki/Q3069237",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Fernand_Le_Gout-G%C3%A9rard",
       "website": ""
     },
     {
-      "name": "Fernand Legout-Gérard",
-      "wikidata": "https://www.wikidata.org/wiki/Q3069237",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Fernand_Legout-G%C3%A9rard",
+      "name": "Fernand Le Quesne",
+      "wikidata": "https://www.wikidata.org/wiki/Q37825894",
+      "wikipedia": "",
       "website": ""
     },
     {
@@ -29835,7 +29853,7 @@
       "website": ""
     },
     {
-      "name": "Franz de Haas-Teichen",
+      "name": "Franz De Haas Teichen",
       "wikidata": "https://www.wikidata.org/wiki/Q94941073",
       "wikipedia": "",
       "website": ""
@@ -29908,14 +29926,14 @@
     },
     {
       "name": "François Alix",
-      "wikidata": "https://www.wikidata.org/wiki/Q99228680",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Alix_(1753-1794)",
+      "wikidata": "https://www.wikidata.org/wiki/Q101857909",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Alix_(n%C3%A9_en_1964)",
       "website": ""
     },
     {
       "name": "François Alix",
-      "wikidata": "https://www.wikidata.org/wiki/Q101857909",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Alix_(n%C3%A9_en_1964)",
+      "wikidata": "https://www.wikidata.org/wiki/Q99228680",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Fran%C3%A7ois_Alix_(1753-1794)",
       "website": ""
     },
     {
@@ -32193,6 +32211,12 @@
       "website": ""
     },
     {
+      "name": "Frederic Fiebig",
+      "wikidata": "https://www.wikidata.org/wiki/Q22704125",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Fiebig",
+      "website": ""
+    },
+    {
       "name": "Frederic Luce",
       "wikidata": "https://www.wikidata.org/wiki/Q43133559",
       "wikipedia": "https://fr.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Luce",
@@ -32406,12 +32430,6 @@
       "name": "Frédéric Fenollabbate",
       "wikidata": "https://www.wikidata.org/wiki/Q107298147",
       "wikipedia": "https://fr.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Fenollabbate",
-      "website": ""
-    },
-    {
-      "name": "Frédéric Fiebig",
-      "wikidata": "https://www.wikidata.org/wiki/Q22704125",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Fr%C3%A9d%C3%A9ric_Fiebig",
       "website": ""
     },
     {
@@ -32729,7 +32747,7 @@
     {
       "name": "Félicité Beaudin",
       "wikidata": "https://www.wikidata.org/wiki/Q76413536",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/F%C3%A9licit%C3%A9_Beaudin",
       "website": ""
     },
     {
@@ -35757,12 +35775,6 @@
       "website": ""
     },
     {
-      "name": "Georges Frédéric Roussel",
-      "wikidata": "https://www.wikidata.org/wiki/Q99770550",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Georges_Roussel",
-      "website": ""
-    },
-    {
       "name": "Georges Frédéric Rötig",
       "wikidata": "https://www.wikidata.org/wiki/Q3760718",
       "wikipedia": "https://fr.wikipedia.org/wiki/Georges-Fr%C3%A9d%C3%A9ric_R%C3%B6tig",
@@ -36540,6 +36552,12 @@
       "name": "Georges Rouquayrol",
       "wikidata": "https://www.wikidata.org/wiki/Q23765847",
       "wikipedia": "https://fr.wikipedia.org/wiki/Georges_Rouquayrol",
+      "website": ""
+    },
+    {
+      "name": "Georges Roussel",
+      "wikidata": "https://www.wikidata.org/wiki/Q99770550",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Georges_Roussel",
       "website": ""
     },
     {
@@ -37905,7 +37923,7 @@
       "website": ""
     },
     {
-      "name": "Guillaume Coustou the Elder",
+      "name": "Guillaume Coustou",
       "wikidata": "https://www.wikidata.org/wiki/Q1358924",
       "wikipedia": "https://fr.wikipedia.org/wiki/Guillaume_Coustou",
       "website": ""
@@ -38661,6 +38679,12 @@
       "website": ""
     },
     {
+      "name": "Gustave Ricard",
+      "wikidata": "https://www.wikidata.org/wiki/Q3121314",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Gustave_Ricard",
+      "website": ""
+    },
+    {
       "name": "Gustave Riquet",
       "wikidata": "https://www.wikidata.org/wiki/Q19629398",
       "wikipedia": "https://fr.wikipedia.org/wiki/Gustave_Riquet_(peintre)",
@@ -38735,6 +38759,12 @@
     {
       "name": "Gustave-Alfred Tripels",
       "wikidata": "https://www.wikidata.org/wiki/Q37808280",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Gustave-Edward Barry",
+      "wikidata": "https://www.wikidata.org/wiki/Q104387760",
       "wikipedia": "",
       "website": ""
     },
@@ -39543,7 +39573,7 @@
       "website": ""
     },
     {
-      "name": "Hans Holbein le Jeune",
+      "name": "Hans Holbein the Younger",
       "wikidata": "https://www.wikidata.org/wiki/Q48319",
       "wikipedia": "https://fr.wikipedia.org/wiki/Hans_Holbein_le_Jeune",
       "website": ""
@@ -41133,12 +41163,6 @@
       "website": ""
     },
     {
-      "name": "Henri Léon Thiébaut",
-      "wikidata": "https://www.wikidata.org/wiki/Q3131531",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Henri_L%C3%A9on_Thi%C3%A9baut",
-      "website": ""
-    },
-    {
       "name": "Henri Macaire",
       "wikidata": "https://www.wikidata.org/wiki/Q104387322",
       "wikipedia": "",
@@ -42035,7 +42059,7 @@
     {
       "name": "Henri-Joseph Godin",
       "wikidata": "https://www.wikidata.org/wiki/Q101962735",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Henri-Joseph_Godin",
       "website": ""
     },
     {
@@ -43211,7 +43235,7 @@
     {
       "name": "Hippolyte Masson",
       "wikidata": "https://www.wikidata.org/wiki/Q21454237",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Hippolyte_masson_(peintre)",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Hippolyte_Masson_(peintre)",
       "website": ""
     },
     {
@@ -43677,6 +43701,12 @@
       "website": ""
     },
     {
+      "name": "Hughes de Beaumont",
+      "wikidata": "https://www.wikidata.org/wiki/Q15461868",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Hugues_de_Beaumont",
+      "website": ""
+    },
+    {
       "name": "Hugo Demarco",
       "wikidata": "https://www.wikidata.org/wiki/Q325148",
       "wikipedia": "https://fr.wikipedia.org/wiki/Hugo_Demarco",
@@ -43692,12 +43722,6 @@
       "name": "Hugues Absil",
       "wikidata": "https://www.wikidata.org/wiki/Q3142506",
       "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Hugues de Beaumont",
-      "wikidata": "https://www.wikidata.org/wiki/Q15461868",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Hugues_de_Beaumont",
       "website": ""
     },
     {
@@ -44541,7 +44565,7 @@
       "website": ""
     },
     {
-      "name": "Israel Silvestre",
+      "name": "Israël Silvestre",
       "wikidata": "https://www.wikidata.org/wiki/Q358612",
       "wikipedia": "https://fr.wikipedia.org/wiki/Isra%C3%ABl_Silvestre",
       "website": ""
@@ -46149,12 +46173,6 @@
       "website": ""
     },
     {
-      "name": "Jacques Lipchitz",
-      "wikidata": "https://www.wikidata.org/wiki/Q380426",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Chaim_Jacob_Lipchitz",
-      "website": ""
-    },
-    {
       "name": "Jacques Loiseau",
       "wikidata": "https://www.wikidata.org/wiki/Q116687557",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jacques_Loiseau",
@@ -47613,12 +47631,6 @@
       "website": ""
     },
     {
-      "name": "Jean Baptiste Butay",
-      "wikidata": "https://www.wikidata.org/wiki/Q110175926",
-      "wikipedia": "",
-      "website": ""
-    },
-    {
       "name": "Jean Baptiste Calmé",
       "wikidata": "https://www.wikidata.org/wiki/Q130387724",
       "wikipedia": "",
@@ -48252,6 +48264,12 @@
       "name": "Jean Charles Duval",
       "wikidata": "https://www.wikidata.org/wiki/Q52148606",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Charles_Duval",
+      "website": ""
+    },
+    {
+      "name": "Jean Charles Geslin",
+      "wikidata": "https://www.wikidata.org/wiki/Q29033775",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Charles_Geslin",
       "website": ""
     },
     {
@@ -48909,7 +48927,7 @@
       "website": ""
     },
     {
-      "name": "Jean Dubois le Vieux",
+      "name": "Jean Dubois the Elder",
       "wikidata": "https://www.wikidata.org/wiki/Q777117",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean_Dubois_le_Vieux",
       "website": ""
@@ -50124,12 +50142,6 @@
       "name": "Jean Louis Pierre Arachequesne",
       "wikidata": "https://www.wikidata.org/wiki/Q122820056",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Louis-Pierre_Arachequesne",
-      "website": ""
-    },
-    {
-      "name": "Jean Louis Pierre Faure",
-      "wikidata": "https://www.wikidata.org/wiki/Q19294991",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Jean_Louis_Pierre_Faure",
       "website": ""
     },
     {
@@ -51813,6 +51825,12 @@
       "website": ""
     },
     {
+      "name": "Jean-Baptiste Butay",
+      "wikidata": "https://www.wikidata.org/wiki/Q109294646",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
       "name": "Jean-Baptiste Capronnier",
       "wikidata": "https://www.wikidata.org/wiki/Q556508",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Baptiste_Capronnier",
@@ -51954,12 +51972,6 @@
       "name": "Jean-Baptiste Descamps",
       "wikidata": "https://www.wikidata.org/wiki/Q1093817",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Baptiste_Descamps",
-      "website": ""
-    },
-    {
-      "name": "Jean-Baptiste Deshays de Colleville",
-      "wikidata": "https://www.wikidata.org/wiki/Q24161",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Baptiste_Deshays_de_Colleville",
       "website": ""
     },
     {
@@ -52503,6 +52515,12 @@
       "website": ""
     },
     {
+      "name": "Jean-Baptiste-Henri Deshays",
+      "wikidata": "https://www.wikidata.org/wiki/Q24161",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Baptiste_Deshays_de_Colleville",
+      "website": ""
+    },
+    {
       "name": "Jean-Baptiste-Jacques Flandrin",
       "wikidata": "https://www.wikidata.org/wiki/Q97583725",
       "wikipedia": "",
@@ -52626,12 +52644,6 @@
       "name": "Jean-Charles Frontier",
       "wikidata": "https://www.wikidata.org/wiki/Q3164655",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Charles_Frontier",
-      "website": ""
-    },
-    {
-      "name": "Jean-Charles Geslin",
-      "wikidata": "https://www.wikidata.org/wiki/Q29033775",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Charles_Geslin",
       "website": ""
     },
     {
@@ -52977,6 +52989,12 @@
       "website": ""
     },
     {
+      "name": "Jean-Francois Dubreuil",
+      "wikidata": "https://www.wikidata.org/wiki/Q64786181",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
       "name": "Jean-François Armbruster",
       "wikidata": "https://www.wikidata.org/wiki/Q63212017",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Fran%C3%A7ois_Armbruster",
@@ -53087,12 +53105,6 @@
     {
       "name": "Jean-François Dubouchet",
       "wikidata": "https://www.wikidata.org/wiki/Q50029102",
-      "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Jean-François Dubreuil",
-      "wikidata": "https://www.wikidata.org/wiki/Q64786181",
       "wikipedia": "",
       "website": ""
     },
@@ -53341,6 +53353,12 @@
       "wikidata": "https://www.wikidata.org/wiki/Q3166033",
       "wikipedia": "",
       "website": "http://www.jg-inca.com/"
+    },
+    {
+      "name": "Jean-Georges Vibert",
+      "wikidata": "https://www.wikidata.org/wiki/Q1280412",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Georges_Vibert",
+      "website": ""
     },
     {
       "name": "Jean-Georges Wille",
@@ -53715,7 +53733,7 @@
       "website": ""
     },
     {
-      "name": "Jean-Laurent Legeay",
+      "name": "Jean-Laurent Le Geay",
       "wikidata": "https://www.wikidata.org/wiki/Q1685634",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Laurent_Legeay",
       "website": ""
@@ -55773,12 +55791,6 @@
       "website": ""
     },
     {
-      "name": "Jehan Georges Vibert",
-      "wikidata": "https://www.wikidata.org/wiki/Q1280412",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Jean-Georges_Vibert",
-      "website": ""
-    },
-    {
       "name": "Jehan II Limosin",
       "wikidata": "https://www.wikidata.org/wiki/Q3176772",
       "wikipedia": "https://fr.wikipedia.org/wiki/Jehan_II_Limosin",
@@ -57741,6 +57753,12 @@
       "website": ""
     },
     {
+      "name": "Joséphine Olivier",
+      "wikidata": "https://www.wikidata.org/wiki/Q136566452",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Jos%C3%A9phine_Olivier",
+      "website": ""
+    },
+    {
       "name": "Joséphine Rullier",
       "wikidata": "https://www.wikidata.org/wiki/Q112689456",
       "wikipedia": "",
@@ -59679,12 +59697,6 @@
       "website": ""
     },
     {
-      "name": "Julien Léopold Boilly",
-      "wikidata": "https://www.wikidata.org/wiki/Q1526473",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Julien_L%C3%A9opold_Boilly",
-      "website": ""
-    },
-    {
       "name": "Julien Malland",
       "wikidata": "https://www.wikidata.org/wiki/Q3189586",
       "wikipedia": "https://fr.wikipedia.org/wiki/Julien_Malland_(Seth)",
@@ -59736,6 +59748,12 @@
       "name": "Julien-Honoré-Germain d'Aubuisson",
       "wikidata": "https://www.wikidata.org/wiki/Q1451991",
       "wikipedia": "https://fr.wikipedia.org/wiki/Julien-Honor%C3%A9-Germain_d%27Aubuisson",
+      "website": ""
+    },
+    {
+      "name": "Julien-Léopold Boilly",
+      "wikidata": "https://www.wikidata.org/wiki/Q1526473",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Julien_L%C3%A9opold_Boilly",
       "website": ""
     },
     {
@@ -61317,6 +61335,12 @@
       "website": ""
     },
     {
+      "name": "Livja Flood",
+      "wikidata": "https://www.wikidata.org/wiki/Q27882689",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
       "name": "liz ponio",
       "wikidata": "https://www.wikidata.org/wiki/Q116869512",
       "wikipedia": "",
@@ -62181,6 +62205,12 @@
       "website": ""
     },
     {
+      "name": "Louis de Girardin",
+      "wikidata": "https://www.wikidata.org/wiki/Q1727141",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Louis_de_Girardin",
+      "website": ""
+    },
+    {
       "name": "Louis de La Hire",
       "wikidata": "https://www.wikidata.org/wiki/Q112583934",
       "wikipedia": "",
@@ -62406,6 +62436,12 @@
       "name": "Louis Fabien",
       "wikidata": "https://www.wikidata.org/wiki/Q6687133",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Louis Faure",
+      "wikidata": "https://www.wikidata.org/wiki/Q19294991",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Jean_Louis_Pierre_Faure",
       "website": ""
     },
     {
@@ -62730,12 +62766,6 @@
       "name": "Louis Guingot",
       "wikidata": "https://www.wikidata.org/wiki/Q3262117",
       "wikipedia": "https://fr.wikipedia.org/wiki/Louis_Guingot",
-      "website": ""
-    },
-    {
-      "name": "Louis Gustave Ricard",
-      "wikidata": "https://www.wikidata.org/wiki/Q3121314",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Gustave_Ricard",
       "website": ""
     },
     {
@@ -65109,12 +65139,6 @@
       "website": ""
     },
     {
-      "name": "Louise Emilie Gallet-Levadé",
-      "wikidata": "https://www.wikidata.org/wiki/Q110017867",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Louise_%C3%89milie_Gallet-Levad%C3%A9",
-      "website": ""
-    },
-    {
       "name": "Louise Eudes de Guimard",
       "wikidata": "https://www.wikidata.org/wiki/Q18636940",
       "wikipedia": "https://fr.wikipedia.org/wiki/Louise_Eudes_de_Guimard",
@@ -65340,6 +65364,12 @@
       "name": "Louise Émilie Félicité Baron-Chatillon",
       "wikidata": "https://www.wikidata.org/wiki/Q133869887",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Louise Émilie Gallet-Levadé",
+      "wikidata": "https://www.wikidata.org/wiki/Q110017867",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Louise_%C3%89milie_Gallet-Levad%C3%A9",
       "website": ""
     },
     {
@@ -65661,12 +65691,6 @@
       "website": ""
     },
     {
-      "name": "Lucien Berthault",
-      "wikidata": "https://www.wikidata.org/wiki/Q58192392",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Lucien_Berthault",
-      "website": ""
-    },
-    {
       "name": "Lucien Beyer",
       "wikidata": "https://www.wikidata.org/wiki/Q3265378",
       "wikipedia": "https://fr.wikipedia.org/wiki/Lucien_Beyer",
@@ -65742,6 +65766,12 @@
       "name": "Lucien Chovet",
       "wikidata": "https://www.wikidata.org/wiki/Q106803676",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Lucien Claude Alexandre Berthault",
+      "wikidata": "https://www.wikidata.org/wiki/Q58192392",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Lucien_Berthault",
       "website": ""
     },
     {
@@ -66651,6 +66681,12 @@
       "website": ""
     },
     {
+      "name": "Léon Arthur Tutundjian",
+      "wikidata": "https://www.wikidata.org/wiki/Q3271368",
+      "wikipedia": "https://fr.wikipedia.org/wiki/L%C3%A9on_Tutundjian",
+      "website": ""
+    },
+    {
       "name": "Léon Ascagne François Brion",
       "wikidata": "https://www.wikidata.org/wiki/Q123314490",
       "wikipedia": "",
@@ -67518,12 +67554,6 @@
       "name": "Léon Trémisot",
       "wikidata": "https://www.wikidata.org/wiki/Q25918171",
       "wikipedia": "https://fr.wikipedia.org/wiki/L%C3%A9on_Tr%C3%A9misot",
-      "website": ""
-    },
-    {
-      "name": "Léon Tutundjian",
-      "wikidata": "https://www.wikidata.org/wiki/Q3271368",
-      "wikipedia": "https://fr.wikipedia.org/wiki/L%C3%A9on_Tutundjian",
       "website": ""
     },
     {
@@ -75873,12 +75903,6 @@
       "website": ""
     },
     {
-      "name": "Mme Achille Chaine",
-      "wikidata": "https://www.wikidata.org/wiki/Q136566452",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Jos%C3%A9phine_Olivier",
-      "website": ""
-    },
-    {
       "name": "Mme E. de Tavernier",
       "wikidata": "https://www.wikidata.org/wiki/Q19414196",
       "wikipedia": "",
@@ -76044,6 +76068,12 @@
       "name": "Monique de Roux",
       "wikidata": "https://www.wikidata.org/wiki/Q18637038",
       "wikipedia": "https://fr.wikipedia.org/wiki/Monique_de_Roux",
+      "website": ""
+    },
+    {
+      "name": "Monique Delattre",
+      "wikidata": "https://www.wikidata.org/wiki/Q99460595",
+      "wikipedia": "",
       "website": ""
     },
     {
@@ -79683,12 +79713,6 @@
       "website": ""
     },
     {
-      "name": "Paul Cressent",
-      "wikidata": "https://www.wikidata.org/wiki/Q106644903",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Paul_Cressent",
-      "website": ""
-    },
-    {
       "name": "Paul César Helleu",
       "wikidata": "https://www.wikidata.org/wiki/Q491039",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul_C%C3%A9sar_Helleu",
@@ -79923,12 +79947,6 @@
       "website": ""
     },
     {
-      "name": "Paul Elie Salzedo",
-      "wikidata": "https://www.wikidata.org/wiki/Q105965315",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Paul_%C3%89lie_Salzedo",
-      "website": ""
-    },
-    {
       "name": "Paul Emmanuel Legrand",
       "wikidata": "https://www.wikidata.org/wiki/Q3371162",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul_Emmanuel_Legrand",
@@ -80040,6 +80058,12 @@
       "name": "Paul Garin",
       "wikidata": "https://www.wikidata.org/wiki/Q52156925",
       "wikipedia": "",
+      "website": ""
+    },
+    {
+      "name": "Paul Gaston Cressent",
+      "wikidata": "https://www.wikidata.org/wiki/Q106644903",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Paul_Cressent",
       "website": ""
     },
     {
@@ -80531,7 +80555,7 @@
     {
       "name": "Paul Malençon",
       "wikidata": "https://www.wikidata.org/wiki/Q97768144",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Paul_Malen%C3%A7on",
       "website": ""
     },
     {
@@ -81225,6 +81249,12 @@
       "website": ""
     },
     {
+      "name": "Paul Élie Salzedo",
+      "wikidata": "https://www.wikidata.org/wiki/Q105965315",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Paul_%C3%89lie_Salzedo",
+      "website": ""
+    },
+    {
       "name": "Paul Éluard",
       "wikidata": "https://www.wikidata.org/wiki/Q152176",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul_%C3%89luard",
@@ -81264,12 +81294,6 @@
       "name": "Paul Émile Léon Perboyre",
       "wikidata": "https://www.wikidata.org/wiki/Q21462596",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul_%C3%89mile_L%C3%A9on_Perboyre",
-      "website": ""
-    },
-    {
-      "name": "Paul Émile Mangeant",
-      "wikidata": "https://www.wikidata.org/wiki/Q18508579",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Paul-%C3%89mile_Mangeant",
       "website": ""
     },
     {
@@ -81342,6 +81366,12 @@
       "name": "Paul-Dominique Gourlier",
       "wikidata": "https://www.wikidata.org/wiki/Q3370263",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul-Dominique_Gourlier",
+      "website": ""
+    },
+    {
+      "name": "Paul-Elie Gernez",
+      "wikidata": "https://www.wikidata.org/wiki/Q3370380",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Paul-%C3%89lie_Gernez",
       "website": ""
     },
     {
@@ -81447,12 +81477,6 @@
       "website": ""
     },
     {
-      "name": "Paul-Élie Gernez",
-      "wikidata": "https://www.wikidata.org/wiki/Q3370380",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Paul-%C3%89lie_Gernez",
-      "website": ""
-    },
-    {
       "name": "Paul-Élie Ranson",
       "wikidata": "https://www.wikidata.org/wiki/Q585067",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul-%C3%89lie_Ranson",
@@ -81492,6 +81516,12 @@
       "name": "Paul-Émile Destouches",
       "wikidata": "https://www.wikidata.org/wiki/Q23891567",
       "wikipedia": "https://fr.wikipedia.org/wiki/Paul-%C3%89mile_Destouches",
+      "website": ""
+    },
+    {
+      "name": "Paul-Émile Mangeant",
+      "wikidata": "https://www.wikidata.org/wiki/Q18508579",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Paul-%C3%89mile_Mangeant",
       "website": ""
     },
     {
@@ -83583,12 +83613,6 @@
       "website": ""
     },
     {
-      "name": "Pierre Domenchin de Chavannes",
-      "wikidata": "https://www.wikidata.org/wiki/Q20030119",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Domenchin_de_Chavannes",
-      "website": ""
-    },
-    {
       "name": "Pierre Drahonet",
       "wikidata": "https://www.wikidata.org/wiki/Q124040346",
       "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Drahonet",
@@ -83700,6 +83724,12 @@
       "name": "Pierre Duval Le Camus",
       "wikidata": "https://www.wikidata.org/wiki/Q3384894",
       "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Duval_Le_Camus",
+      "website": ""
+    },
+    {
+      "name": "Pierre Edmond Alexandre Hédouin",
+      "wikidata": "https://www.wikidata.org/wiki/Q1285652",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Edmond_Alexandre_H%C3%A9douin",
       "website": ""
     },
     {
@@ -85671,6 +85701,12 @@
       "website": ""
     },
     {
+      "name": "Pierre Van Grevelinge",
+      "wikidata": "https://www.wikidata.org/wiki/Q141109089",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Van_Grevelinge",
+      "website": ""
+    },
+    {
       "name": "Pierre Van Poucke",
       "wikidata": "https://www.wikidata.org/wiki/Q3387233",
       "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Van_Poucke",
@@ -86550,6 +86586,12 @@
       "name": "Pierre-Roger Claudin",
       "wikidata": "https://www.wikidata.org/wiki/Q3383497",
       "wikipedia": "https://fr.wikipedia.org/wiki/Pierre-Roger_Claudin",
+      "website": ""
+    },
+    {
+      "name": "Pierre-Salomon Domenchin de Chavanne",
+      "wikidata": "https://www.wikidata.org/wiki/Q20030119",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Pierre_Domenchin_de_Chavannes",
       "website": ""
     },
     {
@@ -90297,12 +90339,6 @@
       "website": ""
     },
     {
-      "name": "Roger Edgar Gillet",
-      "wikidata": "https://www.wikidata.org/wiki/Q2161543",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Roger-Edgar_Gillet",
-      "website": "https://roger-edgar-gillet.com/"
-    },
-    {
       "name": "Roger Eskenazi",
       "wikidata": "https://www.wikidata.org/wiki/Q3438936",
       "wikipedia": "https://fr.wikipedia.org/wiki/Roger_Eskenazi",
@@ -90583,6 +90619,12 @@
       "wikidata": "https://www.wikidata.org/wiki/Q3439583",
       "wikipedia": "",
       "website": ""
+    },
+    {
+      "name": "Roger-Edgar Gillet",
+      "wikidata": "https://www.wikidata.org/wiki/Q2161543",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Roger-Edgar_Gillet",
+      "website": "https://roger-edgar-gillet.com/"
     },
     {
       "name": "Roger-François Masson",
@@ -90917,7 +90959,7 @@
     {
       "name": "Rosalie Grossard",
       "wikidata": "https://www.wikidata.org/wiki/Q106035780",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Rosalie_Grossard",
       "website": ""
     },
     {
@@ -91955,7 +91997,7 @@
     {
       "name": "Sidonie de Polignac",
       "wikidata": "https://www.wikidata.org/wiki/Q129256361",
-      "wikipedia": "",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Sidonie_de_Polignac",
       "website": ""
     },
     {
@@ -92043,7 +92085,7 @@
       "website": ""
     },
     {
-      "name": "Simon François de Tours",
+      "name": "Simon François",
       "wikidata": "https://www.wikidata.org/wiki/Q7518780",
       "wikipedia": "https://fr.wikipedia.org/wiki/Simon_Fran%C3%A7ois_(1606-1671)",
       "website": ""
@@ -93591,6 +93633,12 @@
       "website": "http://www.theodoreboulardunpeintre.com"
     },
     {
+      "name": "Theodore Leblanc",
+      "wikidata": "https://www.wikidata.org/wiki/Q16331230",
+      "wikipedia": "",
+      "website": ""
+    },
+    {
       "name": "Theodore Wildanger",
       "wikidata": "https://www.wikidata.org/wiki/Q51752512",
       "wikipedia": "",
@@ -93993,12 +94041,6 @@
       "website": ""
     },
     {
-      "name": "Théodore Frère",
-      "wikidata": "https://www.wikidata.org/wiki/Q323928",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Charles-Th%C3%A9odore_Fr%C3%A8re",
-      "website": ""
-    },
-    {
       "name": "Théodore Frédéric Salmon",
       "wikidata": "https://www.wikidata.org/wiki/Q3526423",
       "wikipedia": "https://fr.wikipedia.org/wiki/Th%C3%A9odore_Fr%C3%A9d%C3%A9ric_Salmon",
@@ -94055,12 +94097,6 @@
     {
       "name": "Théodore Lafitte",
       "wikidata": "https://www.wikidata.org/wiki/Q131380324",
-      "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Théodore Leblanc",
-      "wikidata": "https://www.wikidata.org/wiki/Q16331230",
       "wikipedia": "",
       "website": ""
     },
@@ -94581,6 +94617,12 @@
       "website": ""
     },
     {
+      "name": "Tony de Bergue",
+      "wikidata": "https://www.wikidata.org/wiki/Q10383207",
+      "wikipedia": "https://fr.wikipedia.org/wiki/Tony_de_Bergue",
+      "website": ""
+    },
+    {
       "name": "Tony Garnier",
       "wikidata": "https://www.wikidata.org/wiki/Q1544",
       "wikipedia": "https://fr.wikipedia.org/wiki/Tony_Garnier",
@@ -94650,12 +94692,6 @@
       "name": "Tony Toullion",
       "wikidata": "https://www.wikidata.org/wiki/Q134493835",
       "wikipedia": "https://fr.wikipedia.org/wiki/Tony_Toullion",
-      "website": ""
-    },
-    {
-      "name": "Tony-François de Bergue",
-      "wikidata": "https://www.wikidata.org/wiki/Q10383207",
-      "wikipedia": "https://fr.wikipedia.org/wiki/Tony_de_Bergue",
       "website": ""
     },
     {
@@ -97797,7 +97833,7 @@
       "website": ""
     },
     {
-      "name": "Zinaïda Serebriakova",
+      "name": "Zinaida Serebryakova",
       "wikidata": "https://www.wikidata.org/wiki/Q161858",
       "wikipedia": "https://fr.wikipedia.org/wiki/Zina%C3%AFda_Serebriakova",
       "website": ""
@@ -98232,12 +98268,6 @@
       "name": "Édouard Frederic Wilhelm Richter",
       "wikidata": "https://www.wikidata.org/wiki/Q3048215",
       "wikipedia": "https://fr.wikipedia.org/wiki/%C3%89douard_Frederic_Wilhelm_Richter",
-      "website": ""
-    },
-    {
-      "name": "Édouard Gaétan Charles Ansaloni",
-      "wikidata": "https://www.wikidata.org/wiki/Q108745078",
-      "wikipedia": "",
       "website": ""
     },
     {
@@ -98717,12 +98747,6 @@
     {
       "name": "Édouard-Charles Hulton",
       "wikidata": "https://www.wikidata.org/wiki/Q17484635",
-      "wikipedia": "",
-      "website": ""
-    },
-    {
-      "name": "Édouard-Gustave Barry",
-      "wikidata": "https://www.wikidata.org/wiki/Q104387760",
       "wikipedia": "",
       "website": ""
     },
@@ -100608,6 +100632,12 @@
       "name": "Étienne de Martellange",
       "wikidata": "https://www.wikidata.org/wiki/Q21451212",
       "wikipedia": "https://fr.wikipedia.org/wiki/%C3%89tienne_de_Martellange",
+      "website": ""
+    },
+    {
+      "name": "Étienne de Martenne",
+      "wikidata": "https://www.wikidata.org/wiki/Q104970734",
+      "wikipedia": "",
       "website": ""
     },
     {
